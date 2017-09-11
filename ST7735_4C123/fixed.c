@@ -178,23 +178,38 @@ void ST7735_XYplotInit(char *title, int32_t minX, int32_t maxX, int32_t minY, in
 		i = i + 1;
 	}
 	//White plot area
-	ST7735_FillRect(0, 10, 127, 159, ST7735_WHITE);
+	ST7735_FillRect(0, 32, 127, 159, ST7735_WHITE);
 	
-	xTot = maxX-minX;
+	xTot = maxX-minX;		
 	yTot = maxY-minY;
 	
-	mxX = abs(minX);
-	mxY = abs(minY);
+	mxX=abs(minX);
+	mxY=abs(minY);
 	
+//	int16_t mx = 0;
+//	int16_t my = 10;
+//	int16_t w = (maxX*(128/xTot));
+//	int16_t h = (maxY*(150/yTot));
+
 }
+
+//Circle: -2500, 2500
+//Diff: 5000
+
+//Star:  -450, 150
+//Diff: 600
+
+//Add abs(minX) to each value
+//then scale it: 
 
 void ST7735_XYplot(uint32_t num, int32_t bufX[], int32_t bufY[]){
 	int32_t x;
 	int32_t y;
-	
+
 	for(int32_t i = 0; i < num; i++){
 		x = (((bufX[i]+mxX)*128)/xTot);
-		y = 149-(((bufY[i]+mxY)*128)/yTot);
+		y = 128-(((bufY[i]+mxY)*128)/yTot)+32;
+
 		
 		ST7735_DrawPixel(x,y,ST7735_BLUE);
 	
