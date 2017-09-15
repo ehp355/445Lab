@@ -83,25 +83,6 @@ int32_t m = n;												//define value n as a signed int m
 		for(int32_t i =0; i < 2; i++){
 		  fputc('*',0);
 		}
-//	if(m >= 256000){
-//		fputc(' ',0);
-//		fputc('*',0);
-//		fputc('*',0);
-//		fputc('*',0);
-//		fputc('.',0);
-//		for(int32_t i =0; i < 2; i++){
-//			fputc('*',0);
-//		}
-//	
-//	}else if(m<0){
-//		fputc(' ',0);
-//		fputc('*',0);
-//		fputc('*',0);
-//		fputc('*',0);
-//		fputc('.',0);
-//		for(int32_t i =0; i < 2; i++){
-//			fputc('*',0);
-//		}
 
 		}else if(m<2560){											//for numbers under 2560:
 		char numList[5];
