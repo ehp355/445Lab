@@ -1,8 +1,7 @@
 // filename ******** fixed.h ************** 
-// possible header file for Lab 1 Spring 2017
-// feel free to change the specific syntax of your system
-// put your name here
-// put the date here
+// Lab 1 Spring 2017
+// Enrique Perez-Osborne, Juliana Pulido Plazas
+// Sept. 6, 2017
 
 
 /****************ST7735_sDecOut3***************
