@@ -267,7 +267,11 @@
       <ColumnNumber>5</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>73</TopLine>
+<<<<<<< HEAD
       <CurrentLine>82</CurrentLine>
+=======
+      <CurrentLine>87</CurrentLine>
+>>>>>>> origin/master
       <bDave2>0</bDave2>
       <PathWithFileName>.\ADCTestMain.c</PathWithFileName>
       <FilenameWithoutPath>ADCTestMain.c</FilenameWithoutPath>
@@ -301,15 +305,24 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
       <PathWithFileName>.\fixed.c</PathWithFileName>
       <FilenameWithoutPath>fixed.c</FilenameWithoutPath>
+=======
+      <PathWithFileName>.\ST7735.c</PathWithFileName>
+      <FilenameWithoutPath>ST7735.c</FilenameWithoutPath>
+>>>>>>> origin/master
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>6</FileNumber>
+<<<<<<< HEAD
       <FileType>5</FileType>
+=======
+      <FileType>1</FileType>
+>>>>>>> origin/master
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
@@ -317,15 +330,24 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
       <PathWithFileName>.\fixed.h</PathWithFileName>
       <FilenameWithoutPath>fixed.h</FilenameWithoutPath>
+=======
+      <PathWithFileName>.\fixed.c</PathWithFileName>
+      <FilenameWithoutPath>fixed.c</FilenameWithoutPath>
+>>>>>>> origin/master
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>7</FileNumber>
+<<<<<<< HEAD
       <FileType>1</FileType>
+=======
+      <FileType>5</FileType>
+>>>>>>> origin/master
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
@@ -333,8 +355,13 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
       <PathWithFileName>.\ST7735.c</PathWithFileName>
       <FilenameWithoutPath>ST7735.c</FilenameWithoutPath>
+=======
+      <PathWithFileName>.\fixed.h</PathWithFileName>
+      <FilenameWithoutPath>fixed.h</FilenameWithoutPath>
+>>>>>>> origin/master
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

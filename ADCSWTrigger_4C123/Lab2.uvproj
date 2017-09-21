@@ -426,6 +426,14 @@
               <FilePath>.\PLL.c</FilePath>
             </File>
             <File>
+<<<<<<< HEAD
+=======
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ST7735.c</FilePath>
+            </File>
+            <File>
+>>>>>>> origin/master
               <FileName>fixed.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\fixed.c</FilePath>
@@ -436,11 +444,14 @@
               <FilePath>.\fixed.h</FilePath>
             </File>
             <File>
+<<<<<<< HEAD
               <FileName>ST7735.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ST7735.c</FilePath>
             </File>
             <File>
+=======
+>>>>>>> origin/master
               <FileName>ST7735.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ST7735.h</FilePath>

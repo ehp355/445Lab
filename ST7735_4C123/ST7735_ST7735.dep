@@ -13,6 +13,7 @@ F (.\Lab1.c)(0x59BAF3D3)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
+<<<<<<< HEAD
 I (ST7735.h)(0x59BAF3D3)
 I (PLL.h)(0x59BAF3D3)
 I (fixed.h)(0x59BAF3D4)
@@ -20,6 +21,15 @@ I (..\inc/tm4c123gh6pm.h)(0x59AF0FBC)
 F (.\fixed.h)(0x59BAF3D4)()
 F (.\ST7735.h)(0x59BAF3D3)()
 F (.\fixed.c)(0x59BAF3D3)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\.. --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\fixed.o --omf_browse .\fixed.crf --depend .\fixed.d)
+=======
+I (ST7735.h)(0x59AF173D)
+I (PLL.h)(0x59AF173D)
+I (fixed.h)(0x59BB4BC8)
+I (..\inc/tm4c123gh6pm.h)(0x59BAEF28)
+F (.\fixed.h)(0x59BB4BC8)()
+F (.\ST7735.h)(0x59AF173D)()
+F (.\fixed.c)(0x59BB4BCA)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\.. --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\fixed.o --omf_browse .\fixed.crf --depend .\fixed.d)
+>>>>>>> origin/master
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (ST7735.h)(0x59BAF3D3)
