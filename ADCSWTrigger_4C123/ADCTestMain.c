@@ -31,6 +31,8 @@
 #include "PLL.h"
 #include "ST7735.h"
 #include "fixed.h"
+#include "Timer2.h"
+#include "Timer3.h"
 
 #define PF2             (*((volatile uint32_t *)0x40025010))
 #define PF1             (*((volatile uint32_t *)0x40025008))
@@ -40,16 +42,16 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
-int32_t adcTime[1000];
-int32_t adcVal[1000];
-int32_t adcIndex = 0;
-int32_t maxTimePeriod = 0;
-int32_t minTimePeriod = 0xFFFFFFFF;
-int32_t adcTimeJitter;
+int32_t adc_Time[1000];
+int32_t adc_Value[1000];
+int32_t adc_Index = 0;
+int32_t max_Time_Period = 0;
+int32_t min_Time_Period = 0xFFFFFFFF;
+int32_t adc_Time_Jitter;
 int32_t hist[4096];
-int32_t yPos;
-int32_t xPos;
-int32_t radSpread = 100;
+int32_t y_Pos;
+int32_t x_Pos;
+int32_t radius_Spread = 100;
 
 volatile uint32_t ADCvalue;
 // This debug function initializes Timer0A to request interrupts
@@ -75,25 +77,42 @@ void Timer0A_Init100HzInt(void){
   NVIC_EN0_R = 1<<19;              // enable interrupt 19 in NVIC
 }
 
+/*void timeJitter(void)
+**input: none
+**output: none
+**calculates the difference of the greates and smallest 
+**time difference between two adjacent sample points
+*/
 void timeJitter(void){
 	for(int32_t i = 0; i < 999; i++){
-		if(minTimePeriod>adcTime[i+1]-adcTime[i]){
-			minTimePeriod = adcTime[i+1]-adcTime[i];
+		if(min_Time_Period>adc_Time[i+1]-adc_Time[i]){
+			min_Time_Period = adc_Time[i+1]-adc_Time[i];
 		}
 		
-		if(maxTimePeriod<adcTime[i+1]-adcTime[i]){
-			maxTimePeriod = adcTime[i+1]-adcTime[i];
+		if(max_Time_Period<adc_Time[i+1]-adc_Time[i]){
+			max_Time_Period = adc_Time[i+1]-adc_Time[i];
 		}
 	}
-	adcTimeJitter = maxTimePeriod-minTimePeriod;
+	adc_Time_Jitter = max_Time_Period-min_Time_Period;
 }
-
+/* void processADC(void)
+**input: none
+**output: none
+**fills the histogram with the collected adc values
+*/
 void processADC(void){
 	for(int32_t i = 0; i < 4096; i++){
-		hist[adcVal[i]]++;
+		hist[adc_Value[i]]++;
 	}
 }
 
+
+/*void calculateHist(void)
+**input: none
+**output: none
+**finds the adc value that occured the most in sampling
+**and its index in the histogram
+*/
 void calculateHist(void){
 	int32_t maxIndex;
 	int32_t max = 0;
@@ -103,17 +122,22 @@ void calculateHist(void){
 			maxIndex = i;
 		}
 	}
-	xPos= maxIndex;
-	yPos= max;
+	x_Pos= maxIndex;
+	y_Pos= max;
 }
 
+/*void displayHist(void)
+**input: none
+**output: none
+**draws the histogram onto the lcd screen
+*/
 void displayHist(void){
 	ST7735_PlotClear(0, 159);
 	
 	calculateHist();
-	ST7735_XYplotInit("PMF", xPos-radSpread, xPos+radSpread, 0, yPos+10);
+	ST7735_XYplotInit("PMF", x_Pos-radius_Spread, x_Pos+radius_Spread, 0, y_Pos+10);
 
-	ST7735_XYplot((radSpread*2)+1, xPos-radSpread, adcVal, hist);
+	ST7735_XYplot((radius_Spread*2)+1, x_Pos-radius_Spread, adc_Value, hist);
 	
 }
 
@@ -124,15 +148,15 @@ void Timer0A_Handler(void){
   ADCvalue = ADC0_InSeq3();
   PF2 ^= 0x04;                   // profile
 	
-	if(adcIndex <1000){
-		adcVal[adcIndex] = ADCvalue;
-		adcTime[adcIndex] = TIMER1_TAR_R;
-		adcIndex= adcIndex+1;
-	}else if (adcIndex == 1000){
+	if(adc_Index <1000){
+		adc_Value[adc_Index] = ADCvalue;
+		adc_Time[adc_Index] = TIMER1_TAR_R;
+		adc_Index= adc_Index+1;
+	}else if (adc_Index == 1000){
 		timeJitter();
 		processADC();
 		displayHist();
-		adcIndex ++;
+		adc_Index ++;
 	}
 }
 
@@ -150,14 +174,23 @@ int main(void){
   GPIO_PORTF_AMSEL_R = 0;               // disable analog functionality on PF
   PF2 = 0;                      // turn off LED
 	
+	//0x02 = x4 sampling
+	//0x04 =  x16 sampling
+	//0x06 = x64 sampling
+	//ADC0_SAC_R = 0x06;
+	
 	ST7735_InitR(INITR_REDTAB);		//Initialization for screen
 	Timer1_Init(Timer0A_Handler,0);
+	//Timer2_Init(9259);	
+	//Timer3_Init(9259);	
 	
   EnableInterrupts();
 	
   while(1){
+		//PF1 = (PF1*12345678)/1234567+0x02;  // this line causes jitter
     PF1 ^= 0x02;  // toggles when running in main
-  }
+		//GPIO_PORTF_DATA_R ^= 0x02;  // toggles when running in main, and causes a critical section
+	}
 	
 }
 

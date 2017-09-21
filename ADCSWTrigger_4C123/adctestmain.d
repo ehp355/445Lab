@@ -5,3 +5,5 @@
 .\adctestmain.o: PLL.h
 .\adctestmain.o: ST7735.h
 .\adctestmain.o: fixed.h
+.\adctestmain.o: Timer2.h
+.\adctestmain.o: Timer3.h

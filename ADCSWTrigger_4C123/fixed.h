@@ -70,5 +70,15 @@ void ST7735_XYplotInit(char *title, int32_t minX, int32_t maxX, int32_t minY, in
 */
 void ST7735_XYplot(int32_t num, int32_t histIndex, int32_t bufX[], int32_t bufY[]);
 
+/**************ST7735_Line***************
+ Plot a line from (x1,y1) to (x2,y2)
+ Inputs:  x1   the x value of the begining point
+          y1   the y value of the begining point
+          x2   the x value of the end point
+					y2   the y value of the end point
+ Outputs: none
+*/
+void ST7735_Line(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t color);
+
 
 

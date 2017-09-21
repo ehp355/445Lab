@@ -1,12 +1,21 @@
+/*fixed.c
+**Enrique Perez-Osborne
+**Juliana Pulido
+**9/13/17
+**List of functions to help with Fixed point calculations and to plot to screen
+**Lab2
+**TA: Cody Horton
+**9/20/17
+*/
 #include <stdio.h>
 #include <stdint.h>
 #include "ST7735.h"
 
-int32_t xTot;
-int32_t yTot;
+int32_t x_Total;
+int32_t y_Total;
 
-int32_t mxX;
-int32_t mxY;
+int32_t max_X;
+int32_t max_Y;
 
 void ST7735_sDecOut3(uint32_t n){
 	int32_t m = n;
@@ -180,11 +189,11 @@ void ST7735_XYplotInit(char *title, int32_t minX, int32_t maxX, int32_t minY, in
 	//White plot area
 	ST7735_FillRect(0, 32, 127, 159, ST7735_WHITE);
 	
-	xTot = maxX-minX;		
-	yTot = maxY-minY;
+	x_Total = maxX-minX;		
+	y_Total = maxY-minY;
 	
-	mxX=minX;
-	mxY=abs(minY);
+	max_X=minX;
+	max_Y=abs(minY);
 	
 //	int16_t mx = 0;
 //	int16_t my = 10;
@@ -201,18 +210,52 @@ void ST7735_XYplotInit(char *title, int32_t minX, int32_t maxX, int32_t minY, in
 
 //Add abs(minX) to each value
 //then scale it: 
+void ST7735_Line(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t color){
+	//159
+	uint16_t offSet;
+	uint16_t flag;
+	//for(uint16_t i = 159; i > y2; i --){
+	//	ST7735_DrawPixel(x1,i,color);
+	//}
+	
+	if(y1-y2 > x2-x1){
+		offSet = (y1-y2)/(x2-x1);
+		flag = 1;
+	}else{
+		offSet = (x2-x1)/(y1-y2);
+		flag = 0;
+	}
+		
+	if(flag == 1){
+		for(uint16_t i = x1; i <=  x2; i++){
+			for(uint16_t j = y2; j <= y2 + offSet; j++){
+				ST7735_DrawPixel(i,j,color);
+			}
+			y2 = y2+offSet;
+		}
+	}else{
+		for(uint16_t i = y2; i <=  y1; i++){
+			for(uint16_t j = x1; j <= x1 + offSet; j++){
+				ST7735_DrawPixel(j,i,color);
+			}
+			x1 = x1+offSet;
+		}
+	}
+			
+	
+}
 
 void ST7735_XYplot(int32_t num, int32_t histIndex, int32_t bufX[], int32_t bufY[]){
 	int32_t x;
 	int32_t y;
 
 	for(int32_t i = histIndex; i < num+histIndex; i++){
-		x = (((i-mxX)*128)/xTot);
+		x = (((i-max_X)*128)/x_Total);
 		//y has been changed for the histogram in Lab2
-		y = (128-(((bufY[i]+mxY)*128)/yTot))+32;
+		y = (128-(((bufY[i]+max_Y)*128)/y_Total))+32;
 
-		
-		ST7735_DrawPixel(x,y,ST7735_BLUE);
+		ST7735_Line(x,0,x,y,ST7735_BLUE);
+		//ST7735_DrawPixel(x,y,ST7735_BLUE);
 	
 	}
 	
