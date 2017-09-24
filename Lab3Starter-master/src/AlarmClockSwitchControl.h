@@ -55,3 +55,8 @@ inputs: none
 outputs: none
 */ 
 void switchDisplay(void);
+
+void runClockFace(void);
+void runDigitalClock(void);
+void settingTime(void);
+void checkAlarm(void);

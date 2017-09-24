@@ -202,240 +202,61 @@ void ST7735_XYplotInit(char *title, int32_t minX, int32_t maxX, int32_t minY, in
 
 void ST7735_Line(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t color){
 	
-	uint16_t offSet;
+	int32_t slope;
 	uint16_t flag;
-
-	if(y1<y2){
-		if(x1<x2){
-		//x1<x2 and y1<y2
-			if(y2-y1 > x2-x1){
-		
-				offSet = (y2-y1)/(x2-x1);
-				flag = 1;
-		
-			}else{
-
-				offSet = (x2-x1)/(y2-y1);
-				flag = 0;
-
-			}
-			
-			if(offSet == 0){
-				if(flag == 1){
-
-					for(uint16_t i = x1; i <=  x2; i++){
-						for(uint16_t j = y1; j < y2; j++){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1+offSet;
-					}
-
-				}else{
-
-					for(uint16_t i = y1; i <=  y2; i++){
-						for(uint16_t j = x1; j < x2; j++){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1+offSet;
-					}
-
-				}
-				
-			}else{
-				if(flag == 1){
-
-					for(uint16_t i = x1; i <=  x2; i++){
-						for(uint16_t j = y1; j < y1 + offSet; j++){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1+offSet;
-					}
-
-				}else{
-
-					for(uint16_t i = y1; i <=  y2; i++){
-						for(uint16_t j = x1; j < x1 + offSet; j++){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1+offSet;
-					}
-
-				}
-			}
+	int32_t temp;
+	
+	if(x1>x2){
+		temp =x1;
+		x1=x2;
+		x2=temp;
+		temp=y1;
+		y1 = y2;
+		y2=temp;
+	}
+	int32_t mod = (y2-y1)%(x2-x1);
+	
+	if((mod>=5||mod<=-5)&&(x2-x1!=0)){
+		if(mod<0){
+			slope=((y2-y1)/(x2-x1))-1;
 		}else{
-			//else x1>x2 and y1<y2
-			if(y2-y1 > x1-x2){
-		
-				offSet = (y2-y1)/(x1-x2);
-				flag = 1;
-		
-			}else{
-
-				offSet = (x1-x2)/(y2-y1);
-				flag = 0;
-
-			}
-			if(offSet==0){
-				if(flag == 1){
-
-					for(int16_t i = x1; i >=  x2; i--){
-						for(int16_t j = y1; j < y2; j++){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1+offSet;
-					}
-
-				}else{
-
-					for(int16_t i = y1; i <=  y2; i++){
-						for(int16_t j = x1; j > x2; j--){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1-offSet;
-					}
-
-				}
-			}else{
-				if(flag == 1){
-
-					for(int16_t i = x1; i >=  x2; i--){
-						for(int16_t j = y1; j < y1 + offSet; j++){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1+offSet;
-					}
-
-				}else{
-
-					for(int16_t i = y1; i <=  y2; i++){
-						for(int16_t j = x1; j > x1 - offSet; j--){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1-offSet;
-					}
-
-				}
-			}
+			slope = ((y2-y1)/(x2-x1))+1;
 		}
 	}else{
-		//else y1>y2
-		if(x1<x2){
-			if(y1-y2 > x2-x1){
-		
-				offSet = (y1-y2)/(x2-x1);
-				flag = 1;
-		
-			}else{
-
-				offSet = (x2-x1)/(y1-y2);
-				flag = 0;
-
+		slope = ((y2-y1)/(x2-x1));
+	}
+	
+	if(slope>0){
+		for(int32_t i = x1; i <= x2; i++){
+			for(int32_t j = y1; j < y1+slope; j++){
+				ST7735_DrawPixel(i,j,color);
 			}
-			if(offSet == 0){
-			
-				if(flag == 1){
-
-					for(int16_t i = x1; i <=  x2; i++){
-						for(int16_t j = y1; j > y2; j--){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1-offSet;
-					}
-
-				}else{
-
-					for(int16_t i = y1; i >=  y2; i--){
-						for(int16_t j = x1; j < x2; j++){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1+offSet;
-					}
-
-				}
-			
-			}else{
-				if(flag == 1){
-
-				for(int16_t i = x1; i <=  x2; i++){
-					for(int16_t j = y1; j > y1 - offSet; j--){
-						ST7735_DrawPixel(i,j,color);
-					}
-					y1 = y1-offSet;
-				}
-
-				}else{
-
-					for(int16_t i = y1; i >=  y2; i--){
-						for(int16_t j = x1; j < x1 + offSet; j++){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1+offSet;
-					}
-
-				}
-		
-			}
-		}	/**/else{
-			//x1>x2 and y1>y2
-			if(y1-y2 > x1-x2){
-		
-				offSet = (y1-y2)/(x1-x2);
-				flag = 1;
-		
-			}else{
-
-				offSet = (x1-x2)/(y1-y2);
-				flag = 0;
-
-			}
-			if(offSet == 0){
-			
-				if(flag == 1){
-
-					for(int16_t i = x1; i >=  x2; i--){
-						for(int16_t j = y1; j > y2; j--){
-							ST7735_DrawPixel(i,j,color);
-						}
-						y1 = y1-offSet;
-					}
-
-				}else{
-
-					for(int16_t i = y1; i >=  y2; i--){
-						for(int16_t j = x1; j > x2; j--){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1-offSet;
-					}
-
-				}
-			
-			}else{
-				//offset != 0 and x1>x2 and y1>y2
-				if(flag == 1){
-
-				for(int16_t i = x1; i >=  x2; i--){
-					for(int16_t j = y1; j > y1 - offSet; j--){
-						ST7735_DrawPixel(i,j,color);
-					}
-					y1 = y1-offSet;
-				}
-
-				}else{
-
-					for(int16_t i = y1; i >=  y2; i--){
-						for(int16_t j = x1; j > x1 - offSet; j--){
-							ST7735_DrawPixel(j,i,color);
-						}
-						x1 = x1-offSet;
-					}
-
-				}
-		
-			}
-			
+			y1=y1+slope;
 		}
-	}	
+		//ST7735_DrawPixel(x2,y2,color);
+	}else if(slope ==0 && (x2-x1)==0){
+		if(y1<y2){
+			for(int32_t j = y1; j <= y2; j++){
+					ST7735_DrawPixel(x1,j,color);
+				}
+		}else{
+			for(int32_t j = y1; j >= y2; j--){
+				ST7735_DrawPixel(x1,j,color);
+			}
+		}
+	}else if(slope==0 && (y2-y1)==0){
+		for(int32_t i = x1; i <= x2; i++){
+			ST7735_DrawPixel(i,y1,color);
+		}
+	}else{
+		for(int32_t i = x1; i <= x2; i++){
+			for(int32_t j = y1; j > y1+slope; j--){
+				ST7735_DrawPixel(i,j,color);
+			}
+			y1=y1+slope;
+		}
+		//ST7735_DrawPixel(x2,y2,color);
+	}
 	
 }
 

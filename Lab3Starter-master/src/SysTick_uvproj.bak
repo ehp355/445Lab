@@ -420,6 +420,71 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>fixed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\fixed.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>fixed.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\fixed.h</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ST7735.h</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockVisual.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\AlarmClockVisual.h</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockVisual.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AlarmClockVisual.c</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockAudio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AlarmClockAudio.c</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockAudio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\AlarmClockAudio.h</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockSwitchControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AlarmClockSwitchControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmClockSwitchControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\AlarmClockSwitchControl.h</FilePath>
+            </File>
+            <File>
+              <FileName>SysTick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SysTick.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysTick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\SysTick.h</FilePath>
+            </File>
+            <File>
+              <FileName>SysTickTestMain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SysTickTestMain.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

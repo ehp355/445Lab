@@ -36,22 +36,40 @@
 
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
+
+
 #define NVIC_ST_CTRL_COUNT      0x00010000  // Count flag
 #define NVIC_ST_CTRL_CLK_SRC    0x00000004  // Clock Source
 #define NVIC_ST_CTRL_INTEN      0x00000002  // Interrupt enable
 #define NVIC_ST_CTRL_ENABLE     0x00000001  // Counter mode
 #define NVIC_ST_RELOAD_M        0x00FFFFFF  // Counter load value
 
+uint32_t current_Time=0;
 // Initialize SysTick with busy wait running at bus clock.
 void SysTick_Init(void){
   NVIC_ST_CTRL_R = 0;                   // disable SysTick during setup
-  NVIC_ST_RELOAD_R = NVIC_ST_RELOAD_M;  // maximum reload value
+  NVIC_ST_RELOAD_R = 80000000;  // maximum reload value(set so Handler occurs every second)
   NVIC_ST_CURRENT_R = 0;                // any write to current clears it
                                         // enable SysTick with core clock
-  NVIC_ST_CTRL_R = NVIC_ST_CTRL_ENABLE+NVIC_ST_CTRL_CLK_SRC;
+  NVIC_ST_CTRL_R = NVIC_ST_CTRL_ENABLE+NVIC_ST_CTRL_CLK_SRC+NVIC_ST_CTRL_INTEN;
 }
 // Time delay using busy wait.
 // The delay parameter is in units of the core clock. (units of 20 nsec for 50 MHz clock)
+
+void SysTick_Handler(void){
+	//may need to acknowledge timeout
+	
+	current_Time = current_Time+1;
+}
+
+uint32_t getTime(void){
+	return current_Time;
+}
+
+void setTime(uint32_t newTime){
+	current_Time = newTime;
+}
+
 void SysTick_Wait(uint32_t delay){
   volatile uint32_t elapsedTime;
   uint32_t startTime = NVIC_ST_CURRENT_R;
@@ -68,3 +86,4 @@ void SysTick_Wait10ms(uint32_t delay){
     SysTick_Wait(500000);  // wait 10ms (assumes 50 MHz clock)
   }
 }
+
