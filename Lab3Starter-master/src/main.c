@@ -6,7 +6,8 @@
 #include "AlarmClockVisual.h"
 #include "AlarmClockAudio.h"
 #include "AlarmClockSwitchControl.h"
-#include "Timer2.h"
+//#include "Timer2.h"
+#include "Timer2A.h"
 
 
 void DisableInterrupts(void); // Disable interrupts

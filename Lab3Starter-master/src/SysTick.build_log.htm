@@ -3,32 +3,24 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Enrique\Desktop\445L LAbs\Lab3Starter-master\src\SysTick.uvproj
-Project File Date:  09/20/2017
+C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab3Starter-master\src\SysTick.uvproj
+Project File Date:  09/24/2017
 
 <h2>Output:</h2>
-Build target 'SysTick'
-compiling AlarmClockVisual.c...
-AlarmClockSwitchControl.h(62): warning:  #1-D: last line of file ends without a newline
-  void checkAlarm(void);
-AlarmClockVisual.c: 1 warning, 0 errors
-linking...
-Program Size: Code=5016 RO-data=27140 RW-data=100 ZI-data=1124  
-".\SysTick.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-</pre>
-</body>
-</html>
-Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-0);
+Rebuild target 'SysTick'
+assembling startup.s...
+compiling PLL.c...
+compiling main.c...
+Timer2A.h(3): warning:  #1-D: last line of file ends without a newline
+  void Timer2A_Handler(void);
+main.c: 1 warning, 0 errors
+compiling fixed.c...
+fixed.c(24): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(' ',0);
+fixed.c(25): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('*',0);
+fixed.c(26): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('.',0);
 fixed.c(28): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
                                 fputc('*',0);
 fixed.c(40): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
@@ -116,28 +108,29 @@ fixed.c(206): warning:  #177-D: variable "flag" was declared but never reference
 fixed.c: 45 warnings, 0 errors
 compiling ST7735.c...
 compiling AlarmClockVisual.c...
-AlarmClockSwitchControl.h(62): warning:  #1-D: last line of file ends without a newline
-  void checkAlarm(void);
-AlarmClockVisual.c: 1 warning, 0 errors
 compiling AlarmClockAudio.c...
-AlarmClockAudio.c(15): warning:  #1-D: last line of file ends without a newline
+AlarmClockAudio.c(30): warning:  #1-D: last line of file ends without a newline
   }
 AlarmClockAudio.c: 1 warning, 0 errors
 compiling AlarmClockSwitchControl.c...
 compiling SysTick.c...
 compiling SysTickTestMain.c...
-compiling Timer2.c...
 compiling ClockImages.c...
+compiling FallingEdgeInterrupt.c...
+compiling Timer2A.c...
+Timer2A.c(22): warning:  #1-D: last line of file ends without a newline
+        }
+Timer2A.c: 1 warning, 0 errors
 linking...
-Program Size: Code=4976 RO-data=27140 RW-data=100 ZI-data=1124  
+Program Size: Code=5260 RO-data=27140 RW-data=108 ZI-data=1124  
 ".\SysTick.axf" - 0 Error(s), 48 Warning(s).
-Load "C:\\Users\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-Load "C:\\Users\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
+</pre>
+</body>
+</html>
+2): warning:  #1-D: last line of file ends without a newline
+        }
+Timer2A.c: 1 warning, 0 errors
+".\SysTick.axf" - 1 Error(s), 49 Warning(s).
+Target not created
+g(s).
+Target not created
