@@ -6,8 +6,9 @@
 #include "AlarmClockVisual.h"
 #include "AlarmClockAudio.h"
 #include "AlarmClockSwitchControl.h"
-//#include "Timer2.h"
-#include "Timer2A.h"
+#include "FallingEdgeInterrupt.h"
+#include "Timer0A.h"
+
 
 
 void DisableInterrupts(void); // Disable interrupts
@@ -30,6 +31,11 @@ int main(){
 	ST7735_InitR(INITR_REDTAB);		//Initialization for screen
 	
 	SysTick_Init();
+	
+	Edge_Init();
+	
+	Timer0A_Init();
+	portEInit();
 
 	
 	startClock();

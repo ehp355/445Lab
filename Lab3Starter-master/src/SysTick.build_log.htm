@@ -4,16 +4,20 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab3Starter-master\src\SysTick.uvproj
-Project File Date:  09/24/2017
+Project File Date:  09/25/2017
 
 <h2>Output:</h2>
 Rebuild target 'SysTick'
 assembling startup.s...
 compiling PLL.c...
 compiling main.c...
-Timer2A.h(3): warning:  #1-D: last line of file ends without a newline
-  void Timer2A_Handler(void);
-main.c: 1 warning, 0 errors
+AlarmClockAudio.h(20): warning:  #1-D: last line of file ends without a newline
+  void soundAlarm(void);
+FallingEdgeInterrupt.h(2): warning:  #1-D: last line of file ends without a newline
+  void GPIOPortB_Handler(void);
+Timer0A.h(2): warning:  #1-D: last line of file ends without a newline
+  void Timer0A_Handler(void);
+main.c: 3 warnings, 0 errors
 compiling fixed.c...
 fixed.c(24): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
                         fputc(' ',0);
@@ -113,24 +117,22 @@ AlarmClockAudio.c(30): warning:  #1-D: last line of file ends without a newline
   }
 AlarmClockAudio.c: 1 warning, 0 errors
 compiling AlarmClockSwitchControl.c...
+AlarmClockAudio.h(20): warning:  #1-D: last line of file ends without a newline
+  void soundAlarm(void);
+AlarmClockSwitchControl.c: 1 warning, 0 errors
 compiling SysTick.c...
 compiling SysTickTestMain.c...
 compiling ClockImages.c...
 compiling FallingEdgeInterrupt.c...
-compiling Timer2A.c...
-Timer2A.c(22): warning:  #1-D: last line of file ends without a newline
-        }
-Timer2A.c: 1 warning, 0 errors
+compiling Timer0A.c...
+Timer0A.c(21): warning:  #1-D: last line of file ends without a newline
+  }
+Timer0A.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5260 RO-data=27140 RW-data=108 ZI-data=1124  
-".\SysTick.axf" - 0 Error(s), 48 Warning(s).
+.\SysTick.axf: error: L6047U: The size of this image (32828 bytes) exceeds the maximum allowed for this version of the linker
+Finished: 0 information, 0 warning, 0 error and 1 fatal error messages.
+".\SysTick.axf" - 1 Error(s), 51 Warning(s).
+Target not created
 </pre>
 </body>
 </html>
-2): warning:  #1-D: last line of file ends without a newline
-        }
-Timer2A.c: 1 warning, 0 errors
-".\SysTick.axf" - 1 Error(s), 49 Warning(s).
-Target not created
-g(s).
-Target not created

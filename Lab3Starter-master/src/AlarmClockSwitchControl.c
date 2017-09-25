@@ -20,11 +20,15 @@ int32_t current_Min;
 uint32_t alarm_Time=0;
 uint32_t time=0;
 
-int32_t Button_1 = 0;
-int32_t Button_2 = 0;
-int32_t Button_3 = 0;
-int32_t Button_4 = 0;
+//int32_t Button_1 = 0;
+//int32_t Button_2 = 0;
+//int32_t Button_3 = 0;
+//int32_t Button_4 = 0;
 
+extern int8_t B1;
+extern int8_t B2;
+extern int8_t B3;
+extern int8_t B4;
 //0 = alarm off, 1 = alarm on
 int32_t alarm_Enabled = 0;
 
@@ -39,7 +43,8 @@ uint32_t setAlarm(uint32_t currentAlarm){
 
 //Clock Face State
 void runClockFace(void){
-	while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+	//while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+	while(B1 != 1 || B2 != 1 || B3 != 1 || B4 != 1){
 		
 		
 		//occurs every minute
@@ -55,25 +60,33 @@ void runClockFace(void){
 		
 	}
 	//user is switching to Digital display
-	if(Button_1 == 1){
-		Button_1 = 0;
+	//if(Button_1 == 1){
+		//Button_1 = 0;
+	if(B1 == 1){
+		B1 = 0;
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		paintDigitalClock(getTime()/3600, getTime()/60);
 		runDigitalClock();
 	
 	//user is enabling/disbaling alarm	
-	}else if(Button_2 ==1){
-		Button_2 = 0;
+//	}else if(Button_2 ==1){
+//		Button_2 = 0;
+	}else if(B2 ==1){
+		B2 = 0;
 		alarm_Enabled ^= 1;
 		runClockFace();
 	//user wants to set alarm
-	}else if(Button_3 ==1){
-		Button_3 =0;
+//	}else if(Button_3 ==1){
+//		Button_3 =0;
+		}else if(B3 ==1){
+			B3 =0;
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		alarm_Time = setAlarm(alarm_Time);
 	//user wants to set time
-	}else if(Button_4 == 1){
-		Button_4 =0;
+//	}else if(Button_4 == 1){
+//		Button_4 =0;
+	}else if(B4 == 1){
+		B4 =0;
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		paintDigitalClock(getTime()/3600, getTime()/60);
 		settingTime();
@@ -84,7 +97,8 @@ void runClockFace(void){
 
 //Digital Display state
 void runDigitalClock(void){
-	while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+	//while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+	while(B1 != 1 || B2 != 1 || B3 != 1 || B4 != 1){
 		
 		//occurs every minute
 		if(getTime()%60==0){
@@ -99,27 +113,35 @@ void runDigitalClock(void){
 	}
 	
 	//user is switching to Clock display
-	if(Button_1 == 1){
-		Button_1 = 0;
+//	if(Button_1 == 1){
+//		Button_1 = 0;
+	if(B1 == 1){
+		B1 = 0;
 		paintClockFace();
 		drawClockHand(getTime()/3600, getTime()/60);
 		runClockFace();
 	
 	//user is enabling/disabling alarm
-	}else if(Button_2 ==1){
-		Button_2 = 0;
+//	}else if(Button_2 ==1){
+//		Button_2 = 0;
+	}else if(B2 ==1){
+		B2 = 0;
 		alarm_Enabled ^= 1;
 		runDigitalClock();
 		
 	//user wants to set alarm
-	}else if(Button_3 ==1){
-		Button_3=0;
+//	}else if(Button_3 ==1){
+//		Button_3=0;
+	}else if(B3 ==1){
+		B3 = 0;		
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		alarm_Time = setAlarm(alarm_Time);
 	
 	//user wants to set time
-	}else if(Button_4 == 1){
-		Button_4 = 0;
+//	}else if(Button_4 == 1){
+//		Button_4 = 0;
+	}else if(B4 ==1){
+		B4 = 0;
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		paintDigitalClock(getTime()/3600, getTime()/60);
 		settingTime();
@@ -134,14 +156,19 @@ void settingTime(void){
 	
 	// 0 = setting hour, 1 = setting min
 	int32_t placeHolder = 0;
-	while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+//	while(Button_1 != 1 || Button_2 != 1 || Button_3 != 1 || Button_4 != 1){
+		while(B1 != 1 || B2 != 1 || B3 != 1 || B4 != 1){
 		//consider flashing hour or min to let user know
 		//which they are currently set to change
 	}
 
 	//user wants to increase hour or minute
-	if(Button_1 == 1){
-		Button_1 = 0;
+//	if(Button_1 == 1){
+//		Button_1 = 0;
+//		if(Button_1 == 1){
+//		Button_1 = 0;
+	if(B1 == 1){
+		B1 = 0;
 		switch(placeHolder){
 			case 0:
 				if(hour == 11){
@@ -162,8 +189,10 @@ void settingTime(void){
 		setDigitalClock(hour,min);
 		
 	//user wants to decrease hour or minute	
-	}else if(Button_2 == 1){
-		Button_2 = 0;
+//	}else if(Button_2 == 1){
+//		Button_2 = 0;
+	}else if(B2 ==1){
+		B2 = 0;
 		switch(placeHolder){
 			case 0:
 				if(hour == 0){
@@ -184,8 +213,10 @@ void settingTime(void){
 		setDigitalClock(hour,min);
 		
 	//user is switching between hour or minute
-	}else if(Button_3 == 1){
-		Button_3 = 0;
+//	}else if(Button_3 == 1){
+//		Button_3 = 0;
+		}else if(B3 == 1){
+		B3 = 0;
 		switch(placeHolder){
 			case 0:
 				placeHolder =1;
@@ -199,7 +230,8 @@ void settingTime(void){
 		setDigitalClock(hour,min);
 	
 	//user has set clock and wants to go back to clock
-	}else if(Button_4 == 1){
+//	}else if(Button_4 == 1){
+	}else if(B4 == 1){
 		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		setTime((3600*hour)+(min*60));
 		paintClockFace();

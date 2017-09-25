@@ -21,8 +21,7 @@ void Edge_Init(void){
 	GPIO_PORTB_IM_R |= 0x1E;		//arm trigger flags
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
 	NVIC_EN0_R  = 0x02;
-	
-	SYSCTL_RCGCTIMER_R |= 0x02;		//activate TIMER2
+	SYSCTL_RCGCTIMER_R |= 0x1;	//Activate timer 0
 	//EnableInterrupts();
 }
 
@@ -35,7 +34,7 @@ void GPIOPortB_Handler(void){
 	//write 0 to imr for portbhandler
 	//GPIO_PORTB_ICR_R &= ~0x1E;			//disarm buttons
 	button = (GPIO_PORTB_DATA_R & 0x1E);		//CHECK button pressed
-	
+	int pressed = 1;
 	switch(button){
 		case 2:
 			B1 = 1;
@@ -61,17 +60,15 @@ void GPIOPortB_Handler(void){
 			B3 = 0;
 			B4 = 1;
 			break;
-	//	default:
-		//	do nothing
+		default:
+			pressed = 0;
 	}
-	
-	
-	
+
 	//start one shot timer
-	
-	TIMER2_IMR_R = 1;							//arm timer 1
-  TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A		
-	
+	if(pressed){
+		TIMER0_IMR_R = 1;							//arm timer 0
+		TIMER0_CTL_R = 0x00000001;    // 10) enable timer0A		
+	}
 	}
 
 

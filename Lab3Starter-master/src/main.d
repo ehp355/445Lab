@@ -7,4 +7,5 @@
 .\main.o: AlarmClockVisual.h
 .\main.o: AlarmClockAudio.h
 .\main.o: AlarmClockSwitchControl.h
-.\main.o: Timer2A.h
+.\main.o: FallingEdgeInterrupt.h
+.\main.o: Timer0A.h

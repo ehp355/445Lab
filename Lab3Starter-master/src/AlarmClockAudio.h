@@ -14,4 +14,7 @@ to microcontroller
 inputs: none
 outputs: none
 */ 
+
+void portEInit(void);
+void stopAlarm(void);
 void soundAlarm(void);

@@ -814,12 +814,8 @@ const unsigned short clockFace[] = {
 };
 
 
-
-
-
-
-
 void paintDigitalClock(uint32_t hour, uint32_t min);
+
 void setDigitalClock(int32_t hour, int32_t min);
 
 uint32_t min_Hand_Color = ST7735_RED;
