@@ -674,10 +674,10 @@ void startClock(void){
 	ST7735_OutString("Lab3");
 	ST7735_SetCursor(0, 2);
 
-//	paintClockFace();
-//	runClockFace();
-	paintDigitalClock(0,0, ST7735_BLUE,ST7735_BLUE);
-	runDigitalClock();
+	paintClockFace();
+	runClockFace();
+	//paintDigitalClock(0,0, ST7735_BLUE,ST7735_BLUE);
+	//runDigitalClock();
 
 }
 
@@ -693,7 +693,7 @@ void paintClockFace(void){
 //need to write function so that it draws over previous hand
 // and then creates new hand to help with screen flickering 
 //issue
-//center of clock is (64,77)
+//center of clock is (60,87)
 void drawClockHand(uint32_t hour, uint32_t min){
 	min = min % 60;
 	hour = hour % 12;
@@ -701,15 +701,15 @@ void drawClockHand(uint32_t hour, uint32_t min){
 	switch(min){
 		case 0:
 			//0 min
+			ST7735_Line(60, 87, 48, 65, ST7735_BLACK);
 			ST7735_Line(60, 87, 60, 65, min_Hand_Color);
-			//ST7735_Line(60, 87, 65, 65, min_Hand_Color);
-			//15 min
 			break;
 		case 1:
 			ST7735_Line(60, 87, 60, 65, ST7735_BLACK);
 			ST7735_Line(60, 87, 65, 65, min_Hand_Color);
 			break;
 		case 2:
+			ST7735_Line(60, 87, 65, 65, ST7735_BLACK);
 			ST7735_Line(60, 87, 65, 65, min_Hand_Color);
 			break;
 		case 3:
@@ -723,6 +723,7 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60, 87, 70, 65, min_Hand_Color);
 			break;
 		case 6:
+			ST7735_Line(60, 87, 70, 65, ST7735_BLACK);
 			ST7735_Line(60, 87, 75, 70, min_Hand_Color);
 			break;
 		case 7:
@@ -735,20 +736,56 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60, 87, 75, 70, min_Hand_Color);
 			break;
 		case 10:
+			//ST7735_Line(60, 87, 75, 70, ST7735_BLACK);
 			ST7735_Line(60, 87, 80, 84, min_Hand_Color);
 			break;
 		case 15:
-			ST7735_Line(60, 87, 80, 84, ST7735_BLACK);
+			ST7735_Line(60, 87, 75, 70, ST7735_BLACK);
 			ST7735_Line(60, 87, 82, 87, min_Hand_Color);
 			break;
 		
-		
+		case 20:
+			ST7735_Line(60, 87, 82, 87, ST7735_BLACK);
+			ST7735_Line(60,87,73,94, min_Hand_Color);
+			break;
+		case 25:
+			ST7735_Line(60,87,73,94, ST7735_BLACK);
+			ST7735_Line(60,87,65,103, min_Hand_Color);
+			break;
 		case 30:
+			ST7735_Line(60,87,65,103, ST7735_BLACK);
 			ST7735_Line(60, 87, 60, 109, min_Hand_Color);
 			break;
 		
+		case 32:
+			ST7735_Line(60, 87, 60, 109, ST7735_BLACK);
+			ST7735_Line(60, 87, 55, 109, min_Hand_Color);
+			break;
+		
+		case 35:
+			ST7735_Line(60, 87, 55, 109, ST7735_BLACK);
+			ST7735_Line(60, 87, 50, 109, min_Hand_Color);
+			break;
+		case 37:
+			ST7735_Line(60, 87, 50, 109, ST7735_BLACK);
+			ST7735_Line(60, 87, 45, 104, min_Hand_Color);
+			break;
+		case 40:
+			ST7735_Line(60, 87, 50, 109, ST7735_BLACK);
+			ST7735_Line(60, 87, 45, 104, min_Hand_Color);
+			break;
 		case 45:
+			ST7735_Line(60, 87, 45, 104, ST7735_BLACK);
 			ST7735_Line(60, 87, 38, 87, min_Hand_Color);
+			break;
+		case 50:
+			ST7735_Line(60, 87, 38, 87, ST7735_BLACK);
+			ST7735_Line(60, 87, 43, 70, min_Hand_Color);
+			break;
+		
+		case 55:
+			ST7735_Line(60, 87, 43, 70, ST7735_BLACK);
+			ST7735_Line(60, 87, 48, 65, min_Hand_Color);
 			break;
 		
 	}
@@ -756,22 +793,55 @@ void drawClockHand(uint32_t hour, uint32_t min){
 	
 	switch(hour){
 		case 0:
-			//0 min
+			//12 hr
+			ST7735_Line(60, 87, 50, 76, ST7735_BLACK);
 			ST7735_Line(60, 87, 60, 75, hour_Hand_Color);
-			break;
 		
-		case 15:
+			break;
+		case 1:
+			ST7735_Line(60, 87, 70, 75, hour_Hand_Color);
+			break;
+		case 2:
+			ST7735_Line(60,87, 70, 85, hour_Hand_Color);
+			break;
+		case 3:
+			ST7735_Line(60,87, 70, 85, ST7735_BLACK);
 			ST7735_Line(60, 87, 72, 87, hour_Hand_Color);
 			break;
-		
-		case 30:
+		case 4:
+			ST7735_Line(60, 87, 72, 87, ST7735_BLACK);
+			ST7735_Line(60,87,70,92, hour_Hand_Color);
+			break;
+		case 5:
+			ST7735_Line(60,87,70,92, ST7735_BLACK);
+			ST7735_Line(60,87,67,100,hour_Hand_Color);
+			break;
+		case 6:
+			ST7735_Line(60,87,67,100,ST7735_BLACK);
 			ST7735_Line(60, 87, 60, 99, hour_Hand_Color);
 			break;
-		
-		case 45:
+		case 7:
+			ST7735_Line(60, 87, 60, 99, ST7735_BLACK);
+			ST7735_Line(60,87,50,100, hour_Hand_Color);
+			break;
+		case 8:
+			ST7735_Line(60,87,50,100, ST7735_BLACK);
+			ST7735_Line(60,87,50,95, hour_Hand_Color);
+			break;
+		case 9:
+			ST7735_Line(60,87,50,95, ST7735_BLACK);
 			ST7735_Line(60, 87, 48, 87, hour_Hand_Color);
 			break;
-	
+		
+		case 10:
+			ST7735_Line(60, 87, 48, 87, ST7735_BLACK);
+			ST7735_Line(60, 87, 50, 76, hour_Hand_Color);
+			break;
+		
+		case 11:
+			ST7735_Line(60, 87, 50, 76, ST7735_BLACK);
+			ST7735_Line(60, 87, 50, 76, hour_Hand_Color);
+			break;	
 	}
 	
 }

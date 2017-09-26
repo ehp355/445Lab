@@ -47,7 +47,7 @@ void runClockFace(void){
 	if(alarm_Enabled == 1){
 		alarmEnabled(alarm_Time/60, alarm_Time%60);
 	}
-
+	
 	while(B1 != 1 && B2 != 1 && B3 != 1 && B4 != 1){
 			
 		//occurs every minute
@@ -102,8 +102,8 @@ void runClockFace(void){
 
 //Digital Display state
 void runDigitalClock(void){
-	alarm_Enabled =1;	//TEST
-	alarm_Time =1;		//TESTNG
+	//alarm_Enabled =1;	//TEST
+	//alarm_Time =1;		//TESTNG
 	if(alarm_Enabled == 1){
 		alarmEnabled(alarm_Time/60, alarm_Time%60);
 		}
@@ -166,84 +166,86 @@ void settingTime(void){
 	
 	// 0 = setting hour, 1 = setting min
 //	int32_t placeHolder = 0;
+	while(B4 != 1){
 			while(B1 != 1 && B2 != 1 && B3 != 1 &&  B4 != 1){
 		//consider flashing hour or min to let user know
 		//which they are currently set to change
-			if(placeHolder==0){
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE,ST7735_BLUE);
-			}else{
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE,ST7735_WHITE);
+				if(placeHolder==0){
+					paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE,ST7735_BLUE);
+				}else{
+					paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE,ST7735_WHITE);
+				}
 			}
-	}
 
 	//user wants to increase hour or minute
-	if(B1 == 1){
-		B1 = 0;
-		switch(placeHolder){
-			case 0:
-				set_Time = set_Time+60;
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
+			if(B1 == 1){
+			B1 = 0;
+			switch(placeHolder){
+				case 0:
+					set_Time = set_Time+60;
+					paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
 				break;
 				
-			case 1:
-				set_Time = set_Time+1;
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
-		}
-		settingTime();
+				case 1:
+					set_Time = set_Time+1;
+					paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
+			}
+			//settingTime();
 	//user wants to decrease hour or minute	
-	}else if(B3 ==1){
-		B3 = 0;
-		switch(placeHolder){
-			case 0:
-				if(set_Time<=59){
-					set_Time = set_Time+ 660;
-				}else{
-					set_Time = set_Time - 60;
-				}
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
-				break;
+			}else if(B3 ==1){
+				B3 = 0;
+				switch(placeHolder){
+					case 0:
+						if(set_Time<=59){
+							set_Time = set_Time+ 660;
+						}else{
+							set_Time = set_Time - 60;
+						}
+						paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
+						break;
 				
-			case 1:
-				if(set_Time == 0){
-					set_Time = set_Time + 59;
-				}else{
-					set_Time--;
+					case 1:
+						if(set_Time == 0){
+							set_Time = set_Time + 59;
+						}else{
+							set_Time--;
+						}
+						paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
 				}
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
-		}
 	
-		settingTime();
+				//settingTime();
 	//user is switching between hour or minute
-		}else if(B2 == 1){
-		B2 = 0;
-		switch(placeHolder){
-			case 0:
-				placeHolder =1;
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
-				break;
+			}else if(B2 == 1){
+				B2 = 0;
+				switch(placeHolder){
+					case 0:
+						placeHolder =1;
+						paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_WHITE, ST7735_BLUE);
+					break;
 				
-			case 1:
-				placeHolder =0;
-				paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
-				break;
-		}
-		settingTime();
+					case 1:
+						placeHolder =0;
+						paintDigitalClock((set_Time/60),(set_Time % 60),ST7735_BLUE, ST7735_WHITE);
+					break;
+				}
+				//settingTime();
 	//user has set clock and wants to go back to clock 
 //	}else if(Button_4 == 1){
-	}else if(B4 == 1){
-		B4 = 0;
-		ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
+			}else if(B4 == 1){
+				B4 = 0;
+				ST7735_FillRect(0, 20, 127, 159, ST7735_BLACK);
 		//set_Time =0;
-		if(for_Alarm ==0){
-			setTime((set_Time*60));
-			set_Time =0;
-			paintClockFace();
-			runClockFace();
-		}else{
-			alarm_Time = set_Time;
-			set_Time = 0;
-			paintClockFace();
-			runClockFace();
+				if(for_Alarm ==0){
+					setTime((set_Time*60));
+					set_Time =0;
+					paintClockFace();
+					runClockFace();
+				}else{
+					alarm_Time = set_Time;
+					set_Time = 0;
+					paintClockFace();
+					runClockFace();
+				}
 		}
 	}
 	

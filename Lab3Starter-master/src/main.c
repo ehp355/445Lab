@@ -29,7 +29,10 @@ int main(){
 	
 	Timer0A_Init();
 	
-	PortF_Init();
+	Timer1A_Init();
+	
+	PortC_Init();
+	
 	
 	startClock();
 	
