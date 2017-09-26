@@ -18,16 +18,9 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
 
-/*void Timer0A_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
-  PF2 ^= 0x04;                   // profile
-  PF2 ^= 0x04;                   // profile
-  PF2 ^= 0x04;                   // profile
-	
-	
-}*/
-
 int main(){
+	PLL_Init(Bus80MHz);
+
 	ST7735_InitR(INITR_REDTAB);		//Initialization for screen
 	
 	SysTick_Init();
@@ -35,8 +28,8 @@ int main(){
 	Edge_Init();
 	
 	Timer0A_Init();
+	
 	PortF_Init();
-
 	
 	startClock();
 	

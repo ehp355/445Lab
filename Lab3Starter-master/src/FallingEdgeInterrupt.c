@@ -21,7 +21,6 @@ void Edge_Init(void){
 	GPIO_PORTB_IM_R |= 0x1E;		//arm trigger flags
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
 	NVIC_EN0_R  = 0x02;
-	SYSCTL_RCGCTIMER_R |= 0x1;	//Activate timer 0
 	//EnableInterrupts();
 }
 

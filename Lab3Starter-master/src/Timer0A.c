@@ -2,6 +2,7 @@
 #include "../inc/tm4c123gh6pm.h"
 
 void Timer0A_Init(void){
+	SYSCTL_RCGCTIMER_R |= 0x1;	//Activate timer 0
 	TIMER0_CTL_R = 0x00000000;	//Disable the timer
 	TIMER0_CFG_R = 0x00000000;	//32bit configuration
 	TIMER0_TAMR_R = 0x00000001;	//one shot mode
