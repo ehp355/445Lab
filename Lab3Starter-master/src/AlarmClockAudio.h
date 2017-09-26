@@ -15,6 +15,5 @@ inputs: none
 outputs: none
 */ 
 
-void portEInit(void);
-void stopAlarm(void);
+void PortF_Init(void);
 void soundAlarm(void);

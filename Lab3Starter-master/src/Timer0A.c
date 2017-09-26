@@ -9,8 +9,8 @@ void Timer0A_Init(void){
 	TIMER0_TAPR_R = 0;            // 5) bus clock resolution
 	TIMER0_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
 	TIMER0_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-	NVIC_PRI5_R = (NVIC_PRI4_R&0x00FFFFFF)|0x80000000; // 8) priority 4
-	NVIC_EN0_R = 1<<20;           // 9) enable IRQ 23 in NVIC
+	NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x80000000; // 8) priority 4
+	NVIC_EN0_R = 1<<19;           // 9) enable IRQ 19 in NVIC
 	}
 
 void Timer0A_Handler(void){

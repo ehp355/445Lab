@@ -3,42 +3,35 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Enrique\Desktop\445L LAbs\Lab3Starter-master\src\SysTick.uvproj
+C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab3Starter-master\src\SysTick.uvproj
 Project File Date:  09/25/2017
 
 <h2>Output:</h2>
-Build target 'SysTick'
-compiling AlarmClockVisual.c...
-compiling AlarmClockSwitchControl.c...
+Rebuild target 'SysTick'
+assembling startup.s...
+compiling PLL.c...
+compiling main.c...
 AlarmClockVisual.h(43): warning:  #1-D: last line of file ends without a newline
   void alarmEnabled(uint32_t hour,uint32_t min);
-AlarmClockAudio.h(20): warning:  #1-D: last line of file ends without a newline
+AlarmClockAudio.h(19): warning:  #1-D: last line of file ends without a newline
   void soundAlarm(void);
-AlarmClockSwitchControl.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=6304 RO-data=22052 RW-data=96 ZI-data=1120  
-".\SysTick.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-ers\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-arm(void);
-AlarmClockSwitchControl.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=6104 RO-data=22052 RW-data=96 ZI-data=1120  
-".\SysTick.axf" - 0 Error(s), 6 Warning(s).
-Load "C:\\Users\\Enrique\\Desktop\\445L LAbs\\Lab3Starter-master\\src\\SysTick.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-rgument provided for parameter marked with attribute "nonnull"
+FallingEdgeInterrupt.h(2): warning:  #1-D: last line of file ends without a newline
+  void GPIOPortB_Handler(void);
+Timer0A.h(2): warning:  #1-D: last line of file ends without a newline
+  void Timer0A_Handler(void);
+main.c: 4 warnings, 0 errors
+compiling fixed.c...
+fixed.c(24): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(' ',0);
+fixed.c(25): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('*',0);
+fixed.c(26): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('.',0);
+fixed.c(28): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                                fputc('*',0);
+fixed.c(40): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);
+fixed.c(41): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
                 fputc((m+48),0);
 fixed.c(42): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
                 fputc('.',0);
@@ -122,22 +115,33 @@ fixed.c: 45 warnings, 0 errors
 compiling ST7735.c...
 compiling AlarmClockVisual.c...
 compiling AlarmClockAudio.c...
-AlarmClockAudio.c(30): warning:  #1-D: last line of file ends without a newline
-  }
-AlarmClockAudio.c: 1 warning, 0 errors
 compiling AlarmClockSwitchControl.c...
-AlarmClockAudio.h(20): warning:  #1-D: last line of file ends without a newline
+AlarmClockVisual.h(43): warning:  #1-D: last line of file ends without a newline
+  void alarmEnabled(uint32_t hour,uint32_t min);
+AlarmClockAudio.h(19): warning:  #1-D: last line of file ends without a newline
   void soundAlarm(void);
-AlarmClockSwitchControl.c: 1 warning, 0 errors
+AlarmClockSwitchControl.c: 2 warnings, 0 errors
 compiling SysTick.c...
 compiling SysTickTestMain.c...
+compiling ClockImages.c...
 compiling FallingEdgeInterrupt.c...
 compiling Timer0A.c...
 Timer0A.c(21): warning:  #1-D: last line of file ends without a newline
   }
 Timer0A.c: 1 warning, 0 errors
 linking...
-.\SysTick.axf: error: L6047U: The size of this image (33016 bytes) exceeds the maximum allowed for this version of the linker
-Finished: 0 information, 0 warning, 0 error and 1 fatal error messages.
-".\SysTick.axf" - 1 Error(s), 51 Warning(s).
-Target not created
+Program Size: Code=6888 RO-data=22052 RW-data=108 ZI-data=1124  
+".\SysTick.axf" - 0 Error(s), 52 Warning(s).
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab3Starter-master\\src\\SysTick.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+</pre>
+</body>
+</html>
+Pulido\\Documents\\GitHub\\445Lab\\Lab3Starter-master\\src\\SysTick.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

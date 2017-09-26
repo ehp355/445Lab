@@ -674,10 +674,10 @@ void startClock(void){
 	ST7735_OutString("Lab3");
 	ST7735_SetCursor(0, 2);
 
-	paintClockFace();
-	runClockFace();
-	//paintDigitalClock(0,0, ST7735_BLUE,ST7735_BLUE);
-	//runDigitalClock();
+//	paintClockFace();
+//	runClockFace();
+	paintDigitalClock(0,0, ST7735_BLUE,ST7735_BLUE);
+	runDigitalClock();
 
 }
 

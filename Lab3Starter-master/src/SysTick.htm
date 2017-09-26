@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\SysTick.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\SysTick.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Sep 25 20:31:46 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Sep 26 00:25:12 2017
 <BR><P>
-<H3>Maximum Stack Usage =        232 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        224 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; startClock &rArr; runClockFace &rArr;  runClockFace (Cycle)
+__rt_entry_main &rArr; main &rArr; startClock &rArr; runDigitalClock &rArr;  runDigitalClock (Cycle)
 <P>
 <H3>
 Functions with no stack information
@@ -34,8 +34,8 @@ Mutually Recursive functions
  <LI><a href="#[b]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b]">PendSV_Handler</a><BR>
  <LI><a href="#[1b]">ADC0Seq0_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1b]">ADC0Seq0_Handler</a><BR>
  <LI><a href="#[b3]">settingTime</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b3]">settingTime</a><BR>
+ <LI><a href="#[b1]">runClockFace</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b3]">settingTime</a><BR>
  <LI><a href="#[b2]">runDigitalClock</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b2]">runDigitalClock</a><BR>
- <LI><a href="#[b1]">runClockFace</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b1]">runClockFace</a><BR>
 </UL>
 <P>
 <H3>
@@ -67,7 +67,7 @@ Function Pointers
  <LI><a href="#[f]">GPIOPortC_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[10]">GPIOPortD_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[11]">GPIOPortE_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[2b]">GPIOPortF_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
+ <LI><a href="#[2b]">GPIOPortF_Handler</a> from alarmclockaudio.o(i.GPIOPortF_Handler) referenced from startup.o(RESET)
  <LI><a href="#[2c]">GPIOPortG_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[2d]">GPIOPortH_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[43]">GPIOPortJ_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -301,9 +301,6 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
 <P><STRONG><a name="[11]"></a>GPIOPortE_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
-<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
-</UL>
-<P><STRONG><a name="[2b]"></a>GPIOPortF_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
 <P><STRONG><a name="[2c]"></a>GPIOPortG_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
@@ -678,8 +675,8 @@ Global Symbols
 <P><STRONG><a name="[d4]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[89]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; startClock &rArr; runClockFace &rArr;  runClockFace (Cycle)
+<BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; startClock &rArr; runDigitalClock &rArr;  runDigitalClock (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -766,9 +763,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e]"></a>GPIOPortB_Handler</STRONG> (Thumb, 176 bytes, Stack size 0 bytes, fallingedgeinterrupt.o(i.GPIOPortB_Handler))
+<P><STRONG><a name="[e]"></a>GPIOPortB_Handler</STRONG> (Thumb, 188 bytes, Stack size 0 bytes, fallingedgeinterrupt.o(i.GPIOPortB_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
+<P><STRONG><a name="[2b]"></a>GPIOPortF_Handler</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, alarmclockaudio.o(i.GPIOPortF_Handler))
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
+</UL>
+<P><STRONG><a name="[ad]"></a>PortF_Init</STRONG> (Thumb, 164 bytes, Stack size 0 bytes, alarmclockaudio.o(i.PortF_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
 <P><STRONG><a name="[93]"></a>ST7735_DrawBitmap</STRONG> (Thumb, 280 bytes, Stack size 40 bytes, st7735.o(i.ST7735_DrawBitmap))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ST7735_DrawBitmap &rArr; setAddrWindow
 </UL>
@@ -815,8 +819,8 @@ Global Symbols
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintClockFace
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
@@ -888,7 +892,7 @@ Global Symbols
 <P><STRONG><a name="[20]"></a>Timer0A_Handler</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, timer0a.o(i.Timer0A_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[ac]"></a>Timer0A_Init</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, timer0a.o(i.Timer0A_Init))
+<P><STRONG><a name="[ac]"></a>Timer0A_Init</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, timer0a.o(i.Timer0A_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -897,8 +901,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
 <P><STRONG><a name="[a5]"></a>checkAlarm</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.checkAlarm))
@@ -907,8 +911,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getTime
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;soundAlarm
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
 <P><STRONG><a name="[a9]"></a>drawClockHand</STRONG> (Thumb, 552 bytes, Stack size 16 bytes, alarmclockvisual.o(i.drawClockHand))
@@ -916,24 +920,24 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_Line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
 <P><STRONG><a name="[a6]"></a>getTime</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, systick.o(i.getTime))
-<BR><BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
+<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
 <P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = main &rArr; startClock &rArr; runClockFace &rArr;  runClockFace (Cycle)
+<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = main &rArr; startClock &rArr; runDigitalClock &rArr;  runDigitalClock (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startClock
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;portEInit
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0A_Init
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PortF_Init
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Edge_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -947,7 +951,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startClock
 </UL>
 
 <P><STRONG><a name="[b0]"></a>paintDigitalClock</STRONG> (Thumb, 206 bytes, Stack size 56 bytes, alarmclockvisual.o(i.paintDigitalClock))
@@ -956,59 +959,56 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startClock
 </UL>
 
-<P><STRONG><a name="[ad]"></a>portEInit</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, alarmclockaudio.o(i.portEInit))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[b1]"></a>runClockFace</STRONG> (Thumb, 344 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.runClockFace))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216 + In Cycle
-<LI>Call Chain = runClockFace &rArr;  runClockFace (Cycle)
+<P><STRONG><a name="[b1]"></a>runClockFace</STRONG> (Thumb, 398 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.runClockFace))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + In Cycle
+<LI>Call Chain = runClockFace &rArr;  settingTime (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getTime
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintDigitalClock
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawClockHand
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;alarmEnabled
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startClock
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
-<P><STRONG><a name="[b2]"></a>runDigitalClock</STRONG> (Thumb, 336 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.runDigitalClock))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200 + In Cycle
+<P><STRONG><a name="[b2]"></a>runDigitalClock</STRONG> (Thumb, 400 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.runDigitalClock))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208 + In Cycle
 <LI>Call Chain = runDigitalClock &rArr;  runDigitalClock (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getTime
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintDigitalClock
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintClockFace
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawClockHand
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;alarmEnabled
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;startClock
 </UL>
 
 <P><STRONG><a name="[b4]"></a>setTime</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, systick.o(i.setTime))
 <BR><BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
 </UL>
 
-<P><STRONG><a name="[b3]"></a>settingTime</STRONG> (Thumb, 402 bytes, Stack size 24 bytes, alarmclockswitchcontrol.o(i.settingTime))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184 + In Cycle
+<P><STRONG><a name="[b3]"></a>settingTime</STRONG> (Thumb, 640 bytes, Stack size 16 bytes, alarmclockswitchcontrol.o(i.settingTime))
+<BR><BR>[Stack]<UL><LI>Max Depth = 192 + In Cycle
 <LI>Call Chain = settingTime &rArr;  settingTime (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setTime
@@ -1019,19 +1019,19 @@ Global Symbols
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;settingTime
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
 </UL>
 
 <P><STRONG><a name="[a7]"></a>soundAlarm</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, alarmclockaudio.o(i.soundAlarm))
 <BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;checkAlarm
 </UL>
 
-<P><STRONG><a name="[ae]"></a>startClock</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, alarmclockvisual.o(i.startClock))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = startClock &rArr; runClockFace &rArr;  runClockFace (Cycle)
+<P><STRONG><a name="[ae]"></a>startClock</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, alarmclockvisual.o(i.startClock))
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = startClock &rArr; runDigitalClock &rArr;  runDigitalClock (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runClockFace
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintClockFace
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runDigitalClock
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;paintDigitalClock
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetTextColor
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutString
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor

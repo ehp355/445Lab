@@ -5,7 +5,7 @@ int8_t B1;
 int8_t B2;
 int8_t B3;
 int8_t B4;
-
+int8_t pressed = 0;
 
 
 void Edge_Init(void){
@@ -34,7 +34,7 @@ void GPIOPortB_Handler(void){
 	//write 0 to imr for portbhandler
 	//GPIO_PORTB_ICR_R &= ~0x1E;			//disarm buttons
 	button = (GPIO_PORTB_DATA_R & 0x1E);		//CHECK button pressed
-	int pressed = 1;
+	pressed = 1;
 	switch(button){
 		case 2:
 			B1 = 1;
@@ -67,7 +67,7 @@ void GPIOPortB_Handler(void){
 	//start one shot timer
 	if(pressed){
 		TIMER0_IMR_R = 1;							//arm timer 0
-		TIMER0_CTL_R = 0x00000001;    // 10) enable timer0A		
+		TIMER0_CTL_R = 0x00000001;    //10) enable timer0A		
 	}
 	}
 

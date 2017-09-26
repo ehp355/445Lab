@@ -35,7 +35,7 @@ int main(){
 	Edge_Init();
 	
 	Timer0A_Init();
-	portEInit();
+	PortF_Init();
 
 	
 	startClock();
