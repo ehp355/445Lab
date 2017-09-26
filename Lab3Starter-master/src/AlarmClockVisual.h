@@ -38,13 +38,6 @@ on the inputs.
 inputs: hour time and minute time(int32_t)
 outputs: none
 */ 
-void paintDigitalClock(uint32_t hour, uint32_t minute);
+void paintDigitalClock(uint32_t hour, uint32_t minute, uint32_t hourColor, uint32_t minColor);
 
-
-/****************setDigitalClock***************
-Set up display for user to set the time
-inputs: hour time and minute time(int32_t)
-outputs: none
-*/ 
-void setDigitalClock(int32_t hour, int32_t min);
-
+void alarmEnabled(uint32_t hour,uint32_t min);

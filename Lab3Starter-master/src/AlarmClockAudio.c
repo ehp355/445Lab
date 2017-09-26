@@ -21,6 +21,7 @@ void portEInit(void){
 	GPIO_PORTE_DEN_R |= 0x01;
 }
 
+
 void soundAlarm(void){
 	PE0 ^= 0x01;
 }

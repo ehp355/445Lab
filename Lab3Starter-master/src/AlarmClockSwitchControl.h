@@ -58,5 +58,5 @@ void switchDisplay(void);
 
 void runClockFace(void);
 void runDigitalClock(void);
-void settingTime(void);
+void settingTime(int32_t hour, int32_t min, uint8_t forAlarm);
 void checkAlarm(void);
