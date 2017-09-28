@@ -10,15 +10,15 @@ int8_t pressed = 0;
 
 void Edge_Init(void){
 	SYSCTL_RCGCGPIO_R |= 0x02;	//ACTIVATE CLOCK FOR PORT B
-	GPIO_PORTB_DIR_R &= ~0x1E;	//ENABLE DIGITAL I/O FOR PB1-4
-	GPIO_PORTB_DEN_R |= 0x1E;
-	GPIO_PORTB_AFSEL_R &= ~0x1E; //disable special functions PB1-4
-	GPIO_PORTB_IS_R &= ~0x1E;		//edge sensitive at PB4-1
-	GPIO_PORTB_IBE_R &= ~0x1E;	//enable rising edge trigger
-	GPIO_PORTB_IEV_R |= 0x1E; 	//rising edge for PB1-4
+	GPIO_PORTB_DIR_R &= ~0x01;	//ENABLE DIGITAL I/O FOR PB0
+	GPIO_PORTB_DEN_R |= 0x01;
+	GPIO_PORTB_AFSEL_R &= ~0x01; //disable special functions PB1-4
+	GPIO_PORTB_IS_R &= ~0x01;		//edge sensitive at PB4-1
+	GPIO_PORTB_IBE_R &= ~0x01;	//enable rising edge trigger
+	GPIO_PORTB_IEV_R |= 0x01; 	//rising edge for PB1-4
 
-	GPIO_PORTB_ICR_R = 0x1E;
-	GPIO_PORTB_IM_R |= 0x1E;		//arm trigger flags
+	GPIO_PORTB_ICR_R = 0x01;
+	GPIO_PORTB_IM_R |= 0x01;		//arm trigger flags
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
 	NVIC_EN0_R  = 0x02;
 	//EnableInterrupts();

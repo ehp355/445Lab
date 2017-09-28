@@ -6,10 +6,8 @@
 #include "ST7735.h"
 #include "fixed.h"
 
-#define PF2             (*((volatile uint32_t *)0x40025010))
-#define PF1             (*((volatile uint32_t *)0x40025008))
 	
-extern int8_t B1;
+extern int8_t B0;
 	
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -21,57 +19,19 @@ void WaitForInterrupt(void);  // low power mode
 volatile uint32_t ADCvalue;
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
-void Timer0A_Init100HzInt(void){
-  volatile uint32_t delay;
-  DisableInterrupts();
-  // **** general initialization ****
-  SYSCTL_RCGCTIMER_R |= 0x01;      // activate timer0
-  delay = SYSCTL_RCGCTIMER_R;      // allow time to finish activating
-  TIMER0_CTL_R &= ~TIMER_CTL_TAEN; // disable timer0A during setup
-  TIMER0_CFG_R = 0;                // configure for 32-bit timer mode
-  // **** timer0A initialization ****
-                                   // configure for periodic mode
-  TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD;
-  TIMER0_TAILR_R = 799999;         // start value for 100 Hz interrupts
-  TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
-  TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 32-b, periodic, interrupts
-  // **** interrupt initialization ****
-                                   // Timer0A=priority 2
-  NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // top 3 bits
-  NVIC_EN0_R = 1<<19;              // enable interrupt 19 in NVIC
-}
 
-void Timer0A_Handler(void){
-  TIMER0_ICR_R = TIMER_ICR_TATOCINT;    // acknowledge timer0A timeout
-  PF2 ^= 0x04;                   // profile
-  PF2 ^= 0x04;                   // profile
-  ADCvalue = ADC0_InSeq3();
-  PF2 ^= 0x04;                   // profile
-}
 
 void adcSampler_Init(void){
-  PLL_Init(Bus80MHz);                   // 80 MHz
+  //PLL_Init(Bus80MHz);                   // 80 MHz
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
   ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
-  Timer0A_Init100HzInt();               // set up Timer0A for 100 Hz interrupts
-  GPIO_PORTF_DIR_R |= 0x06;             // make PF2, PF1 out (built-in LED)
-  GPIO_PORTF_AFSEL_R &= ~0x06;          // disable alt funct on PF2, PF1
-  GPIO_PORTF_DEN_R |= 0x06;             // enable digital I/O on PF2, PF1
-                                        // configure PF2 as GPIO
-  GPIO_PORTF_PCTL_R = (GPIO_PORTF_PCTL_R&0xFFFFF00F)+0x00000000;
-  GPIO_PORTF_AMSEL_R = 0;               // disable analog functionality on PF
-  PF2 = 0;                      // turn off LED
-	
+
 	//0x02 = x4 sampling
 	//0x04 =  x16 sampling
 	//0x06 = x64 sampling
 	ADC0_SAC_R = 0x06;
 	
 	ST7735_InitR(INITR_REDTAB);		//Initialization for screen
-	Timer1_Init(Timer0A_Handler,0);
-	//Timer2_Init(9259);	
-	//Timer3_Init(9259);	
 	
   EnableInterrupts();
 }
@@ -84,13 +44,81 @@ void ADCtoVolt(void){
 	uint32_t Digit1 = volt/10;
 	
 	char title[] = "Voltage~";
-	
+	ST7735_SetCursor(0,5);
 	ST7735_OutString(title);
 	ST7735_OutChar(Digit1+'0');
 	ST7735_OutChar('.');
 	ST7735_OutChar(Digit2+'0');
 	ST7735_OutChar(Digit3+'0');
 	ST7735_OutChar('V');
-	
 
 }
+
+int32_t button;
+int8_t B0=0;
+
+
+
+
+void Edge_Init(void){
+//	SYSCTL_RCGCGPIO_R |= 0x02;	//ACTIVATE CLOCK FOR PORT B
+//	GPIO_PORTB_DIR_R &= ~0x01;	//ENABLE DIGITAL I/O FOR PB1-4
+//	GPIO_PORTB_DEN_R |= 0x01;
+//	GPIO_PORTB_AFSEL_R &= ~0x01; //disable special functions PB0
+//	GPIO_PORTB_IS_R &= ~0x01;		//edge sensitive at PB4-1
+//	GPIO_PORTB_IBE_R &= ~0x01;	//enable rising edge trigger
+//	GPIO_PORTB_IEV_R |= 0x01; 	//rising edge for PB0
+
+//	GPIO_PORTB_ICR_R = 0x01;
+//	GPIO_PORTB_IM_R |= 0x01;		//arm trigger flags
+//	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
+//	NVIC_EN0_R  = 1<<1;
+//	EnableInterrupts();
+	SYSCTL_RCGCGPIO_R |= 0x04;			//activate clock for port c
+	GPIO_PORTC_LOCK_R = 0x4C4F434B; // unlock GPIO Port F
+  GPIO_PORTC_DIR_R &= ~0x10;    // (c) make PC4 in 
+  GPIO_PORTC_DEN_R |= 0x10;     //     enable digital I/O on PC4
+  GPIO_PORTC_IS_R &= ~0x10;     // (d) PC4 is edge-sensitive 
+  GPIO_PORTC_IBE_R &= ~0x10;    //     PC4 is not both edges 
+  GPIO_PORTC_IEV_R &= ~0x10;    //     PC4 falling edge event 
+  GPIO_PORTC_ICR_R = 0x10;      // (e) clear flag4
+  GPIO_PORTC_IM_R |= 0x10;      // (f) arm interrupt on PC4
+  NVIC_PRI0_R = (NVIC_PRI0_R&0xFF00FFFF)|0x00A00000; // (g) priority 5
+  NVIC_EN0_R |= 4;              // (h) enable interrupt 2 in NVIC
+
+}
+
+void Timer2A_Init(void){
+  SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
+  TIMER2_CTL_R = 0x00000000;    // 1) disable timer2A during setup
+  TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
+  TIMER2_TAMR_R = 0x00000001;   // 3) configure for one-shot mode
+  TIMER2_TAILR_R = 800000;    // 4) reload value
+  TIMER2_TAPR_R = 0;            // 5) bus clock resolution
+  TIMER2_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
+  TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
+  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x80000000; // 8) priority 4
+// interrupts enabled in the main program after all devices initialized
+// vector number 39, interrupt number 23
+  NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
+  //TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
+}
+
+void Timer2A_Handler(void){
+  TIMER2_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER2A timeout
+	TIMER2_IMR_R &= ~0x1;						//disarm timout
+	ADCvalue = ADC0_InSeq3();
+	B0 = 1;
+	GPIO_PORTC_IM_R  |= 0x10;			//arm B0;
+}
+
+
+
+void GPIOPortC_Handler(void){
+	GPIO_PORTC_ICR_R |= 0x10;		//acknowledge flag
+	GPIO_PORTC_IM_R  &= ~0x10;			//ignore interrupts for portb
+	TIMER2_IMR_R = 1;							//arm timer 2
+	TIMER2_CTL_R = 0x00000001;    //10) enable timer1A		
+	}
+
+

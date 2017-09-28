@@ -91,7 +91,7 @@ __Vectors
         DCD     IntDefaultHandler           ; The SysTick handler
         DCD     IntDefaultHandler           ; GPIO Port A
         DCD     GPIOB_intHandler            ; GPIO Port B
-        DCD     IntDefaultHandler           ; GPIO Port C
+        DCD     GPIOPortC_Handler       	; GPIO Port C
         DCD     IntDefaultHandler           ; GPIO Port D
         DCD     IntDefaultHandler           ; GPIO Port E
         DCD     UARTStdioIntHandler         ; UART0 Rx and Tx
@@ -112,7 +112,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Timer 0 subtimer B
         DCD     IntDefaultHandler           ; Timer 1 subtimer A
         DCD     IntDefaultHandler           ; Timer 1 subtimer B
-        DCD     IntDefaultHandler           ; Timer 2 subtimer A
+        DCD     Timer2A_Handler             ; Timer 2 subtimer A
         DCD     IntDefaultHandler           ; Timer 2 subtimer B
         DCD     IntDefaultHandler           ; Analog Comparator 0
         DCD     IntDefaultHandler           ; Analog Comparator 1
@@ -289,8 +289,19 @@ FaultISR
 ; for examination by a debugger.
 ;
 ;******************************************************************************
-IntDefaultHandler
-        B       IntDefaultHandler
+IntDefaultHandler\
+                PROC
+
+               
+                EXPORT  GPIOPortC_Handler         [WEAK]
+                EXPORT  Timer2A_Handler           [WEAK]				
+				
+GPIOPortC_Handler
+Timer2A_Handler
+
+                B       .
+
+                ENDP
 
 ;******************************************************************************
 ;

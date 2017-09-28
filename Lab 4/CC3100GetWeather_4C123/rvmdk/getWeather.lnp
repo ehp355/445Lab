@@ -22,8 +22,6 @@
 ".\rvmdk\adcswtrigger.o"
 ".\rvmdk\pll.o"
 ".\rvmdk\fixed.o"
-".\rvmdk\fallingedgeinterrupt.o"
-".\rvmdk\timer1init.o"
 ".\rvmdk\startup_rvmdk.o"
 "..\driverlib\rvmdk\driverlib.lib"
 --library_type=microlib --strict --scatter "cc31000_starter.sct"

@@ -95,7 +95,8 @@ Port A, SSI0 (PA2, PA3, PA5, PA6, PA7) sends data to Nokia5110 LCD
 #include "Nokia5110.h"
 #include <string.h>
 #include "ST7735.h"
-//#include "resp_extract.h"
+#include "ADCSWTrigger.h"
+#include "adcSamplerTool.h"
 
 //#define SSID_NAME  "valvanoAP" /* Access point name to connect to */
 #define SEC_TYPE   SL_SEC_TYPE_WPA
@@ -170,6 +171,7 @@ char SendBuff[MAX_SEND_BUFF_SIZE];
 char HostName[MAX_HOSTNAME_SIZE];
 unsigned long DestinationIP;
 int SockID;
+extern int8_t B0;
 
 
 typedef enum{
@@ -192,6 +194,7 @@ UINT32  g_Status = 0;
 static int32_t configureSimpleLinkToDefaultState(char *);
 //void stringCopy(const char * src, char * dst);
 void extract(void);
+void EnableInterrupts(void);
 /*
  * STATIC FUNCTION DEFINITIONS -- End
  */
@@ -214,11 +217,14 @@ void Crash(uint32_t time){
 // 2) Register on the Sign up page
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
 int main(void){int32_t retVal;  SlSecParams_t secParams;
-	//char localBuffer[MAX_RECV_BUFF_SIZE];
   char *pConfig = NULL; INT32 ASize = 0; SlSockAddrIn_t  Addr;
   initClk();        // PLL 50 MHz
   UART_Init();      // Send data to PC, 115200 bps
   LED_Init();       // initialize LaunchPad I/O 
+	adcSampler_Init();
+	Edge_Init();
+	Timer2A_Init();
+	EnableInterrupts();
   UARTprintf("Weather App\n");
   retVal = configureSimpleLinkToDefaultState(pConfig); // set policies
   if(retVal < 0)Crash(4000000);
@@ -259,6 +265,13 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
         UARTprintf(Recvbuff);  UARTprintf("\r\n");
       }
     }
+		ADCtoVolt();
+//		while(1){
+//		if(B0){
+//			ADCtoVolt();
+//			B0=0;
+//		}
+//		}
     while(Board_Input()==0){}; // wait for touch
     LED_GreenOff();
   }
@@ -275,8 +288,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
  #define LENGTH 10	//length of info array
 
  void extract(void){
-	//char my_text[NUM] = "temp";
-	 char my_text[] = "\"temp\":";
+	char my_text[] = "\"temp\":";
 	int i = 0;		//index for mytext
 	int j = 0;		//index for buffer
 	int k = 0; 	//index to start writing info
@@ -293,8 +305,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 		}
 	}
 	
-	//j++;		//enters the first digit of the information value
-	//j= j-4; - just to check i was getting the right string
+
 	char info[LENGTH];
 	
 	while(Recvbuff[j] != ','){
@@ -308,12 +319,6 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 	ST7735_OutString(info);
  }
 
-//void stringCopy(const char * src, char * dst){
-//	int i;
-//	for(i = 0; src[i] != 0; i++){
-//		dst[i] = src[i];
-//	}
-//}
 
 /*!
     \brief This function puts the device in its default state. It:

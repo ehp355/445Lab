@@ -4,11 +4,14 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab 4\CC3100GetWeather_4C123\getWeather.uvproj
-Project File Date:  09/27/2017
+Project File Date:  09/28/2017
 
 <h2>Output:</h2>
 Rebuild target 'getWeather'
 compiling main.c...
+adcSamplerTool.h(4): warning:  #1-D: last line of file ends without a newline
+  void ADCtoVolt(void);
+main.c: 1 warning, 0 errors
 compiling board.c...
 compiling Nokia5110.c...
 compiling LED.c...
@@ -28,9 +31,6 @@ compiling uartstdio.c...
 compiling ustdlib.c...
 compiling ST7735.c...
 compiling adcSamplerTool.c...
-adcSamplerTool.c(96): warning:  #1-D: last line of file ends without a newline
-  }
-adcSamplerTool.c: 1 warning, 0 errors
 compiling ADCSWTrigger.c...
 compiling PLL.c...
 compiling fixed.c...
@@ -113,34 +113,69 @@ fixed.c(190): warning:  #223-D: function "abs" declared implicitly
 fixed.c(204): warning:  #1-D: last line of file ends without a newline
   }
 fixed.c: 39 warnings, 0 errors
-compiling FallingEdgeInterrupt.c...
-compiling Timer1Init.c...
-Timer1Init.c(22): warning:  #1-D: last line of file ends without a newline
-  }
-Timer1Init.c: 1 warning, 0 errors
 assembling startup_rvmdk.S...
 linking...
-Program Size: Code=15424 RO-data=3844 RW-data=100 ZI-data=19508  
+Program Size: Code=16140 RO-data=3844 RW-data=108 ZI-data=19508  
 After Build - User command #1: fromelf --bin --output .\rvmdk\cc31000_starter.bin .\rvmdk\cc31000_starter.axf
-".\rvmdk\getWeather.axf" - 0 Error(s), 41 Warning(s).
+".\rvmdk\getWeather.axf" - 0 Error(s), 40 Warning(s).
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
 </pre>
 </body>
 </html>
-Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+rget DLL has been cancelled
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Connection failed!, error code=&d
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Connection failed!, error code=&d
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-0GetWeather_4C123\\rvmdk\\getWeather.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-_rvmdk.S...
-".\rvmdk\getWeather.axf" - 3 Error(s), 43 Warning(s).
+rvmdk.S(307): error: A1145E: Undefined exported symbol 'PWM0Generator2_Handler'
+startup_rvmdk.S(308): error: A1145E: Undefined exported symbol 'Quadrature0_Handler'
+startup_rvmdk.S(309): error: A1145E: Undefined exported symbol 'ADC0Seq0_Handler'
+startup_rvmdk.S(310): error: A1145E: Undefined exported symbol 'ADC0Seq1_Handler'
+startup_rvmdk.S(311): error: A1145E: Undefined exported symbol 'ADC0Seq2_Handler'
+startup_rvmdk.S(312): error: A1145E: Undefined exported symbol 'ADC0Seq3_Handler'
+startup_rvmdk.S(313): error: A1145E: Undefined exported symbol 'WDT_Handler'
+startup_rvmdk.S(314): error: A1145E: Undefined exported symbol 'Timer0A_Handler'
+startup_rvmdk.S(315): error: A1145E: Undefined exported symbol 'Timer0B_Handler'
+startup_rvmdk.S(316): error: A1145E: Undefined exported symbol 'Timer1A_Handler'
+startup_rvmdk.S(317): error: A1145E: Undefined exported symbol 'Timer1B_Handler'
+startup_rvmdk.S(318): error: A1145E: Undefined exported symbol 'Timer2A_Handler'
+startup_rvmdk.S(319): error: A1145E: Undefined exported symbol 'Timer2B_Handler'
+startup_rvmdk.S(320): error: A1145E: Undefined exported symbol 'Comp0_Handler'
+startup_rvmdk.S(321): error: A1145E: Undefined exported symbol 'Comp1_Handler'
+startup_rvmdk.S(322): error: A1145E: Undefined exported symbol 'Comp2_Handler'
+startup_rvmdk.S(323): error: A1145E: Undefined exported symbol 'SysCtl_Handler'
+startup_rvmdk.S(324): error: A1145E: Undefined exported symbol 'FlashCtl_Handler'
+startup_rvmdk.S(325): error: A1145E: Undefined exported symbol 'GPIOPortF_Handler'
+startup_rvmdk.S(326): error: A1145E: Undefined exported symbol 'GPIOPortG_Handler'
+startup_rvmdk.S(327): error: A1145E: Undefined exported symbol 'GPIOPortH_Handler'
+startup_rvmdk.S(328): error: A1145E: Undefined exported symbol 'UART2_Handler'
+startup_rvmdk.S(329): error: A1145E: Undefined exported symbol 'SSI1_Handler'
+startup_rvmdk.S(330): error: A1145E: Undefined exported symbol 'Timer3A_Handler'
+startup_rvmdk.S(331): error: A1145E: Undefined exported symbol 'Timer3B_Handler'
+startup_rvmdk.S(332): error: A1145E: Undefined exported symbol 'I2C1_Handler'
+startup_rvmdk.S(333): error: A1145E: Undefined exported symbol 'Quadrature1_Handler'
+startup_rvmdk.S(334): error: A1145E: Undefined exported symbol 'CAN0_Handler'
+startup_rvmdk.S(335): error: A1145E: Undefined exported symbol 'CAN1_Handler'
+startup_rvmdk.S(336): error: A1145E: Undefined exported symbol 'CAN2_Handler'
+startup_rvmdk.S(337): error: A1145E: Undefined exported symbol 'Ethernet_Handler'
+startup_rvmdk.S(338): error: A1145E: Undefined exported symbol 'Hibernate_Handler'
+startup_rvmdk.S(339): error: A1145E: Undefined exported symbol 'USB0_Handler'
+startup_rvmdk.S(340): error: A1145E: Undefined exported symbol 'PWM0Generator3_Handler'
+startup_rvmdk.S(341): error: A1145E: Undefined exported symbol 'uDMA_Handler'
+startup_rvmdk.S(342): error: A1145E: Undefined exported symbol 'uDMA_Error'
+startup_rvmdk.S(343): error: A1145E: Undefined exported symbol 'ADC1Seq0_Handler'
+".\rvmdk\getWeather.axf" - 50 Error(s), 41 Warning(s).
 Target not created

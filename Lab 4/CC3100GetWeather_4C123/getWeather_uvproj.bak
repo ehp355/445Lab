@@ -496,11 +496,6 @@
               <FilePath>..\utils\ustdlib.c</FilePath>
             </File>
             <File>
-              <FileName>resp_extract.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\resp_extract.c</FilePath>
-            </File>
-            <File>
               <FileName>ST7735.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ST7735.c</FilePath>
@@ -536,11 +531,6 @@
               <FilePath>.\PLL.h</FilePath>
             </File>
             <File>
-              <FileName>startup.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\startup.s</FilePath>
-            </File>
-            <File>
               <FileName>fixed.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\fixed.h</FilePath>
@@ -564,6 +554,11 @@
               <FileName>Timer1Init.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Timer1Init.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_rvmdk.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\startup_rvmdk.S</FilePath>
             </File>
           </Files>
         </Group>

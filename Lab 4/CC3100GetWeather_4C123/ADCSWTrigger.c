@@ -57,22 +57,20 @@
 // SS3 triggering event: software trigger
 // SS3 1st sample source: Ain9 (PE4)
 // SS3 interrupts: enabled but not promoted to controller
-void (*PeriodicTask)(void);   // user function
+//void (*PeriodicTask)(void);   // user function
 
-void Timer1_Init(void(*task)(void), uint32_t period){
-  SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
-	
-	
-  PeriodicTask = task;          // user function
-  TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
-  TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
-  TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-  TIMER1_TAILR_R = 0xFFFFFFFF-1;    // 4) reload value
-  TIMER1_TAPR_R = 0;            // 5) bus clock resolution
-  TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
-  
-  TIMER1_CTL_R = 0x00000001;    // 10) enable TIMER1A
-}
+//void Timer1_Init(void(*task)(void), uint32_t period){
+//  SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
+//  PeriodicTask = task;          // user function
+//  TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
+//  TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
+//  TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
+//  TIMER1_TAILR_R = 0xFFFFFFFF-1;    // 4) reload value
+//  TIMER1_TAPR_R = 0;            // 5) bus clock resolution
+//  TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
+//  
+//  TIMER1_CTL_R = 0x00000001;    // 10) enable TIMER1A
+//}
 
 void ADC0_InitSWTriggerSeq3_Ch9(void){ 
 	SYSCTL_RCGCADC_R |= 0x0001;   // 7) activate ADC0 
