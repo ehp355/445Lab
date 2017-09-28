@@ -3,22 +3,13 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Enrique\Desktop\445L LAbs\Lab 4\CC3100GetWeather_4C123\getWeather.uvproj
-Project File Date:  09/26/2017
+C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab 4\CC3100GetWeather_4C123\getWeather.uvproj
+Project File Date:  09/27/2017
 
 <h2>Output:</h2>
-Build target 'getWeather'
+Rebuild target 'getWeather'
 compiling main.c...
 compiling board.c...
-compiling spi.c...
-compiling uartstdio.c...
-linking...
-Program Size: Code=13916 RO-data=1824 RW-data=56 ZI-data=19512  
-After Build - User command #1: fromelf --bin --output .\rvmdk\cc31000_starter.bin .\rvmdk\cc31000_starter.axf
-".\rvmdk\getWeather.axf" - 0 Error(s), 0 Warning(s).
-ry
-  #include "inc/hw_memmap.h"
-..\cc3100\platform\ek-tm4c123gxl\board.c: 0 warnings, 1 error
 compiling Nokia5110.c...
 compiling LED.c...
 compiling device.c...
@@ -31,16 +22,125 @@ compiling nonos.c...
 compiling socket.c...
 compiling spawn.c...
 compiling spi.c...
-..\cc3100\platform\ek-tm4c123gxl\spi.c(41): error:  #5: cannot open source input file "inc/hw_memmap.h": No such file or directory
-  #include "inc/hw_memmap.h"
-..\cc3100\platform\ek-tm4c123gxl\spi.c: 0 warnings, 1 error
-assembling startup_rvmdk.S...
 compiling uart.c...
 compiling wlan.c...
 compiling uartstdio.c...
-..\utils\uartstdio.c(28): error:  #5: cannot open source input file "inc/hw_ints.h": No such file or directory
-  #include "inc/hw_ints.h"
-..\utils\uartstdio.c: 0 warnings, 1 error
 compiling ustdlib.c...
-".\rvmdk\getWeather.axf" - 4 Error(s), 0 Warning(s).
+compiling ST7735.c...
+compiling adcSamplerTool.c...
+adcSamplerTool.c(96): warning:  #1-D: last line of file ends without a newline
+  }
+adcSamplerTool.c: 1 warning, 0 errors
+compiling ADCSWTrigger.c...
+compiling PLL.c...
+compiling fixed.c...
+fixed.c(34): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(' ',0);                                                                                   //print "*.***" to LCD
+fixed.c(35): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('*',0);
+fixed.c(36): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc('.',0);
+fixed.c(38): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                                fputc('*',0);
+fixed.c(49): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);                                                                                           //print out numbers in numList array 
+fixed.c(50): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc((m+48),0);                                                                                //to LCD
+fixed.c(51): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.',0);
+fixed.c(53): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(numList[k],0);
+fixed.c(65): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('-',0);                                                                                           //print out '-' and then print out
+fixed.c(66): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc((m+48),0);                                                                                //numbers in numList array to LCD
+fixed.c(67): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.',0);
+fixed.c(69): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(numList[k],0);
+fixed.c(78): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);                                                                                   //print "***.**" on LCD
+fixed.c(79): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+      fputc('*',0);
+fixed.c(80): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('*',0);
+fixed.c(81): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('*',0);
+fixed.c(82): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.',0);
+fixed.c(84): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                  fputc('*',0);
+fixed.c(98): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);                                                                                                   //print 3 spaces 
+fixed.c(99): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);
+fixed.c(100): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);
+fixed.c(101): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[0],0);                                                                    //print first number
+fixed.c(102): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.',0);
+fixed.c(105): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(numList[i],0);
+fixed.c(126): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);                                                                                                   //print two spaces
+fixed.c(127): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ' ,0);
+fixed.c(128): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[0],0);                                                                    //print first two numbers
+fixed.c(129): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[1],0);
+fixed.c(130): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.', 0);
+fixed.c(132): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(numList[i],0);
+fixed.c(160): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(' ',0);                                                                                                   //print one space
+fixed.c(161): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[0],0);                                                                    //print first three numbers in array
+fixed.c(162): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[1],0);
+fixed.c(163): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(numList[2],0);
+fixed.c(164): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc('.', 0);                                                                                          //print decimal point
+fixed.c(167): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                        fputc(numList[i],0);                                                            //print last two numbers
+fixed.c(180): warning:  #2748-D: null argument provided for parameter marked with attribute "nonnull"
+                fputc(title[i],0);
+fixed.c(190): warning:  #223-D: function "abs" declared implicitly
+        offset_X=abs(minX);                                                                                     //offsets to add to x and y data pts
+fixed.c(204): warning:  #1-D: last line of file ends without a newline
+  }
+fixed.c: 39 warnings, 0 errors
+compiling FallingEdgeInterrupt.c...
+compiling Timer1Init.c...
+Timer1Init.c(22): warning:  #1-D: last line of file ends without a newline
+  }
+Timer1Init.c: 1 warning, 0 errors
+assembling startup_rvmdk.S...
+linking...
+Program Size: Code=15424 RO-data=3844 RW-data=100 ZI-data=19508  
+After Build - User command #1: fromelf --bin --output .\rvmdk\cc31000_starter.bin .\rvmdk\cc31000_starter.axf
+".\rvmdk\getWeather.axf" - 0 Error(s), 41 Warning(s).
+</pre>
+</body>
+</html>
+Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+0GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab 4\\CC3100GetWeather_4C123\\rvmdk\\getWeather.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+_rvmdk.S...
+".\rvmdk\getWeather.axf" - 3 Error(s), 43 Warning(s).
 Target not created

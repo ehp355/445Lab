@@ -331,6 +331,21 @@ __user_initial_stackheap
 
 ;******************************************************************************
 ;
+; Usefull functions
+;
+;******************************************************************************
+	EXPORT DisableInterrupts
+	EXPORT EnableInterrupts
+
+DisableInterrupts
+	CPSID I
+	BX LR
+	
+EnableInterrupts
+	CPSIE I
+	BX LR
+;******************************************************************************
+;
 ; Make sure the end of this section is aligned.
 ;
 ;******************************************************************************

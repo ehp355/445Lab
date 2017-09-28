@@ -115,10 +115,6 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>DLGUARM</Key>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
           <Key>DLGTARM</Key>
           <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
@@ -244,7 +240,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>272</TopLine>
+      <TopLine>276</TopLine>
       <CurrentLine>277</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup.s</PathWithFileName>
@@ -276,8 +272,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>12</TopLine>
-      <CurrentLine>21</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>2</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -292,7 +288,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>102</TopLine>
+      <TopLine>103</TopLine>
       <CurrentLine>113</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\fixed.c</PathWithFileName>
@@ -308,7 +304,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>837</TopLine>
+      <TopLine>838</TopLine>
       <CurrentLine>848</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ST7735.c</PathWithFileName>
@@ -370,10 +366,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>4</ColumnNumber>
+      <ColumnNumber>6</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>666</TopLine>
-      <CurrentLine>680</CurrentLine>
+      <TopLine>217</TopLine>
+      <CurrentLine>679</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\AlarmClockVisual.c</PathWithFileName>
       <FilenameWithoutPath>AlarmClockVisual.c</FilenameWithoutPath>
@@ -388,7 +384,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>37</TopLine>
+      <TopLine>26</TopLine>
       <CurrentLine>66</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\AlarmClockAudio.c</PathWithFileName>
@@ -418,10 +414,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>4</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>20</TopLine>
-      <CurrentLine>21</CurrentLine>
+      <TopLine>123</TopLine>
+      <CurrentLine>124</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\AlarmClockSwitchControl.c</PathWithFileName>
       <FilenameWithoutPath>AlarmClockSwitchControl.c</FilenameWithoutPath>
@@ -452,8 +448,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>63</TopLine>
-      <CurrentLine>67</CurrentLine>
+      <TopLine>50</TopLine>
+      <CurrentLine>66</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SysTick.c</PathWithFileName>
       <FilenameWithoutPath>SysTick.c</FilenameWithoutPath>
@@ -484,7 +480,7 @@
       <Focus>0</Focus>
       <ColumnNumber>3</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>28</TopLine>
+      <TopLine>29</TopLine>
       <CurrentLine>54</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\SysTickTestMain.c</PathWithFileName>
@@ -532,8 +528,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>19</TopLine>
-      <CurrentLine>30</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>72</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\FallingEdgeInterrupt.c</PathWithFileName>
       <FilenameWithoutPath>FallingEdgeInterrupt.c</FilenameWithoutPath>
@@ -562,10 +558,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>3</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>5</CurrentLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Timer0A.c</PathWithFileName>
       <FilenameWithoutPath>Timer0A.c</FilenameWithoutPath>

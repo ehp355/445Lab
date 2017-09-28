@@ -476,11 +476,6 @@
               <FilePath>..\cc3100\platform\ek-tm4c123gxl\spi.c</FilePath>
             </File>
             <File>
-              <FileName>startup_rvmdk.S</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\startup_rvmdk.S</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\cc3100\platform\ek-tm4c123gxl\uart.c</FilePath>
@@ -499,6 +494,71 @@
               <FileName>ustdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\utils\ustdlib.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ST7735.h</FilePath>
+            </File>
+            <File>
+              <FileName>adcSamplerTool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adcSamplerTool.c</FilePath>
+            </File>
+            <File>
+              <FileName>ADCSWTrigger.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ADCSWTrigger.h</FilePath>
+            </File>
+            <File>
+              <FileName>ADCSWTrigger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ADCSWTrigger.c</FilePath>
+            </File>
+            <File>
+              <FileName>PLL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>PLL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PLL.h</FilePath>
+            </File>
+            <File>
+              <FileName>fixed.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\fixed.h</FilePath>
+            </File>
+            <File>
+              <FileName>fixed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\fixed.c</FilePath>
+            </File>
+            <File>
+              <FileName>FallingEdgeInterrupt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FallingEdgeInterrupt.c</FilePath>
+            </File>
+            <File>
+              <FileName>FallingEdgeInterrupt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FallingEdgeInterrupt.h</FilePath>
+            </File>
+            <File>
+              <FileName>Timer1Init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer1Init.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_rvmdk.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\startup_rvmdk.S</FilePath>
             </File>
           </Files>
         </Group>

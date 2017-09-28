@@ -94,11 +94,14 @@ Port A, SSI0 (PA2, PA3, PA5, PA6, PA7) sends data to Nokia5110 LCD
 #include "LED.h"
 #include "Nokia5110.h"
 #include <string.h>
+#include "ST7735.h"
+//#include "resp_extract.h"
+
 //#define SSID_NAME  "valvanoAP" /* Access point name to connect to */
 #define SEC_TYPE   SL_SEC_TYPE_WPA
 //#define PASSKEY    "12345678"  /* Password in case of secure AP */ 
-#define SSID_NAME  "ValvanoJonathaniPhone"
-#define PASSKEY    "y2uvdjfi5puyd"
+#define SSID_NAME  "juliepulido"
+#define PASSKEY    "marmasia"
 #define BAUD_RATE   115200
 void UART_Init(void){
   SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
@@ -187,8 +190,8 @@ UINT32  g_Status = 0;
  */
 
 static int32_t configureSimpleLinkToDefaultState(char *);
-
-
+//void stringCopy(const char * src, char * dst);
+void extract(void);
 /*
  * STATIC FUNCTION DEFINITIONS -- End
  */
@@ -206,10 +209,12 @@ void Crash(uint32_t time){
 // 1) change Austin Texas to your city
 // 2) you can change metric to imperial if you want temperature in F
 #define REQUEST "GET /data/2.5/weather?q=Austin%20Texas&APPID=1bc54f645c5f1c75e681c102ed4bbca4&units=metric HTTP/1.1\r\nUser-Agent: Keil\r\nHost:api.openweathermap.org\r\nAccept: */*\r\n\r\n"
+//API key: 3d15ba1b29d8cf349994d95dcfc74291
 // 1) go to http://openweathermap.org/appid#use 
 // 2) Register on the Sign up page
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
 int main(void){int32_t retVal;  SlSecParams_t secParams;
+	//char localBuffer[MAX_RECV_BUFF_SIZE];
   char *pConfig = NULL; INT32 ASize = 0; SlSockAddrIn_t  Addr;
   initClk();        // PLL 50 MHz
   UART_Init();      // Send data to PC, 115200 bps
@@ -227,6 +232,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
     _SlNonOsMainLoopTask();
   }
   UARTprintf("Connected\n");
+  ST7735_InitR(INITR_REDTAB);
   while(1){
    // strcpy(HostName,"openweathermap.org");  // used to work 10/2015
     strcpy(HostName,"api.openweathermap.org"); // works 9/2016
@@ -247,6 +253,8 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
         sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response 
         sl_Close(SockID);
         LED_GreenOn();
+				//stringCopy(Recvbuff, localBuffer);
+				extract();
         UARTprintf("\r\n\r\n");
         UARTprintf(Recvbuff);  UARTprintf("\r\n");
       }
@@ -255,6 +263,57 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
     LED_GreenOff();
   }
 }
+
+
+/*********************** extract *******************************
+ *	This function extracts information from buffer and creates a
+ *	fixed length string to display information
+ *
+ */
+ 
+ //#define NUM 		5		//length of the temp array
+ #define LENGTH 10	//length of info array
+
+ void extract(void){
+	//char my_text[NUM] = "temp";
+	 char my_text[] = "\"temp\":";
+	int i = 0;		//index for mytext
+	int j = 0;		//index for buffer
+	int k = 0; 	//index to start writing info
+				
+	 
+	while (my_text[i] != NULL){
+		if( my_text[i] == Recvbuff[j]){
+			i++;
+			j++;			
+		}
+		else{
+			i = 0;	//reset my_text index
+			j++;	
+		}
+	}
+	
+	//j++;		//enters the first digit of the information value
+	//j= j-4; - just to check i was getting the right string
+	char info[LENGTH];
+	
+	while(Recvbuff[j] != ','){
+		info[k] = Recvbuff[j];
+		k++;
+		j++;		
+	}
+	char temp[] = "Temp = ";	
+	//need to set cursor before calling extract function
+	ST7735_OutString(temp);
+	ST7735_OutString(info);
+ }
+
+//void stringCopy(const char * src, char * dst){
+//	int i;
+//	for(i = 0; src[i] != 0; i++){
+//		dst[i] = src[i];
+//	}
+//}
 
 /*!
     \brief This function puts the device in its default state. It:
