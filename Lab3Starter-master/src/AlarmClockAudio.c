@@ -5,7 +5,7 @@
 **Audio interface for Alarm Clock
 **Lab3
 **TA: Cody Horton
-**Last Modified: 9/20/17
+**Last Modified: 9/28/17
 */
 #include <stdio.h>
 #include <stdint.h>
@@ -13,7 +13,6 @@
 #include "../inc/tm4c123gh6pm.h"
 
 #define PC4 (*((volatile uint32_t *)0x40006040))
-//#define PF4 (*((volatile uint32_t *)0x40025040))
 	
 extern int8_t B1;
 extern int8_t B2;

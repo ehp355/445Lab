@@ -486,16 +486,6 @@
               <FilePath>.\SysTickTestMain.c</FilePath>
             </File>
             <File>
-              <FileName>ClockImages.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ClockImages.c</FilePath>
-            </File>
-            <File>
-              <FileName>ClockImages.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ClockImages.h</FilePath>
-            </File>
-            <File>
               <FileName>FallingEdgeInterrupt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\FallingEdgeInterrupt.c</FilePath>

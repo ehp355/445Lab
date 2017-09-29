@@ -1,6 +1,18 @@
+/*FallingEdgeInterrupt.c
+**Enrique Perez-Osborne
+**Juliana Pulido
+**Created: 9/20/17
+**EdgeInterrupt Service Routine
+**for when buttons are pressed
+**Lab3
+**TA: Cody Horton
+**Last Modified: 9/28/17
+*/
+
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
 int32_t button;
+//B1 = Button 1, etc.
 int8_t B1;
 int8_t B2;
 int8_t B3;
@@ -21,7 +33,6 @@ void Edge_Init(void){
 	GPIO_PORTB_IM_R |= 0x01;		//arm trigger flags
 	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
 	NVIC_EN0_R  = 0x02;
-	//EnableInterrupts();
 }
 
 
@@ -29,9 +40,6 @@ void Edge_Init(void){
 void GPIOPortB_Handler(void){
 	GPIO_PORTB_ICR_R |= 0x1E;		//acknowledge flag
 	GPIO_PORTB_IM_R  &= ~0x1E;			//ignore interrupts for portb
-	//disable int
-	//write 0 to imr for portbhandler
-	//GPIO_PORTB_ICR_R &= ~0x1E;			//disarm buttons
 	button = (GPIO_PORTB_DATA_R & 0x1E);		//CHECK button pressed
 	pressed = 1;
 	switch(button){
@@ -68,6 +76,6 @@ void GPIOPortB_Handler(void){
 		TIMER0_IMR_R = 1;							//arm timer 0
 		TIMER0_CTL_R = 0x00000001;    //10) enable timer0A		
 	}
-	}
+}
 
 

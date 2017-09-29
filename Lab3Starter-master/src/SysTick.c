@@ -1,4 +1,14 @@
-// SysTick.c
+/*SysTick.c
+**Enrique Perez-Osborne
+**Juliana Pulido
+**Created: 9/20/17
+**SysTick is used to keep track of 
+**the time for the clock
+**Lab3
+**TA: Cody Horton
+**Last Modified: 9/28/17
+*/
+
 // Runs on LM4F120/TM4C123
 // Provide functions that initialize the SysTick module, wait at least a
 // designated number of clock cycles, and wait approximately a multiple
@@ -45,6 +55,7 @@
 #define NVIC_ST_RELOAD_M        0x00FFFFFF  // Counter load value
 
 uint32_t current_Time=0;
+
 // Initialize SysTick with busy wait running at bus clock.
 void SysTick_Init(void){
   NVIC_ST_CTRL_R = 0;                   // disable SysTick during setup
@@ -53,12 +64,12 @@ void SysTick_Init(void){
                                         // enable SysTick with core clock
   NVIC_ST_CTRL_R = NVIC_ST_CTRL_ENABLE+NVIC_ST_CTRL_CLK_SRC+NVIC_ST_CTRL_INTEN;
 }
+
 // Time delay using busy wait.
 // The delay parameter is in units of the core clock. (units of 20 nsec for 50 MHz clock)
 
 void SysTick_Handler(void){
 	//may need to acknowledge timeout
-	
 	current_Time = current_Time+1;
 }
 
@@ -78,6 +89,7 @@ void SysTick_Wait(uint32_t delay){
   }
   while(elapsedTime <= delay);
 }
+
 // Time delay using busy wait.
 // This assumes 50 MHz system clock.
 void SysTick_Wait10ms(uint32_t delay){

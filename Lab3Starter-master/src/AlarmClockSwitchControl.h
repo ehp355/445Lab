@@ -5,49 +5,8 @@
 ** Switch interface for Alarm Clock
 ** Lab3
 ** TA: Cody Horton
-** Last Modified: 9/20/17
+** Last Modified: 9/28/17
 */
-
-
-
-/****************setAlarm***************
-Sets clock so that the alarm goes off at
-the given time
-inputs: hour time and minute time(int32_t)
-outputs: none
-*/ 
-uint32_t setAlarm(uint32_t currentAlarm);
-
-/****************turnOffAlarm***************
-Turns off the alarm after it begins going
-off
-inputs: none
-outputs: none
-*/ 
-void turnOffAlarm(void);
-
-/****************snoozeAlarm***************
-Snoozes alarm after it begins going off
-inputs: none
-outputs: none
-*/ 
-void snoozeAlarm(void);
-
-/****************enableAlarm***************
-Enables for the alarm to go off, based on
-the time the alarm was set
-inputs: none
-outputs: none
-*/ 
-void enableAlarm(void);
-
-/****************disableAlarm***************
-Disables for the alarm to go off, based on
-the time the alarm was set
-inputs: none
-outputs: none
-*/ 
-void disbleAlarm(void);
 
 /****************switchDisplay***************
 Toggles ClockFace and Digital Clock
@@ -56,7 +15,39 @@ outputs: none
 */ 
 void switchDisplay(void);
 
+/****************runClockFace***************
+Places the main thread of code in a state so 
+that it us contiuously updating the analog face 
+of the clock until one of the four buttons is pressed
+inputs: none
+outputs: none
+*/
 void runClockFace(void);
+
+/****************runDigital***************
+Places the main thread of code in a state so 
+that it us contiuously updating the digital 
+clock until one of the four buttons is pressed
+inputs: none
+outputs: none
+*/
 void runDigitalClock(void);
-void settingTime(uint16_t hour, uint16_t min, uint8_t forAlarm);
+
+/****************settingTime***************
+Places the main thread of code in a state so 
+that the user may set the time of the alarm
+or of the clock. This is decided by the global
+variable for_Alarm that is set based on which
+option the user chose by using the buttons
+inputs: none
+outputs: none
+*/
+void settingTime(void);
+
+/****************checkAlarm***************
+Helper function to check if the current time
+is equivalent to the alarm time
+inputs: none
+outputs: none
+*/
 void checkAlarm(void);

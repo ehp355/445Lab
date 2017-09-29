@@ -5,7 +5,7 @@
 **LCD interface for Alarm Clock
 **Lab3
 **TA: Cody Horton
-**Last Modified: 9/20/17
+**Last Modified: 9/28/17
 */
 #include <stdio.h>
 #include <stdint.h>
@@ -14,16 +14,9 @@
 #include "ClockImages.h"
 #include "fixed.h"
 
-//variables used to help with screen flickering
-//will be compared to new hour and minute to see
-//if either hour or minute needs to have image 
-//overwritten
-int32_t previous_Hour;
-int32_t previous_minute;
-
-
 void paintClockFace(void);
 
+//Bitmap image of clockFace
 const unsigned short clockFace[] = {
  0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
  0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
@@ -654,9 +647,6 @@ const unsigned short clockFace[] = {
 
 };
 
-
-
-
 void paintDigitalClock(uint32_t hour, uint32_t min, uint32_t hourColor, uint32_t minColor);
 
 void setDigitalClock(int32_t hour, int32_t min);
@@ -676,9 +666,6 @@ void startClock(void){
 
 	paintClockFace();
 	runClockFace();
-	//paintDigitalClock(0,0, ST7735_BLUE,ST7735_BLUE);
-	//runDigitalClock();
-
 }
 
 
@@ -690,9 +677,7 @@ void paintClockFace(void){
 	
 }
 
-//need to write function so that it draws over previous hand
-// and then creates new hand to help with screen flickering 
-//issue
+
 //center of clock is (60,87)
 void drawClockHand(uint32_t hour, uint32_t min){
 	min = min % 60;
@@ -736,14 +721,12 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60, 87, 75, 70, min_Hand_Color);
 			break;
 		case 10:
-			//ST7735_Line(60, 87, 75, 70, ST7735_BLACK);
 			ST7735_Line(60, 87, 80, 84, min_Hand_Color);
 			break;
 		case 15:
 			ST7735_Line(60, 87, 75, 70, ST7735_BLACK);
 			ST7735_Line(60, 87, 82, 87, min_Hand_Color);
 			break;
-		
 		case 20:
 			ST7735_Line(60, 87, 82, 87, ST7735_BLACK);
 			ST7735_Line(60,87,73,94, min_Hand_Color);
@@ -756,12 +739,10 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60,87,65,103, ST7735_BLACK);
 			ST7735_Line(60, 87, 60, 109, min_Hand_Color);
 			break;
-		
 		case 32:
 			ST7735_Line(60, 87, 60, 109, ST7735_BLACK);
 			ST7735_Line(60, 87, 55, 109, min_Hand_Color);
 			break;
-		
 		case 35:
 			ST7735_Line(60, 87, 55, 109, ST7735_BLACK);
 			ST7735_Line(60, 87, 50, 109, min_Hand_Color);
@@ -782,21 +763,17 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60, 87, 38, 87, ST7735_BLACK);
 			ST7735_Line(60, 87, 43, 70, min_Hand_Color);
 			break;
-		
 		case 55:
 			ST7735_Line(60, 87, 43, 70, ST7735_BLACK);
 			ST7735_Line(60, 87, 48, 65, min_Hand_Color);
 			break;
-		
 	}
-	
 	
 	switch(hour){
 		case 0:
 			//12 hr
 			ST7735_Line(60, 87, 50, 76, ST7735_BLACK);
-			ST7735_Line(60, 87, 60, 75, hour_Hand_Color);
-		
+			ST7735_Line(60, 87, 60, 75, hour_Hand_Color);	
 			break;
 		case 1:
 			ST7735_Line(60, 87, 70, 75, hour_Hand_Color);
@@ -832,12 +809,10 @@ void drawClockHand(uint32_t hour, uint32_t min){
 			ST7735_Line(60,87,50,95, ST7735_BLACK);
 			ST7735_Line(60, 87, 48, 87, hour_Hand_Color);
 			break;
-		
 		case 10:
 			ST7735_Line(60, 87, 48, 87, ST7735_BLACK);
 			ST7735_Line(60, 87, 50, 76, hour_Hand_Color);
 			break;
-		
 		case 11:
 			ST7735_Line(60, 87, 50, 76, ST7735_BLACK);
 			ST7735_Line(60, 87, 50, 76, hour_Hand_Color);
@@ -877,6 +852,7 @@ void alarmEnabled(uint32_t hour, uint32_t min){
 	char hourChar2= ((char)(hour/10)+zero);
 	char colin = ':';
 	
+	//Displays at the lower third of the screen
 	ST7735_DrawCharS(30, 140, '(', ST7735_RED, ST7735_BLACK, 1);	
 	ST7735_DrawCharS(40, 140, hourChar2, ST7735_RED, ST7735_BLACK, 1);
 	ST7735_DrawCharS(50, 140, hourChar1, ST7735_RED, ST7735_BLACK, 1);

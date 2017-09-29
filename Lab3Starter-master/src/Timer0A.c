@@ -1,3 +1,11 @@
+/* ******** Timer0A.c ************** 
+** Enrique Perez-Osborne ehp355
+** Juliana Pulido 
+** Created: 9/20/17
+** Lab3
+** TA: Cody Horton
+** Last Modified: 9/28/17
+*/
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
 
@@ -18,5 +26,4 @@ void Timer0A_Handler(void){
 		TIMER0_IMR_R &= ~0x1;						//disarm timout
 		TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER0A timeout
 		GPIO_PORTB_IM_R  |= 0x1E;
-
 }
