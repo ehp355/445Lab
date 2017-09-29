@@ -6,7 +6,7 @@
 #include "AlarmClockVisual.h"
 #include "AlarmClockAudio.h"
 #include "AlarmClockSwitchControl.h"
-#include "FallingEdgeInterrupt.h"
+#include "RisingEdgeInterrupt.h"
 #include "Timer0A.h"
 
 
@@ -32,7 +32,6 @@ int main(){
 	Timer1A_Init();
 	
 	PortC_Init();
-	
 	
 	startClock();
 	

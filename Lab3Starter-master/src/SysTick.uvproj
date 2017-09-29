@@ -486,16 +486,6 @@
               <FilePath>.\SysTickTestMain.c</FilePath>
             </File>
             <File>
-              <FileName>FallingEdgeInterrupt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FallingEdgeInterrupt.c</FilePath>
-            </File>
-            <File>
-              <FileName>FallingEdgeInterrupt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\FallingEdgeInterrupt.h</FilePath>
-            </File>
-            <File>
               <FileName>Timer0A.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Timer0A.c</FilePath>
@@ -504,6 +494,11 @@
               <FileName>Timer0A.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Timer0A.h</FilePath>
+            </File>
+            <File>
+              <FileName>RisingEdgeInterrupt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RisingEdgeInterrupt.c</FilePath>
             </File>
           </Files>
         </Group>
