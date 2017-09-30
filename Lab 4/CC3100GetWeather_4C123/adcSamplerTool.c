@@ -20,6 +20,8 @@ volatile uint32_t ADCvalue;
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
 
+char voltage[4];
+
 
 void adcSampler_Init(void){
   //PLL_Init(Bus80MHz);                   // 80 MHz
@@ -38,10 +40,15 @@ void adcSampler_Init(void){
 
 void ADCtoVolt(void){
 	uint32_t volt = (ADCvalue*330)/4095;
+	
 	uint32_t Digit3 = volt%10;
+	voltage[3] = Digit3+('0');
 	volt = volt/10;
 	uint32_t Digit2 = volt%10;
+	voltage[2] = Digit2+('0');
 	uint32_t Digit1 = volt/10;
+	voltage[1] = '.';
+	voltage[0] =Digit1+'0';
 	
 	char title[] = "Voltage~";
 	ST7735_SetCursor(0,5);
@@ -52,6 +59,10 @@ void ADCtoVolt(void){
 	ST7735_OutChar(Digit3+'0');
 	ST7735_OutChar('V');
 
+}
+
+char* getVoltString(void){
+	return voltage;
 }
 
 int32_t button;

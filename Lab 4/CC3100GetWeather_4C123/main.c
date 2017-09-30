@@ -173,6 +173,8 @@ unsigned long DestinationIP;
 int SockID;
 extern int8_t B0;
 
+void LogToServer(void);
+
 
 typedef enum{
     CONNECTED = 0x01,
@@ -205,6 +207,45 @@ void Crash(uint32_t time){
     for(int i=time;i;i--){};
     LED_RedToggle();
   }
+}
+
+//E.P.O.
+//called after ADC is sampled and displayed in main
+void LogToServer(void){
+	int32_t IPaddress;
+	SlSockAddrIn_t  Addr;
+	INT32 ASize = 0;
+	//step1
+	//need to check if string for hostname is correct
+	strcpy(HostName,"embedded-systems-server.appspot.com");
+	IPaddress =sl_NetAppDnsGetHostByName(HostName, strlen(HostName),&DestinationIP, SL_AF_INET);
+	
+	//step2
+	SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
+	
+	if(IPaddress == 0){
+      Addr.sin_family = SL_AF_INET;
+      Addr.sin_port = sl_Htons(80);
+      Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian 
+      ASize = sizeof(SlSockAddrIn_t);
+      SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
+      if( SockID >= 0 ){
+        IPaddress = sl_Connect(SockID, ( SlSockAddr_t *)&Addr, ASize);
+      }
+      if((SockID >= 0)&&(IPaddress >= 0)){
+        strcpy(SendBuff,"GET /query?city=Austin%20Texas&id=Enrique%20Juliana&greet=V%20%3D");
+				strcat(SendBuff, getVoltString());
+				strcat(SendBuff,"V ");
+				strcat(SendBuff,"HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n"); 
+				//step4
+				sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET 
+				//step5
+				sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
+				//step6	
+				sl_Close(SockID);
+      }
+    }
+	
 }
 /*
  * Application's entry point
@@ -272,6 +313,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 //			B0=0;
 //		}
 //		}
+		LogToServer();
     while(Board_Input()==0){}; // wait for touch
     LED_GreenOff();
   }
