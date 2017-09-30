@@ -2,11 +2,11 @@
  * main.c - Example project for UT.6.02x Embedded Systems - Shape the World
  * Jonathan Valvano and Ramesh Yerraballi
  * September 14, 2016
- * Hardware requirements 
+ * Hardware requirements
      TM4C123 LaunchPad, optional Nokia5110
-     CC3100 wifi booster and 
+     CC3100 wifi booster and
      an internet access point with OPEN, WPA, or WEP security
- 
+
  * derived from TI's getweather example
  * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com/
  *
@@ -100,7 +100,7 @@ Port A, SSI0 (PA2, PA3, PA5, PA6, PA7) sends data to Nokia5110 LCD
 
 //#define SSID_NAME  "valvanoAP" /* Access point name to connect to */
 #define SEC_TYPE   SL_SEC_TYPE_WPA
-//#define PASSKEY    "12345678"  /* Password in case of secure AP */ 
+//#define PASSKEY    "12345678"  /* Password in case of secure AP */
 #define SSID_NAME  "juliepulido"
 #define PASSKEY    "marmasia"
 #define BAUD_RATE   115200
@@ -197,6 +197,7 @@ static int32_t configureSimpleLinkToDefaultState(char *);
 //void stringCopy(const char * src, char * dst);
 void extract(void);
 void EnableInterrupts(void);
+void DisableInterrupts(void);
 /*
  * STATIC FUNCTION DEFINITIONS -- End
  */
@@ -219,14 +220,14 @@ void LogToServer(void){
 	//need to check if string for hostname is correct
 	strcpy(HostName,"embedded-systems-server.appspot.com");
 	IPaddress =sl_NetAppDnsGetHostByName(HostName, strlen(HostName),&DestinationIP, SL_AF_INET);
-	
+
 	//step2
 	SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
-	
+
 	if(IPaddress == 0){
       Addr.sin_family = SL_AF_INET;
       Addr.sin_port = sl_Htons(80);
-      Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian 
+      Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian
       ASize = sizeof(SlSockAddrIn_t);
       SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
       if( SockID >= 0 ){
@@ -236,16 +237,16 @@ void LogToServer(void){
         strcpy(SendBuff,"GET /query?city=Austin%20Texas&id=Enrique%20Juliana&greet=V%20%3D");
 				strcat(SendBuff, getVoltString());
 				strcat(SendBuff,"V ");
-				strcat(SendBuff,"HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n"); 
+				strcat(SendBuff,"HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n");
 				//step4
-				sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET 
+				sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET
 				//step5
 				sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
-				//step6	
+				//step6
 				sl_Close(SockID);
       }
     }
-	
+
 }
 /*
  * Application's entry point
@@ -254,14 +255,14 @@ void LogToServer(void){
 // 2) you can change metric to imperial if you want temperature in F
 #define REQUEST "GET /data/2.5/weather?q=Austin%20Texas&APPID=1bc54f645c5f1c75e681c102ed4bbca4&units=metric HTTP/1.1\r\nUser-Agent: Keil\r\nHost:api.openweathermap.org\r\nAccept: */*\r\n\r\n"
 //API key: 3d15ba1b29d8cf349994d95dcfc74291
-// 1) go to http://openweathermap.org/appid#use 
+// 1) go to http://openweathermap.org/appid#use
 // 2) Register on the Sign up page
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
 int main(void){int32_t retVal;  SlSecParams_t secParams;
   char *pConfig = NULL; INT32 ASize = 0; SlSockAddrIn_t  Addr;
-  initClk();        // PLL 50 MHz
+	initClk();        // PLL 50 MHz
   UART_Init();      // Send data to PC, 115200 bps
-  LED_Init();       // initialize LaunchPad I/O 
+  LED_Init();       // initialize LaunchPad I/O
 	adcSampler_Init();
 	Edge_Init();
 	Timer2A_Init();
@@ -288,32 +289,31 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
     if(retVal == 0){
       Addr.sin_family = SL_AF_INET;
       Addr.sin_port = sl_Htons(80);
-      Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian 
+      Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian
       ASize = sizeof(SlSockAddrIn_t);
       SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
       if( SockID >= 0 ){
         retVal = sl_Connect(SockID, ( SlSockAddr_t *)&Addr, ASize);
       }
       if((SockID >= 0)&&(retVal >= 0)){
-        strcpy(SendBuff,REQUEST); 
-        sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET 
-        sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response 
+        strcpy(SendBuff,REQUEST);
+        sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET
+        sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
         sl_Close(SockID);
         LED_GreenOn();
-				//stringCopy(Recvbuff, localBuffer);
-				extract();
         UARTprintf("\r\n\r\n");
         UARTprintf(Recvbuff);  UARTprintf("\r\n");
       }
     }
-		ADCtoVolt();
-//		while(1){
-//		if(B0){
-//			ADCtoVolt();
-//			B0=0;
-//		}
-//		}
-		LogToServer();
+		extract();
+    ADCtoVolt();
+    LogToServer();
+		while(1){
+		if(B0){
+			ADCtoVolt();
+			B0=0;
+		}
+		}
     while(Board_Input()==0){}; // wait for touch
     LED_GreenOff();
   }
@@ -325,8 +325,6 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
  *	fixed length string to display information
  *
  */
- 
- //#define NUM 		5		//length of the temp array
  #define LENGTH 10	//length of info array
 
  void extract(void){
@@ -334,31 +332,33 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 	int i = 0;		//index for mytext
 	int j = 0;		//index for buffer
 	int k = 0; 	//index to start writing info
-				
-	 
+
+
 	while (my_text[i] != NULL){
 		if( my_text[i] == Recvbuff[j]){
 			i++;
-			j++;			
+			j++;
 		}
 		else{
 			i = 0;	//reset my_text index
-			j++;	
+			j++;
 		}
 	}
-	
+
 
 	char info[LENGTH];
-	
+
 	while(Recvbuff[j] != ','){
 		info[k] = Recvbuff[j];
 		k++;
-		j++;		
+		j++;
 	}
-	char temp[] = "Temp = ";	
+	char temp[] = "Temp = ";
+	char degree[] = " C";
 	//need to set cursor before calling extract function
 	ST7735_OutString(temp);
 	ST7735_OutString(info);
+	ST7735_OutString(degree);
  }
 
 
@@ -650,5 +650,3 @@ void SimpleLinkSockEventHandler(SlSockEvent_t *pSock){
 /*
  * * ASYNCHRONOUS EVENT HANDLERS -- End
  */
-
-

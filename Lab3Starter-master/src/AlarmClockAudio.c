@@ -23,10 +23,10 @@ int alarm_On =0;
 
 void PortC_Init(void){
   SYSCTL_RCGCGPIO_R |= 0x00000004; 	// (a) activate clock for port C
-	while((SYSCTL_PRGPIO_R&0x004) == 0){};// port F ready?
+	while((SYSCTL_PRGPIO_R&0x004) == 0){};// port C ready?
   GPIO_PORTC_AMSEL_R &= ~0x10;     // 3) disable analog for PC4
   GPIO_PORTC_PCTL_R &= ~0x000F0000;// 4) configure as GPIO
-  GPIO_PORTC_DIR_R |= 0x10;        // 5) PF0 is output
+  GPIO_PORTC_DIR_R |= 0x10;        // 5) PC4 is output
   GPIO_PORTC_AFSEL_R &= ~0x10;     // 6) normal function
   GPIO_PORTC_DEN_R |= 0x10;        // 7) digital I/O on PF0
 }

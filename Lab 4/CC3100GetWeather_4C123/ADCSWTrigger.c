@@ -55,32 +55,18 @@
 // Sequencer 2 priority: 3rd
 // Sequencer 3 priority: 4th (lowest)
 // SS3 triggering event: software trigger
-// SS3 1st sample source: Ain9 (PE4)
+// SS3 1st sample source: Ain0 (PE3)
 // SS3 interrupts: enabled but not promoted to controller
 //void (*PeriodicTask)(void);   // user function
 
-//void Timer1_Init(void(*task)(void), uint32_t period){
-//  SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
-//  PeriodicTask = task;          // user function
-//  TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
-//  TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
-//  TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-//  TIMER1_TAILR_R = 0xFFFFFFFF-1;    // 4) reload value
-//  TIMER1_TAPR_R = 0;            // 5) bus clock resolution
-//  TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
-//  
-//  TIMER1_CTL_R = 0x00000001;    // 10) enable TIMER1A
-//}
-
-void ADC0_InitSWTriggerSeq3_Ch9(void){ 
-	SYSCTL_RCGCADC_R |= 0x0001;   // 7) activate ADC0 
-                                  // 1) activate clock for Port E
-  SYSCTL_RCGCGPIO_R |= 0x10;
+void ADC0_InitSWTriggerSeq3_Ch0(void){ 
+	SYSCTL_RCGCADC_R |= 0x01;   		// 7) activate ADC0                                 
+  SYSCTL_RCGCGPIO_R |= 0x10;			// 1) activate clock for Port E
   while((SYSCTL_PRGPIO_R&0x10) != 0x10){};
-  GPIO_PORTE_DIR_R &= ~0x10;      // 2) make PE4 input
-  GPIO_PORTE_AFSEL_R |= 0x10;     // 3) enable alternate function on PE4
-  GPIO_PORTE_DEN_R &= ~0x10;      // 4) disable digital I/O on PE4
-  GPIO_PORTE_AMSEL_R |= 0x10;     // 5) enable analog functionality on PE4
+  GPIO_PORTE_DIR_R &= ~0x08;      // 2) make PE3 input
+  GPIO_PORTE_AFSEL_R |= 0x08;     // 3) enable alternate function on PE3
+  GPIO_PORTE_DEN_R &= ~0x08;      // 4) disable digital I/O on PE3
+  GPIO_PORTE_AMSEL_R |= 0x08;     // 5) enable analog functionality on PE3
     
 //  while((SYSCTL_PRADC_R&0x0001) != 0x0001){};    // good code, but not yet implemented in simulator
 
@@ -91,7 +77,7 @@ void ADC0_InitSWTriggerSeq3_Ch9(void){
   ADC0_ACTSS_R &= ~0x0008;        // 9) disable sample sequencer 3
   ADC0_EMUX_R &= ~0xF000;         // 10) seq3 is software trigger
   ADC0_SSMUX3_R &= ~0x000F;       // 11) clear SS3 field
-  ADC0_SSMUX3_R += 9;             //    set channel
+	ADC0_SSMUX3_R += 1;             //    set channel 0
   ADC0_SSCTL3_R = 0x0006;         // 12) no TS0 D0, yes IE0 END0
   ADC0_IM_R &= ~0x0008;           // 13) disable SS3 interrupts
   ADC0_ACTSS_R |= 0x0008;         // 14) enable sample sequencer 3
