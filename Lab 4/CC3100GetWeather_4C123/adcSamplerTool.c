@@ -24,7 +24,7 @@ volatile uint32_t ADCvalue;
 void adcSampler_Init(void){
   //PLL_Init(Bus80MHz);                   // 80 MHz
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
-  ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
+  ADC0_InitSWTriggerSeq3_Ch0();         // allow time to finish activating
 
 	//0x02 = x4 sampling
 	//0x04 =  x16 sampling
@@ -61,19 +61,6 @@ int8_t B0=0;
 
 
 void Edge_Init(void){
-//	SYSCTL_RCGCGPIO_R |= 0x02;	//ACTIVATE CLOCK FOR PORT B
-//	GPIO_PORTB_DIR_R &= ~0x01;	//ENABLE DIGITAL I/O FOR PB1-4
-//	GPIO_PORTB_DEN_R |= 0x01;
-//	GPIO_PORTB_AFSEL_R &= ~0x01; //disable special functions PB0
-//	GPIO_PORTB_IS_R &= ~0x01;		//edge sensitive at PB4-1
-//	GPIO_PORTB_IBE_R &= ~0x01;	//enable rising edge trigger
-//	GPIO_PORTB_IEV_R |= 0x01; 	//rising edge for PB0
-
-//	GPIO_PORTB_ICR_R = 0x01;
-//	GPIO_PORTB_IM_R |= 0x01;		//arm trigger flags
-//	NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFF00FF)| 0x00004000; //set to priority 2
-//	NVIC_EN0_R  = 1<<1;
-//	EnableInterrupts();
 	SYSCTL_RCGCGPIO_R |= 0x04;			//activate clock for port c
 	GPIO_PORTC_LOCK_R = 0x4C4F434B; // unlock GPIO Port F
   GPIO_PORTC_DIR_R &= ~0x10;    // (c) make PC4 in 
@@ -101,7 +88,7 @@ void Timer2A_Init(void){
 // interrupts enabled in the main program after all devices initialized
 // vector number 39, interrupt number 23
   NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
-  //TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
+  //Timer2A enabled in GPIOPortC_Hander
 }
 
 void Timer2A_Handler(void){
@@ -111,6 +98,8 @@ void Timer2A_Handler(void){
 	B0 = 1;
 	GPIO_PORTC_IM_R  |= 0x10;			//arm B0;
 }
+
+
 
 
 

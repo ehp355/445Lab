@@ -195,6 +195,7 @@ static int32_t configureSimpleLinkToDefaultState(char *);
 //void stringCopy(const char * src, char * dst);
 void extract(void);
 void EnableInterrupts(void);
+void DisableInterrupts(void);
 /*
  * STATIC FUNCTION DEFINITIONS -- End
  */
@@ -218,7 +219,7 @@ void Crash(uint32_t time){
 // 3) get an API key (APPID) replace the 1234567890abcdef1234567890abcdef with your APPID
 int main(void){int32_t retVal;  SlSecParams_t secParams;
   char *pConfig = NULL; INT32 ASize = 0; SlSockAddrIn_t  Addr;
-  initClk();        // PLL 50 MHz
+	initClk();        // PLL 50 MHz
   UART_Init();      // Send data to PC, 115200 bps
   LED_Init();       // initialize LaunchPad I/O 
 	adcSampler_Init();
@@ -259,19 +260,17 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
         sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response 
         sl_Close(SockID);
         LED_GreenOn();
-				//stringCopy(Recvbuff, localBuffer);
-				extract();
         UARTprintf("\r\n\r\n");
         UARTprintf(Recvbuff);  UARTprintf("\r\n");
       }
     }
-		ADCtoVolt();
-//		while(1){
-//		if(B0){
-//			ADCtoVolt();
-//			B0=0;
-//		}
-//		}
+		extract();
+		while(1){
+		if(B0){
+			ADCtoVolt();
+			B0=0;
+		}
+		}
     while(Board_Input()==0){}; // wait for touch
     LED_GreenOff();
   }
@@ -283,8 +282,6 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
  *	fixed length string to display information
  *
  */
- 
- //#define NUM 		5		//length of the temp array
  #define LENGTH 10	//length of info array
 
  void extract(void){
@@ -313,10 +310,12 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 		k++;
 		j++;		
 	}
-	char temp[] = "Temp = ";	
+	char temp[] = "Temp = ";
+	char degree[] = " C";
 	//need to set cursor before calling extract function
 	ST7735_OutString(temp);
 	ST7735_OutString(info);
+	ST7735_OutString(degree);
  }
 
 
