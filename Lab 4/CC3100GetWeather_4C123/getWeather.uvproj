@@ -550,6 +550,16 @@
               <FileType>5</FileType>
               <FilePath>.\adcSamplerTool.h</FilePath>
             </File>
+            <File>
+              <FileName>LogServerTimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LogServerTimer.c</FilePath>
+            </File>
+            <File>
+              <FileName>LogServerTimer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LogServerTimer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

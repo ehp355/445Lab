@@ -8,6 +8,9 @@
 
 	
 extern int8_t B0;
+uint32_t Digit3;
+uint32_t Digit2;
+uint32_t Digit1;
 	
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -20,7 +23,7 @@ volatile uint32_t ADCvalue;
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
 
-char voltage[4];
+char voltage[5];
 
 
 void adcSampler_Init(void){
@@ -40,8 +43,8 @@ void adcSampler_Init(void){
 
 void ADCtoVolt(void){
 	uint32_t volt = (ADCvalue*330)/4095;
-	
-	uint32_t Digit3 = volt%10;
+	voltage[4] = NULL;
+	Digit3 = volt%10;
 	voltage[3] = Digit3+('0');
 	volt = volt/10;
 	uint32_t Digit2 = volt%10;
@@ -49,6 +52,7 @@ void ADCtoVolt(void){
 	uint32_t Digit1 = volt/10;
 	voltage[1] = '.';
 	voltage[0] =Digit1+'0';
+	
 	
 	char title[] = "Voltage~";
 	ST7735_SetCursor(0,5);
@@ -118,7 +122,7 @@ void GPIOPortC_Handler(void){
 	GPIO_PORTC_ICR_R |= 0x10;		//acknowledge flag
 	GPIO_PORTC_IM_R  &= ~0x10;			//ignore interrupts for portb
 	TIMER2_IMR_R = 1;							//arm timer 2
-	TIMER2_CTL_R = 0x00000001;    //10) enable timer1A		
+	TIMER2_CTL_R = 0x00000001;    //10) enable timer2A		
 	}
 
 

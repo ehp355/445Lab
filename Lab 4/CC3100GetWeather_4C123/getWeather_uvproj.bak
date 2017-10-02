@@ -541,24 +541,14 @@
               <FilePath>.\fixed.c</FilePath>
             </File>
             <File>
-              <FileName>FallingEdgeInterrupt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FallingEdgeInterrupt.c</FilePath>
-            </File>
-            <File>
-              <FileName>FallingEdgeInterrupt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\FallingEdgeInterrupt.h</FilePath>
-            </File>
-            <File>
-              <FileName>Timer1Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Timer1Init.c</FilePath>
-            </File>
-            <File>
               <FileName>startup_rvmdk.S</FileName>
               <FileType>2</FileType>
               <FilePath>.\startup_rvmdk.S</FilePath>
+            </File>
+            <File>
+              <FileName>adcSamplerTool.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\adcSamplerTool.h</FilePath>
             </File>
           </Files>
         </Group>

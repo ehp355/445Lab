@@ -42,3 +42,4 @@
 .\rvmdk\main.o: ST7735.h
 .\rvmdk\main.o: ADCSWTrigger.h
 .\rvmdk\main.o: adcSamplerTool.h
+.\rvmdk\main.o: LogServerTimer.h

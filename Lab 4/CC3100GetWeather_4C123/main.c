@@ -97,6 +97,7 @@ Port A, SSI0 (PA2, PA3, PA5, PA6, PA7) sends data to Nokia5110 LCD
 #include "ST7735.h"
 #include "ADCSWTrigger.h"
 #include "adcSamplerTool.h"
+#include "LogServerTimer.h"
 
 //#define SSID_NAME  "valvanoAP" /* Access point name to connect to */
 #define SEC_TYPE   SL_SEC_TYPE_WPA
@@ -168,10 +169,14 @@ typedef struct{
 
 char Recvbuff[MAX_RECV_BUFF_SIZE];
 char SendBuff[MAX_SEND_BUFF_SIZE];
+char SendBuff2[MAX_SEND_BUFF_SIZE];
 char HostName[MAX_HOSTNAME_SIZE];
 unsigned long DestinationIP;
 int SockID;
 extern int8_t B0;
+extern char voltage[5];
+uint32_t weatherAppTime;
+uint32_t serverTime;
 
 void LogToServer(void);
 
@@ -213,36 +218,30 @@ void Crash(uint32_t time){
 //E.P.O.
 //called after ADC is sampled and displayed in main
 void LogToServer(void){
-	int32_t IPaddress;
-	SlSockAddrIn_t  Addr;
-	INT32 ASize = 0;
-	//step1
-	//need to check if string for hostname is correct
-	strcpy(HostName,"embedded-systems-server.appspot.com");
-	IPaddress =sl_NetAppDnsGetHostByName(HostName, strlen(HostName),&DestinationIP, SL_AF_INET);
-
-	//step2
-	SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
-
-	if(IPaddress == 0){
+		int32_t retVal; SlSecParams_t secParams;
+	  char *pConfig = NULL; INT32 ASize = 0; SlSockAddrIn_t  Addr;
+    strcpy(HostName,"ee445l-jpp2275.appspot.com"); 
+    retVal = sl_NetAppDnsGetHostByName(HostName,
+             strlen(HostName),&DestinationIP, SL_AF_INET);
+    if(retVal == 0){
       Addr.sin_family = SL_AF_INET;
       Addr.sin_port = sl_Htons(80);
       Addr.sin_addr.s_addr = sl_Htonl(DestinationIP);// IP to big endian
       ASize = sizeof(SlSockAddrIn_t);
       SockID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
       if( SockID >= 0 ){
-        IPaddress = sl_Connect(SockID, ( SlSockAddr_t *)&Addr, ASize);
+        retVal = sl_Connect(SockID, ( SlSockAddr_t *)&Addr, ASize);
       }
-      if((SockID >= 0)&&(IPaddress >= 0)){
-        strcpy(SendBuff,"GET /query?city=Austin%20Texas&id=Enrique%20Juliana&greet=V%20%3D");
-				strcat(SendBuff, getVoltString());
-				strcat(SendBuff,"V ");
-				strcat(SendBuff,"HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n");
-				//step4
-				sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET
-				//step5
-				sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
-				//step6
+      if((SockID >= 0)&&(retVal >= 0)){
+				//strcpy(SendBuff2, "GET /query?city=Austin%20Texas&id=Julie%Pulido&greet=Int%20Temp%3D21C&edxcode=8086 HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n");
+        strcpy(SendBuff2,"GET /query?city=Austin%20Texas&id=Julie%20Pulido%20Enrique%20Perez&greet=V%20%3D");
+				strcat(SendBuff2, voltage);
+				strcat(SendBuff2, " HTTP/1.1\r\nUser-Agent: Keil\r\nHost: ee445l-jpp2275.appspot.com\r\n\r\n");
+        set_Start_Time();
+				sl_Send(SockID, SendBuff2, strlen(SendBuff2), 0);// Send the HTTP GET
+        sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
+        set_End_Time();
+				serverTime = time_Diff();
 				sl_Close(SockID);
       }
     }
@@ -266,6 +265,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 	adcSampler_Init();
 	Edge_Init();
 	Timer2A_Init();
+	Timer3A_Init();
 	EnableInterrupts();
   UARTprintf("Weather App\n");
   retVal = configureSimpleLinkToDefaultState(pConfig); // set policies
@@ -297,8 +297,11 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
       }
       if((SockID >= 0)&&(retVal >= 0)){
         strcpy(SendBuff,REQUEST);
+				set_Start_Time();
         sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET
         sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
+				set_End_Time();
+				weatherAppTime = time_Diff();
         sl_Close(SockID);
         LED_GreenOn();
         UARTprintf("\r\n\r\n");
@@ -321,10 +324,14 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 
 
 /*********************** extract *******************************
- *	This function extracts information from buffer and creates a
- *	fixed length string to display information
+ *	This function extracts information from buffer, creates a
+ *	fixed length string and printsit out to the LCD.
+ *	
+ *	Inputs: None
+ *	Outputs: None
  *
  */
+
  #define LENGTH 10	//length of info array
 
  void extract(void){

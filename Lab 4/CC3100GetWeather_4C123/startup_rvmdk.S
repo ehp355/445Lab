@@ -124,7 +124,7 @@ __Vectors
         DCD     IntDefaultHandler           ; GPIO Port H
         DCD     IntDefaultHandler           ; UART2 Rx and Tx
         DCD     IntDefaultHandler           ; SSI1 Rx and Tx
-        DCD     IntDefaultHandler           ; Timer 3 subtimer A
+        DCD     Timer3A_Handler             ; Timer 3 subtimer A
         DCD     IntDefaultHandler           ; Timer 3 subtimer B
         DCD     IntDefaultHandler           ; I2C1 Master and Slave
         DCD     IntDefaultHandler           ; Quadrature Encoder 1
@@ -294,10 +294,12 @@ IntDefaultHandler\
 
                
                 EXPORT  GPIOPortC_Handler         [WEAK]
-                EXPORT  Timer2A_Handler           [WEAK]				
+                EXPORT  Timer2A_Handler           [WEAK]
+                EXPORT  Timer3A_Handler           [WEAK]						
 				
 GPIOPortC_Handler
 Timer2A_Handler
+Timer3A_Handler
 
                 B       .
 
