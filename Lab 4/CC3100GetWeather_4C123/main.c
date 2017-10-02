@@ -173,10 +173,14 @@ char SendBuff2[MAX_SEND_BUFF_SIZE];
 char HostName[MAX_HOSTNAME_SIZE];
 unsigned long DestinationIP;
 int SockID;
+int8_t ADCflag=1;
 extern int8_t B0;
 extern char voltage[5];
 uint32_t weatherAppTime;
 uint32_t serverTime;
+uint16_t weatherTimeArr[13];
+uint16_t serverTimeArr[13];
+int8_t timeIndex = 0;
 
 void LogToServer(void);
 
@@ -233,15 +237,14 @@ void LogToServer(void){
         retVal = sl_Connect(SockID, ( SlSockAddr_t *)&Addr, ASize);
       }
       if((SockID >= 0)&&(retVal >= 0)){
-				//strcpy(SendBuff2, "GET /query?city=Austin%20Texas&id=Julie%Pulido&greet=Int%20Temp%3D21C&edxcode=8086 HTTP/1.1\r\nUser-Agent: Keil\r\nHost: embedded-systems-server.appspot.com\r\n\r\n");
-        strcpy(SendBuff2,"GET /query?city=Austin%20Texas&id=Julie%20Pulido%20Enrique%20Perez&greet=V%20%3D");
+				strcpy(SendBuff2,"GET /query?city=Austin%20Texas&id=Julie%20Pulido%20Enrique%20Perez&greet=V%20%3D");
 				strcat(SendBuff2, voltage);
 				strcat(SendBuff2, " HTTP/1.1\r\nUser-Agent: Keil\r\nHost: ee445l-jpp2275.appspot.com\r\n\r\n");
         set_Start_Time();
 				sl_Send(SockID, SendBuff2, strlen(SendBuff2), 0);// Send the HTTP GET
         sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
         set_End_Time();
-				serverTime = time_Diff();
+				serverTimeArr[timeIndex] = time_Diff();
 				sl_Close(SockID);
       }
     }
@@ -282,7 +285,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
   UARTprintf("Connected\n");
   ST7735_InitR(INITR_REDTAB);
   while(1){
-   // strcpy(HostName,"openweathermap.org");  // used to work 10/2015
+		while(!B0){}
     strcpy(HostName,"api.openweathermap.org"); // works 9/2016
     retVal = sl_NetAppDnsGetHostByName(HostName,
              strlen(HostName),&DestinationIP, SL_AF_INET);
@@ -301,24 +304,36 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
         sl_Send(SockID, SendBuff, strlen(SendBuff), 0);// Send the HTTP GET
         sl_Recv(SockID, Recvbuff, MAX_RECV_BUFF_SIZE, 0);// Receive response
 				set_End_Time();
-				weatherAppTime = time_Diff();
+				weatherTimeArr[timeIndex] = time_Diff();
         sl_Close(SockID);
         LED_GreenOn();
         UARTprintf("\r\n\r\n");
         UARTprintf(Recvbuff);  UARTprintf("\r\n");
       }
     }
+		ST7735_SetCursor(0,0);
 		extract();
-    ADCtoVolt();
-    LogToServer();
-		while(1){
-		if(B0){
-			ADCtoVolt();
-			B0=0;
+		ADCtoVolt();
+		LogToServer();
+		if(timeIndex < 9){
+			timeIndex++;
 		}
+		else{
+			weatherTimeArr[10] = find_Min(weatherTimeArr);
+			weatherTimeArr[11] = find_Max(weatherTimeArr);
+			weatherTimeArr[12] = find_Avg(weatherTimeArr);
+			serverTimeArr[10] = find_Min(serverTimeArr);
+			serverTimeArr[11] = find_Max(serverTimeArr);
+			serverTimeArr[12] = find_Avg(serverTimeArr);
+			int32_t y = 7;
+			printData(weatherTimeArr[10], weatherTimeArr[11], weatherTimeArr[12], y);
+			printData(serverTimeArr[10], serverTimeArr[11], serverTimeArr[12], y+3);
+			timeIndex =0;
 		}
-    while(Board_Input()==0){}; // wait for touch
-    LED_GreenOff();
+		B0=0;
+
+//    while(Board_Input()==0){}; // wait for touch
+//    LED_GreenOff();
   }
 }
 

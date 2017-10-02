@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "../inc/tm4c123gh6pm.h"
-
+#include "ST7735.h"
 
 uint32_t start_Time;
 uint32_t end_Time;
@@ -39,3 +39,86 @@ void set_End_Time(void){
 uint32_t time_Diff(void){
 	return end_Time - start_Time;
 }
+
+uint16_t find_Min(uint16_t *arr){
+	uint16_t min = arr[0];
+	for(int i=1; i<10; i++){
+		if(min > arr[i]){
+			min = arr[i];
+		}
+	}	
+	return min;
+}
+
+uint16_t find_Max(uint16_t *arr){
+	uint16_t max = arr[0];
+	for(int i=1; i<10; i++){
+		if(max < arr[i]){
+			max = arr[i];
+		}
+	}	
+	return max;
+}
+
+uint16_t find_Avg(uint16_t *arr){
+	uint32_t sum = arr[0]; 
+	uint16_t avg;
+	for(int i=1; i<10; i++){
+		sum = sum + arr[i];
+	}
+	avg = sum/10;
+	return avg;
+}
+
+void printData(int16_t min, int16_t max, int16_t avg, int32_t y){
+	int8_t Digit3;
+	int8_t Digit2;
+	int8_t Digit1;
+	char minTitle[] = "min = ";
+	char maxTitle[] = "max = "; 
+	char avgTitle[] = "avg = ";
+
+	Digit3 = min%10;
+	min = min/10;
+	Digit2 = min%10;
+	min = min/10;
+	Digit1 = min;
+	
+	ST7735_SetCursor(0,y);
+	ST7735_OutString(minTitle);
+	ST7735_OutChar(Digit1+'0');
+	ST7735_OutChar(Digit2+'0');
+	ST7735_OutChar(Digit3+'0');
+	ST7735_OutString("ms");
+	
+	Digit3 = max%10;
+	max = max/10;
+	Digit2 = max%10;
+	max = max/10;
+	Digit1 = max;
+
+	
+	ST7735_SetCursor(0,y+1);
+	ST7735_OutString(maxTitle);
+	ST7735_OutChar(Digit1+'0');
+	ST7735_OutChar(Digit2+'0');
+	ST7735_OutChar(Digit3+'0');
+	ST7735_OutString("ms");
+	
+	Digit3 = avg%10;
+	min = min/10;
+	Digit2 = min%10;
+	min = min/10;
+	Digit1 = min;
+	
+	ST7735_SetCursor(0,y+2);
+	ST7735_OutString(avgTitle);
+	ST7735_OutChar(Digit1+'0');
+	ST7735_OutChar(Digit2+'0');
+	ST7735_OutChar(Digit3+'0');
+	ST7735_OutString("ms");
+	
+	
+	
+}
+
