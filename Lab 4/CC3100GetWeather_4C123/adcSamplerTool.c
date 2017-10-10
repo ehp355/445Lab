@@ -19,12 +19,8 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
 
-volatile uint32_t ADCvalue;
-// This debug function initializes Timer0A to request interrupts
-// at a 100 Hz frequency.  It is similar to FreqMeasure.c.
-
-char voltage[5];
-
+volatile uint32_t ADCvalue;	
+char voltage[5]; 	
 
 void adcSampler_Init(void){
   //PLL_Init(Bus80MHz);                   // 80 MHz
@@ -41,6 +37,17 @@ void adcSampler_Init(void){
   EnableInterrupts();
 }
 
+/***********************ADCtoVolt***********************
+ *																										 *
+ *  This function obtains value from the TM4C123 			 *
+ *  ADC, converts it to corresponding voltage measure  *
+ *  and displays it on the LCD.												 *
+ *																										 *
+ *	Inputs: none																			 *
+ *  Outputs: none																			 *
+ *																										 *
+ *******************************************************
+*/
 void ADCtoVolt(void){
 	uint32_t volt = (ADCvalue*330)/4095;
 	voltage[4] = NULL;
@@ -55,7 +62,7 @@ void ADCtoVolt(void){
 	
 	
 	char title[] = "Voltage~";
-	ST7735_SetCursor(0,5);
+	ST7735_SetCursor(0,2);
 	ST7735_OutString(title);
 	ST7735_OutChar(Digit1+'0');
 	ST7735_OutChar('.');

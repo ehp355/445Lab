@@ -23,23 +23,28 @@ void Timer3A_Init(void){
 	TIMER3_CTL_R = 0x01;					// enable timer 3
 }
 
-void Timer3A_Handler(void){
+//Timer3A_Handler increments time_Ms variable every ms to keep track of time
+void Timer3A_Handler(void){						
 	TIMER3_ICR_R = TIMER_ICR_TATOCINT;
 	time_Ms++;
 }
 
+//Start time reference
 void set_Start_Time(void){
 	start_Time = time_Ms;
 }
 
+//End time reference
 void set_End_Time(void){
 	end_Time = time_Ms;
 }
 
+//Time it takes to send/receive data
 uint32_t time_Diff(void){
 	return end_Time - start_Time;
 }
 
+//Finds min value in time array
 uint16_t find_Min(uint16_t *arr){
 	uint16_t min = arr[0];
 	for(int i=1; i<10; i++){
@@ -50,6 +55,7 @@ uint16_t find_Min(uint16_t *arr){
 	return min;
 }
 
+//Finds max value in time array
 uint16_t find_Max(uint16_t *arr){
 	uint16_t max = arr[0];
 	for(int i=1; i<10; i++){
@@ -60,6 +66,7 @@ uint16_t find_Max(uint16_t *arr){
 	return max;
 }
 
+//Finds average of values in time array with a 1ms resolution
 uint16_t find_Avg(uint16_t *arr){
 	uint32_t sum = arr[0]; 
 	uint16_t avg;
@@ -70,6 +77,7 @@ uint16_t find_Avg(uint16_t *arr){
 	return avg;
 }
 
+//Prints the min, max and average time for a given array
 void printData(int16_t min, int16_t max, int16_t avg, int32_t y){
 	int8_t Digit3;
 	int8_t Digit2;
@@ -83,6 +91,7 @@ void printData(int16_t min, int16_t max, int16_t avg, int32_t y){
 	Digit2 = min%10;
 	min = min/10;
 	Digit1 = min;
+	
 	
 	ST7735_SetCursor(0,y);
 	ST7735_OutString(minTitle);
@@ -106,10 +115,9 @@ void printData(int16_t min, int16_t max, int16_t avg, int32_t y){
 	ST7735_OutString("ms");
 	
 	Digit3 = avg%10;
-	min = min/10;
-	Digit2 = min%10;
-	min = min/10;
-	Digit1 = min;
+	avg = avg/10;
+	Digit2 = avg%10;
+	Digit1 = avg/10;
 	
 	ST7735_SetCursor(0,y+2);
 	ST7735_OutString(avgTitle);

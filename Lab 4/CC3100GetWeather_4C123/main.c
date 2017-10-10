@@ -325,9 +325,12 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 			serverTimeArr[10] = find_Min(serverTimeArr);
 			serverTimeArr[11] = find_Max(serverTimeArr);
 			serverTimeArr[12] = find_Avg(serverTimeArr);
-			int32_t y = 7;
-			printData(weatherTimeArr[10], weatherTimeArr[11], weatherTimeArr[12], y);
-			printData(serverTimeArr[10], serverTimeArr[11], serverTimeArr[12], y+3);
+			ST7735_SetCursor(0,4);
+			ST7735_OutString("Weather Time Data:");
+			printData(weatherTimeArr[10], weatherTimeArr[11], weatherTimeArr[12], 5);
+			ST7735_SetCursor(0,9);
+			ST7735_OutString("Server Time Data:");
+			printData(serverTimeArr[10], serverTimeArr[11], serverTimeArr[12], 10);
 			timeIndex =0;
 		}
 		B0=0;
@@ -378,6 +381,7 @@ int main(void){int32_t retVal;  SlSecParams_t secParams;
 	char temp[] = "Temp = ";
 	char degree[] = " C";
 	//need to set cursor before calling extract function
+	ST7735_FillScreen(0);
 	ST7735_OutString(temp);
 	ST7735_OutString(info);
 	ST7735_OutString(degree);
