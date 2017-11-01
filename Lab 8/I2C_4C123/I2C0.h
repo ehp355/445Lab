@@ -5,6 +5,42 @@
 // Daniel Valvano
 // May 3, 2015
 
+/*I2C0.h
+ *Enrique Perez-Osborne
+ *Juliana Pulido
+ *Creation Date: 11/1/17
+ *TA: Cody Horton
+ *Last Edited: 11/11/17
+ */
+
+//sets LED mode based on input parameter
+void setMode(int8_t mode);
+
+//setSampling rate
+void setSamplingRate (int8_t rate);
+
+//set LEDPulseWidth
+void setLEDPulseWidth (int8_t LEDpw);
+
+//set LEDCurrent
+void setLEDCurrent(int8_t redCurrent, int8_t IRCurrent);
+
+//returns the real number of the users heartbeat
+//relies on a helper function filterData() inside
+//I2C0.c
+int8_t getHeartBeat(void);
+
+
+
+
+
+
+
+
+
+
+
+
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
    ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2015
