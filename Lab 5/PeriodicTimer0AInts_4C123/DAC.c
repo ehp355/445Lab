@@ -3,7 +3,7 @@
  *Juliana Pulido
  *Creation Date: 10/3/17
  *TA: Cody Horton
- *Last Edited: 10/3/17
+ *Last Edited: 10/10/17
 */
 #include <stdint.h>
 #include "DAC.h"
@@ -22,7 +22,7 @@ void DAC_Init(void){
 	GPIO_PORTD_AMSEL_R = 0;		//disable analog functionality on PD
 	SSI3_CR1_R = 0x0;					//disable SSI, master mode
 	SSI3_CPSR_R = 0x02;				//set clock to 8MHz
-	SSI3_CR0_R &= ~(0x0000FFF0);
+	SSI3_CR0_R &= ~(0x0000FFB0); //SCR = 0, SPH = 0, SPO = 1 Freescale (FRF = 0)
 	SSI3_CR0_R |= 0x0F;
 	SSI3_CR1_R |= 0x02;				//enable SSI
 }

@@ -38,6 +38,7 @@
 #include "Switches.h"
 #include "Music.h"
 #include "Timer1A.h"
+#include "Timer2A.h"
 
 #define PF1       (*((volatile uint32_t *)0x40025008))
 #define PF2       (*((volatile uint32_t *)0x40025010))
@@ -58,26 +59,30 @@ void WaitForInterrupt(void);  // low power mode
 
 extern int button;
 
-void UserTask(void){
-  static int i = 0;
-  LEDS = COLORWHEEL[i&(WHEELSIZE-1)];
-  i = i + 1;
+void LED_Init(void){
+	SYSCTL_RCGCGPIO_R |= 0x20;       // activate port F
+  GPIO_PORTF_DIR_R |= 0x0E;        // make PF3-1 output (PF3-1 built-in LEDs)
+  GPIO_PORTF_AFSEL_R &= ~0x0E;     // disable alt funct on PF3-1
+  GPIO_PORTF_DEN_R |= 0x0E;        // enable digital I/O on PF3-1
+                                   // configure PF3-1 as GPIO
+  GPIO_PORTF_PCTL_R = (GPIO_PORTF_PCTL_R&0xFFFF000F)+0x00000000;
+  GPIO_PORTF_AMSEL_R = 0;          // disable analog functionality on PF
+  LEDS = 0;                        // turn all LEDs off
 }
-// if desired interrupt frequency is f, Timer0A_Init parameter is busfrequency/f
-#define F16HZ (50000000/16)
-#define F20KHZ (50000000/20000)
 
-//debug code
+
 int main(void){ 
 	DisableInterrupts();
   PLL_Init(Bus50MHz);                   // bus clock at 50 MHz
-  Timer0A_Init(&UserTask, 50000000/2000);  // initialize timer0A for .5ms of a ms 
+  Timer0A_Init();  
 	Timer1A_Init();
+	Timer2A_Init();
 	DAC_Init();
+	LED_Init();
 	EdgeTriggered_Init();
   EnableInterrupts();
   while(1){
-		switch(button){    //if = 0x40, PC6, if = 0x20, PC5, if = 0x10, PC4
+		switch(button){    
 			case 0x10:
 				Play(); //PC4 pressed
 				button = 0;
@@ -93,6 +98,7 @@ int main(void){
 			default:
 				button = 0;		
 		}
-    //WaitForInterrupt();
   }
 }
+
+

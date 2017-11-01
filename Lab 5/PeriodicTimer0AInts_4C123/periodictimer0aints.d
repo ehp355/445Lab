@@ -8,3 +8,4 @@
 .\periodictimer0aints.o: Music.h
 .\periodictimer0aints.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\periodictimer0aints.o: Timer1A.h
+.\periodictimer0aints.o: Timer2A.h

@@ -455,6 +455,21 @@
               <FileType>5</FileType>
               <FilePath>.\Music.h</FilePath>
             </File>
+            <File>
+              <FileName>Timer1A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer1A.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer2A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer2A.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer2A.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Timer2A.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

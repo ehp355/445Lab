@@ -11,6 +11,7 @@ Section Cross References
     startup.o(RESET) refers to switches.o(i.GPIOPortC_Handler) for GPIOPortC_Handler
     startup.o(RESET) refers to timer0a.o(i.Timer0A_Handler) for Timer0A_Handler
     startup.o(RESET) refers to timer1a.o(i.Timer1A_Handler) for Timer1A_Handler
+    startup.o(RESET) refers to timer2a.o(i.Timer2A_Handler) for Timer2A_Handler
     startup.o(RESET) refers to __main.o(!!!main) for __main
     startup.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(.text) refers to startup.o(HEAP) for HeapMem
@@ -21,7 +22,9 @@ Section Cross References
     periodictimer0aints.o(i.main) refers to pll.o(i.PLL_Init) for PLL_Init
     periodictimer0aints.o(i.main) refers to timer0a.o(i.Timer0A_Init) for Timer0A_Init
     periodictimer0aints.o(i.main) refers to timer1a.o(i.Timer1A_Init) for Timer1A_Init
+    periodictimer0aints.o(i.main) refers to timer2a.o(i.Timer2A_Init) for Timer2A_Init
     periodictimer0aints.o(i.main) refers to dac.o(i.DAC_Init) for DAC_Init
+    periodictimer0aints.o(i.main) refers to periodictimer0aints.o(i.LED_Init) for LED_Init
     periodictimer0aints.o(i.main) refers to switches.o(i.EdgeTriggered_Init) for EdgeTriggered_Init
     periodictimer0aints.o(i.main) refers to switches.o(i.Play) for Play
     periodictimer0aints.o(i.main) refers to switches.o(i.Stop) for Stop
@@ -39,8 +42,8 @@ Section Cross References
     music.o(i.nextNote) refers to music.o(.data) for songIndex
     music.o(i.reset_Index) refers to music.o(.data) for songIndex
     timer1a.o(i.Timer1A_Handler) refers to music.o(i.getSong) for getSong
-    timer1a.o(i.Timer1A_Handler) refers to music.o(i.nextNote) for nextNote
     timer1a.o(i.Timer1A_Init) refers to startup.o(.text) for StartCritical
+    timer2a.o(i.Timer2A_Init) refers to startup.o(.text) for StartCritical
     __main.o(!!!main) refers to rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
     rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
@@ -143,9 +146,10 @@ Section Cross References
 
 Removing Unused input sections from the image.
 
-    Removing music.o(.constdata), (8 bytes).
+    Removing switches.o(i.Debug), (12 bytes).
+    Removing music.o(i.nextNote), (32 bytes).
 
-1 unused section(s) (total 8 bytes) removed from the image.
+2 unused section(s) (total 44 bytes) removed from the image.
 
 ==============================================================================
 
@@ -157,50 +161,50 @@ Image Symbol Table
 
     RESET                                    0x00000000   Section      644  startup.o(RESET)
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/dczerorl2.s                0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry4.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
@@ -211,6 +215,7 @@ Image Symbol Table
     Switches.c                               0x00000000   Number         0  switches.o ABSOLUTE
     Timer0A.c                                0x00000000   Number         0  timer0a.o ABSOLUTE
     Timer1A.c                                0x00000000   Number         0  timer1a.o ABSOLUTE
+    Timer2A.c                                0x00000000   Number         0  timer2a.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     startup.s                                0x00000000   Number         0  startup.o ABSOLUTE
     !!!main                                  0x00000284   Section        8  __main.o(!!!main)
@@ -268,31 +273,33 @@ Image Symbol Table
     i.DAC_Out                                0x0000049c   Section        0  dac.o(i.DAC_Out)
     i.EdgeTriggered_Init                     0x000004a8   Section        0  switches.o(i.EdgeTriggered_Init)
     i.GPIOPortC_Handler                      0x00000554   Section        0  switches.o(i.GPIOPortC_Handler)
-    i.PLL_Init                               0x00000594   Section        0  pll.o(i.PLL_Init)
-    i.Play                                   0x00000610   Section        0  switches.o(i.Play)
-    i.Rewind                                 0x0000061c   Section        0  switches.o(i.Rewind)
-    i.Stop                                   0x00000638   Section        0  switches.o(i.Stop)
-    i.Timer0A_Handler                        0x0000064c   Section        0  timer0a.o(i.Timer0A_Handler)
-    i.Timer0A_Init                           0x00000680   Section        0  timer0a.o(i.Timer0A_Init)
-    i.Timer1A_Handler                        0x000006f0   Section        0  timer1a.o(i.Timer1A_Handler)
-    i.Timer1A_Init                           0x0000073c   Section        0  timer1a.o(i.Timer1A_Init)
-    i.UserTask                               0x000007a0   Section        0  periodictimer0aints.o(i.UserTask)
-    i.getSong                                0x000007cc   Section        0  music.o(i.getSong)
-    i.main                                   0x000007e8   Section        0  periodictimer0aints.o(i.main)
-    i.nextNote                               0x00000858   Section        0  music.o(i.nextNote)
-    i.reset_Index                            0x00000878   Section        0  music.o(i.reset_Index)
-    .constdata                               0x00000884   Section       32  periodictimer0aints.o(.constdata)
-    .constdata                               0x000008a4   Section       64  timer0a.o(.constdata)
+    i.LED_Init                               0x000005c4   Section        0  periodictimer0aints.o(i.LED_Init)
+    i.PLL_Init                               0x00000628   Section        0  pll.o(i.PLL_Init)
+    i.Play                                   0x000006a4   Section        0  switches.o(i.Play)
+    i.Rewind                                 0x000006b0   Section        0  switches.o(i.Rewind)
+    i.Stop                                   0x000006cc   Section        0  switches.o(i.Stop)
+    i.Timer0A_Handler                        0x000006e0   Section        0  timer0a.o(i.Timer0A_Handler)
+    i.Timer0A_Init                           0x0000073c   Section        0  timer0a.o(i.Timer0A_Init)
+    i.Timer1A_Handler                        0x000007ac   Section        0  timer1a.o(i.Timer1A_Handler)
+    i.Timer1A_Init                           0x0000080c   Section        0  timer1a.o(i.Timer1A_Init)
+    i.Timer2A_Handler                        0x0000086c   Section        0  timer2a.o(i.Timer2A_Handler)
+    i.Timer2A_Init                           0x00000878   Section        0  timer2a.o(i.Timer2A_Init)
+    i.UserTask                               0x000008d8   Section        0  periodictimer0aints.o(i.UserTask)
+    i.getSong                                0x00000904   Section        0  music.o(i.getSong)
+    i.main                                   0x00000920   Section        0  periodictimer0aints.o(i.main)
+    i.reset_Index                            0x00000998   Section        0  music.o(i.reset_Index)
+    .constdata                               0x000009a4   Section       32  periodictimer0aints.o(.constdata)
+    .constdata                               0x000009c4   Section      128  timer0a.o(.constdata)
     .data                                    0x20000000   Section        4  periodictimer0aints.o(.data)
     i                                        0x20000000   Data           4  periodictimer0aints.o(.data)
     .data                                    0x20000004   Section        8  timer0a.o(.data)
     .data                                    0x2000000c   Section        4  switches.o(.data)
-    .data                                    0x20000010   Section      548  music.o(.data)
-    .bss                                     0x20000234   Section       96  libspace.o(.bss)
-    HEAP                                     0x20000298   Section        0  startup.o(HEAP)
-    STACK                                    0x20000298   Section     1024  startup.o(STACK)
-    HeapMem                                  0x20000298   Data           0  startup.o(HEAP)
-    StackMem                                 0x20000298   Data           0  startup.o(STACK)
+    .data                                    0x20000010   Section      372  music.o(.data)
+    .bss                                     0x20000184   Section       96  libspace.o(.bss)
+    HEAP                                     0x200001e8   Section        0  startup.o(HEAP)
+    STACK                                    0x200001e8   Section     1024  startup.o(STACK)
+    HeapMem                                  0x200001e8   Data           0  startup.o(HEAP)
+    StackMem                                 0x200001e8   Data           0  startup.o(STACK)
 
     Global Symbols
 
@@ -417,7 +424,6 @@ Image Symbol Table
     SysCtl_Handler                           0x00000283   Thumb Code     0  startup.o(RESET)
     Timer0B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer1B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
-    Timer2A_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer2B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer3A_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer3B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
@@ -517,53 +523,34 @@ Image Symbol Table
     DAC_Init                                 0x00000405   Thumb Code   132  dac.o(i.DAC_Init)
     DAC_Out                                  0x0000049d   Thumb Code     6  dac.o(i.DAC_Out)
     EdgeTriggered_Init                       0x000004a9   Thumb Code   150  switches.o(i.EdgeTriggered_Init)
-    GPIOPortC_Handler                        0x00000555   Thumb Code    48  switches.o(i.GPIOPortC_Handler)
-    PLL_Init                                 0x00000595   Thumb Code   118  pll.o(i.PLL_Init)
-    Play                                     0x00000611   Thumb Code     8  switches.o(i.Play)
-    Rewind                                   0x0000061d   Thumb Code    18  switches.o(i.Rewind)
-    Stop                                     0x00000639   Thumb Code    12  switches.o(i.Stop)
-    Timer0A_Handler                          0x0000064d   Thumb Code    40  timer0a.o(i.Timer0A_Handler)
-    Timer0A_Init                             0x00000681   Thumb Code    90  timer0a.o(i.Timer0A_Init)
-    Timer1A_Handler                          0x000006f1   Thumb Code    66  timer1a.o(i.Timer1A_Handler)
-    Timer1A_Init                             0x0000073d   Thumb Code    78  timer1a.o(i.Timer1A_Init)
-    UserTask                                 0x000007a1   Thumb Code    30  periodictimer0aints.o(i.UserTask)
-    getSong                                  0x000007cd   Thumb Code    18  music.o(i.getSong)
-    main                                     0x000007e9   Thumb Code   104  periodictimer0aints.o(i.main)
-    nextNote                                 0x00000859   Thumb Code    28  music.o(i.nextNote)
-    reset_Index                              0x00000879   Thumb Code     8  music.o(i.reset_Index)
-    COLORWHEEL                               0x00000884   Data          32  periodictimer0aints.o(.constdata)
-    Flute                                    0x000008a4   Data          64  timer0a.o(.constdata)
-    Region$$Table$$Base                      0x000008e4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000904   Number         0  anon$$obj.o(Region$$Table)
+    GPIOPortC_Handler                        0x00000555   Thumb Code    86  switches.o(i.GPIOPortC_Handler)
+    LED_Init                                 0x000005c5   Thumb Code    82  periodictimer0aints.o(i.LED_Init)
+    PLL_Init                                 0x00000629   Thumb Code   118  pll.o(i.PLL_Init)
+    Play                                     0x000006a5   Thumb Code     8  switches.o(i.Play)
+    Rewind                                   0x000006b1   Thumb Code    18  switches.o(i.Rewind)
+    Stop                                     0x000006cd   Thumb Code    12  switches.o(i.Stop)
+    Timer0A_Handler                          0x000006e1   Thumb Code    74  timer0a.o(i.Timer0A_Handler)
+    Timer0A_Init                             0x0000073d   Thumb Code    90  timer0a.o(i.Timer0A_Init)
+    Timer1A_Handler                          0x000007ad   Thumb Code    84  timer1a.o(i.Timer1A_Handler)
+    Timer1A_Init                             0x0000080d   Thumb Code    80  timer1a.o(i.Timer1A_Init)
+    Timer2A_Handler                          0x0000086d   Thumb Code     8  timer2a.o(i.Timer2A_Handler)
+    Timer2A_Init                             0x00000879   Thumb Code    80  timer2a.o(i.Timer2A_Init)
+    UserTask                                 0x000008d9   Thumb Code    30  periodictimer0aints.o(i.UserTask)
+    getSong                                  0x00000905   Thumb Code    18  music.o(i.getSong)
+    main                                     0x00000921   Thumb Code   112  periodictimer0aints.o(i.main)
+    reset_Index                              0x00000999   Thumb Code     8  music.o(i.reset_Index)
+    COLORWHEEL                               0x000009a4   Data          32  periodictimer0aints.o(.constdata)
+    Flute                                    0x000009c4   Data          64  timer0a.o(.constdata)
+    Wave                                     0x00000a04   Data          64  timer0a.o(.constdata)
+    Region$$Table$$Base                      0x00000a44   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00000a64   Number         0  anon$$obj.o(Region$$Table)
     note_index                               0x20000004   Data           1  timer0a.o(.data)
     PeriodicTask                             0x20000008   Data           4  timer0a.o(.data)
     button                                   0x2000000c   Data           4  switches.o(.data)
-    B_16th                                   0x20000010   Data           8  music.o(.data)
-    A_16th                                   0x20000018   Data           8  music.o(.data)
-    F_Dot_Quarter                            0x20000020   Data           8  music.o(.data)
-    E_Sharp_Quarter                          0x20000028   Data           8  music.o(.data)
-    E_Sharp_8th                              0x20000030   Data           8  music.o(.data)
-    C_Dot_Quarter                            0x20000038   Data           8  music.o(.data)
-    D_Sharp_Quarter                          0x20000040   Data           8  music.o(.data)
-    D_Sharp_Eighth                           0x20000048   Data           8  music.o(.data)
-    A_Dot_Quarter                            0x20000050   Data           8  music.o(.data)
-    B_Quarter                                0x20000058   Data           8  music.o(.data)
-    B_Eighth                                 0x20000060   Data           8  music.o(.data)
-    D_Sharp_Dot_16th                         0x20000068   Data           8  music.o(.data)
-    C_16th                                   0x20000070   Data           8  music.o(.data)
-    G_Sharp_Dot_16th                         0x20000078   Data           8  music.o(.data)
-    E_Sharp_16th                             0x20000080   Data           8  music.o(.data)
-    D_Sharp_Dot_Quarter                      0x20000088   Data           8  music.o(.data)
-    F_Sharp_Dot_Quarter                      0x20000090   Data           8  music.o(.data)
-    D_Sharp_16th                             0x20000098   Data           8  music.o(.data)
-    F_16th                                   0x200000a0   Data           8  music.o(.data)
-    G_16th                                   0x200000a8   Data           8  music.o(.data)
-    E_16th                                   0x200000b0   Data           8  music.o(.data)
-    D_Dot_LONG                               0x200000b8   Data           8  music.o(.data)
-    songIndex                                0x200000c0   Data           2  music.o(.data)
-    nArr                                     0x200000c4   Data         368  music.o(.data)
-    __libspace_start                         0x20000234   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x20000294   Data           0  libspace.o(.bss)
+    songIndex                                0x20000010   Data           2  music.o(.data)
+    nArr                                     0x20000014   Data         368  music.o(.data)
+    __libspace_start                         0x20000184   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x200001e4   Data           0  libspace.o(.bss)
 
 
 
@@ -573,107 +560,109 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000b38, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000009d4])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000be8, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00000ae0])
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000904, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000a64, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000284   Code   RO            3  * RESET               startup.o
-    0x00000284   0x00000008   Code   RO          200  * !!!main             c_w.l(__main.o)
-    0x0000028c   0x00000034   Code   RO          356    !!!scatter          c_w.l(__scatter.o)
-    0x000002c0   0x0000005a   Code   RO          354    !!dczerorl2         c_w.l(__dczerorl2.o)
+    0x00000284   0x00000008   Code   RO          229  * !!!main             c_w.l(__main.o)
+    0x0000028c   0x00000034   Code   RO          385    !!!scatter          c_w.l(__scatter.o)
+    0x000002c0   0x0000005a   Code   RO          383    !!dczerorl2         c_w.l(__dczerorl2.o)
     0x0000031a   0x00000002   PAD
-    0x0000031c   0x0000001c   Code   RO          358    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000338   0x00000002   Code   RO          227    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x0000033a   0x00000000   Code   RO          234    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          237    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          239    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          241    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          244    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          246    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          248    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          250    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          252    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          254    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          256    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          258    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          260    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          262    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          264    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          268    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          270    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          272    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x0000033a   0x00000000   Code   RO          274    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x0000033a   0x00000002   Code   RO          275    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
-    0x0000033c   0x00000002   Code   RO          295    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x0000033e   0x00000000   Code   RO          309    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
-    0x0000033e   0x00000000   Code   RO          312    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x0000033e   0x00000000   Code   RO          315    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x0000033e   0x00000000   Code   RO          317    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
-    0x0000033e   0x00000000   Code   RO          320    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x0000033e   0x00000002   Code   RO          321    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x00000340   0x00000000   Code   RO          202    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
-    0x00000340   0x00000000   Code   RO          204    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
-    0x00000340   0x00000006   Code   RO          216    .ARM.Collect$$rtentry$$00000004  c_w.l(rtentry4.o)
-    0x00000346   0x00000000   Code   RO          206    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
-    0x00000346   0x00000004   Code   RO          207    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
-    0x0000034a   0x00000000   Code   RO          209    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
-    0x0000034a   0x00000008   Code   RO          210    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
-    0x00000352   0x00000002   Code   RO          231    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x00000354   0x00000000   Code   RO          277    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x00000354   0x00000004   Code   RO          278    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000358   0x00000006   Code   RO          279    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x0000031c   0x0000001c   Code   RO          387    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000338   0x00000002   Code   RO          256    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x0000033a   0x00000000   Code   RO          263    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          266    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          268    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          270    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          273    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          275    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          277    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          279    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          281    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          283    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          285    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          287    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          289    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          291    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          293    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          297    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          299    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          301    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x0000033a   0x00000000   Code   RO          303    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x0000033a   0x00000002   Code   RO          304    .ARM.Collect$$libinit$$00000031  c_w.l(libinit2.o)
+    0x0000033c   0x00000002   Code   RO          324    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x0000033e   0x00000000   Code   RO          338    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
+    0x0000033e   0x00000000   Code   RO          341    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x0000033e   0x00000000   Code   RO          344    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x0000033e   0x00000000   Code   RO          346    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
+    0x0000033e   0x00000000   Code   RO          349    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x0000033e   0x00000002   Code   RO          350    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x00000340   0x00000000   Code   RO          231    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
+    0x00000340   0x00000000   Code   RO          233    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
+    0x00000340   0x00000006   Code   RO          245    .ARM.Collect$$rtentry$$00000004  c_w.l(rtentry4.o)
+    0x00000346   0x00000000   Code   RO          235    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
+    0x00000346   0x00000004   Code   RO          236    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
+    0x0000034a   0x00000000   Code   RO          238    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
+    0x0000034a   0x00000008   Code   RO          239    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
+    0x00000352   0x00000002   Code   RO          260    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x00000354   0x00000000   Code   RO          306    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x00000354   0x00000004   Code   RO          307    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000358   0x00000006   Code   RO          308    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0000035e   0x00000002   PAD
     0x00000360   0x00000030   Code   RO            4    .text               startup.o
-    0x00000390   0x00000006   Code   RO          198    .text               c_w.l(heapauxi.o)
-    0x00000396   0x0000004a   Code   RO          218    .text               c_w.l(sys_stackheap_outer.o)
-    0x000003e0   0x0000000c   Code   RO          220    .text               c_w.l(exit.o)
-    0x000003ec   0x00000008   Code   RO          228    .text               c_w.l(libspace.o)
-    0x000003f4   0x0000000c   Code   RO          287    .text               c_w.l(sys_exit.o)
-    0x00000400   0x00000002   Code   RO          298    .text               c_w.l(use_no_semi.o)
-    0x00000402   0x00000000   Code   RO          300    .text               c_w.l(indicate_semi.o)
+    0x00000390   0x00000006   Code   RO          227    .text               c_w.l(heapauxi.o)
+    0x00000396   0x0000004a   Code   RO          247    .text               c_w.l(sys_stackheap_outer.o)
+    0x000003e0   0x0000000c   Code   RO          249    .text               c_w.l(exit.o)
+    0x000003ec   0x00000008   Code   RO          257    .text               c_w.l(libspace.o)
+    0x000003f4   0x0000000c   Code   RO          316    .text               c_w.l(sys_exit.o)
+    0x00000400   0x00000002   Code   RO          327    .text               c_w.l(use_no_semi.o)
+    0x00000402   0x00000000   Code   RO          329    .text               c_w.l(indicate_semi.o)
     0x00000402   0x00000002   PAD
-    0x00000404   0x00000098   Code   RO           92    i.DAC_Init          dac.o
-    0x0000049c   0x0000000c   Code   RO           93    i.DAC_Out           dac.o
-    0x000004a8   0x000000ac   Code   RO          110    i.EdgeTriggered_Init  switches.o
-    0x00000554   0x00000040   Code   RO          111    i.GPIOPortC_Handler  switches.o
-    0x00000594   0x0000007c   Code   RO           77    i.PLL_Init          pll.o
-    0x00000610   0x0000000c   Code   RO          112    i.Play              switches.o
-    0x0000061c   0x0000001c   Code   RO          113    i.Rewind            switches.o
-    0x00000638   0x00000014   Code   RO          114    i.Stop              switches.o
-    0x0000064c   0x00000034   Code   RO           55    i.Timer0A_Handler   timer0a.o
-    0x00000680   0x00000070   Code   RO           56    i.Timer0A_Init      timer0a.o
-    0x000006f0   0x0000004c   Code   RO          178    i.Timer1A_Handler   timer1a.o
-    0x0000073c   0x00000064   Code   RO          179    i.Timer1A_Init      timer1a.o
-    0x000007a0   0x0000002c   Code   RO           12    i.UserTask          periodictimer0aints.o
-    0x000007cc   0x0000001c   Code   RO          150    i.getSong           music.o
-    0x000007e8   0x00000070   Code   RO           13    i.main              periodictimer0aints.o
-    0x00000858   0x00000020   Code   RO          151    i.nextNote          music.o
-    0x00000878   0x0000000c   Code   RO          152    i.reset_Index       music.o
-    0x00000884   0x00000020   Data   RO           14    .constdata          periodictimer0aints.o
-    0x000008a4   0x00000040   Data   RO           57    .constdata          timer0a.o
-    0x000008e4   0x00000020   Data   RO          352    Region$$Table       anon$$obj.o
+    0x00000404   0x00000098   Code   RO           98    i.DAC_Init          dac.o
+    0x0000049c   0x0000000c   Code   RO           99    i.DAC_Out           dac.o
+    0x000004a8   0x000000ac   Code   RO          117    i.EdgeTriggered_Init  switches.o
+    0x00000554   0x00000070   Code   RO          118    i.GPIOPortC_Handler  switches.o
+    0x000005c4   0x00000064   Code   RO           12    i.LED_Init          periodictimer0aints.o
+    0x00000628   0x0000007c   Code   RO           83    i.PLL_Init          pll.o
+    0x000006a4   0x0000000c   Code   RO          119    i.Play              switches.o
+    0x000006b0   0x0000001c   Code   RO          120    i.Rewind            switches.o
+    0x000006cc   0x00000014   Code   RO          121    i.Stop              switches.o
+    0x000006e0   0x0000005c   Code   RO           61    i.Timer0A_Handler   timer0a.o
+    0x0000073c   0x00000070   Code   RO           62    i.Timer0A_Init      timer0a.o
+    0x000007ac   0x00000060   Code   RO          189    i.Timer1A_Handler   timer1a.o
+    0x0000080c   0x00000060   Code   RO          190    i.Timer1A_Init      timer1a.o
+    0x0000086c   0x0000000c   Code   RO          207    i.Timer2A_Handler   timer2a.o
+    0x00000878   0x00000060   Code   RO          208    i.Timer2A_Init      timer2a.o
+    0x000008d8   0x0000002c   Code   RO           13    i.UserTask          periodictimer0aints.o
+    0x00000904   0x0000001c   Code   RO          162    i.getSong           music.o
+    0x00000920   0x00000078   Code   RO           14    i.main              periodictimer0aints.o
+    0x00000998   0x0000000c   Code   RO          164    i.reset_Index       music.o
+    0x000009a4   0x00000020   Data   RO           15    .constdata          periodictimer0aints.o
+    0x000009c4   0x00000080   Data   RO           63    .constdata          timer0a.o
+    0x00000a44   0x00000020   Data   RO          381    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Base: 0x20000000, Size: 0x00000234, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000d0])
-
-    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x20000000   0x00000004   Data   RW           15    .data               periodictimer0aints.o
-    0x20000004   0x00000008   Data   RW           58    .data               timer0a.o
-    0x2000000c   0x00000004   Data   RW          115    .data               switches.o
-    0x20000010   0x00000224   Data   RW          154    .data               music.o
-
-
-    Execution Region ER_ZI (Base: 0x20000234, Size: 0x00000464, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Base: 0x20000000, Size: 0x00000184, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x0000007c])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000234   0x00000060   Zero   RW          229    .bss                c_w.l(libspace.o)
-    0x20000294   0x00000004   PAD
-    0x20000298   0x00000000   Zero   RW            2    HEAP                startup.o
-    0x20000298   0x00000400   Zero   RW            1    STACK               startup.o
+    0x20000000   0x00000004   Data   RW           16    .data               periodictimer0aints.o
+    0x20000004   0x00000008   Data   RW           64    .data               timer0a.o
+    0x2000000c   0x00000004   Data   RW          122    .data               switches.o
+    0x20000010   0x00000174   Data   RW          165    .data               music.o
+
+
+    Execution Region ER_ZI (Base: 0x20000184, Size: 0x00000464, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000184   0x00000060   Zero   RW          258    .bss                c_w.l(libspace.o)
+    0x200001e4   0x00000004   PAD
+    0x200001e8   0x00000000   Zero   RW            2    HEAP                startup.o
+    0x200001e8   0x00000400   Zero   RW            1    STACK               startup.o
 
 
 ==============================================================================
@@ -684,16 +673,17 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
        164         26          0          0          0        825   dac.o
-        72         18          0        548          0       2780   music.o
-       156         22         32          4          0       6448   periodictimer0aints.o
+        40         14          0        372          0       1425   music.o
+       264         40         32          4          0       6847   periodictimer0aints.o
        124          6          0          0          0        443   pll.o
        692        632          0          0       1024        956   startup.o
-       296         60          0          4          0       2181   switches.o
-       164         34         64          8          0       1589   timer0a.o
-       176         32          0          0          0        901   timer1a.o
+       344         70          0          4          0       2197   switches.o
+       204         40        128          8          0       1682   timer0a.o
+       192         28          0          0          0        909   timer1a.o
+       108         20          0          0          0        853   timer2a.o
 
     ----------------------------------------------------------------------
-      1844        830        128        564       1024      16123   Object Totals
+      2132        876        192        388       1024      16137   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -742,15 +732,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2180        846        128        564       1124      15607   Grand Totals
-      2180        846        128        208       1124      15607   ELF Image Totals (compressed)
-      2180        846        128        208          0          0   ROM Totals
+      2468        892        192        388       1124      15517   Grand Totals
+      2468        892        192        124       1124      15517   ELF Image Totals (compressed)
+      2468        892        192        124          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 2308 (   2.25kB)
-    Total RW  Size (RW Data + ZI Data)              1688 (   1.65kB)
-    Total ROM Size (Code + RO Data + RW Data)       2516 (   2.46kB)
+    Total RO  Size (Code + RO Data)                 2660 (   2.60kB)
+    Total RW  Size (RW Data + ZI Data)              1512 (   1.48kB)
+    Total ROM Size (Code + RO Data + RW Data)       2784 (   2.72kB)
 
 ==============================================================================
 
