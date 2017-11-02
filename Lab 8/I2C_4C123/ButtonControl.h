@@ -8,4 +8,4 @@
  
  void EdgeTriggeredInit(void);
  
- void EdgeTriggerdHandler(void);
+ void GPIOPortD_Handler(void);
