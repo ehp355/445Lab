@@ -1,11 +1,10 @@
-/*ButtonControl.h
+/*ButtonControl.c
  *Enrique Perez-Osborne
  *Juliana Pulido
  *Creation Date: 11/1/17
  *TA: Cody Horton
  *Last Edited: 11/11/17
- */
- 
- void EdgeTriggeredInit(void);
- 
- void EdgeTriggerdHandler(void);
+*/
+
+void EdgeTriggeredInit(void){
+}
