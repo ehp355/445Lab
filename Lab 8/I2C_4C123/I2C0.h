@@ -14,16 +14,16 @@
  */
 
 //sets LED mode based on input parameter
-void setMode(int8_t mode);
+void setMode(uint8_t mode);
 
 //setSampling rate
-void setSamplingRate (int8_t rate);
+void setSamplingRate (uint8_t rate);
 
 //set LEDPulseWidth
-void setLEDPulseWidth (int8_t LEDpw);
+void setLEDPulseWidth (uint8_t LEDpw);
 
 //set LEDCurrent
-void setLEDCurrent(int8_t redCurrent, int8_t IRCurrent);
+void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent);
 
 //returns the real number of the users heartbeat
 //relies on a helper function filterData() inside
@@ -64,9 +64,10 @@ int8_t getHeartBeat(void);
 // ADD0 pin of TMP102 thermometer connected to GND
 void I2C_Init(void);
 
-void setMode(int8_t mode);
+void setMode(uint8_t mode);
 
-void setSamplingRate (int8_t rate);
+void setSamplingRate (uint8_t rate);
+void setADCRangeControl(uint8_t rangeContr);
 
 // receives one byte from specified slave
 // Note for HMC6352 compass only:

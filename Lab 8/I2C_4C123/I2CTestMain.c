@@ -32,6 +32,7 @@
 #include "I2C0.h"
 #include "PLL.h"
 #include "UART.h"
+#include "ST7735.h"
 
 // For debug purposes, this program may peek at the I2C0 Master
 // Control/Status Register to try to provide a more meaningful
@@ -188,7 +189,14 @@ int main(void){
   UART_Init();
   I2C_Init();
 		
-	setMode(111);
+//	ST7735_InitR(INITR_REDTAB);
+	
+	setMode(0x3);
+	setSamplingRate(0);
+	setLEDPulseWidth(0);
+	setLEDCurrent(0x7F,0x7F);
+	setADCRangeControl(0);
+	getHeartBeat();
 	// write commands to 0x48 (ADDR to ground)
   I2C_Send1(0x48, 1);                     // use command 1 to set pointer to config (Figure 7.XX chapter7-10-1.ulb)
                                           // read from 0x48 to get data

@@ -50,6 +50,12 @@
 #define LED1PA									0x0C
 #define LED2PA									0x0D
 
+//float * filteredIR;
+//float * filteredRED;
+
+uint8_t temp;
+uint8_t flag;
+
 
 #define MAXRETRIES              5           // number of receive attempts before giving up
 void I2C_Init(void){
@@ -245,29 +251,45 @@ uint32_t I2C_Send3(int8_t slave, uint8_t data1, uint8_t data2, uint8_t data3){
 //the addresss and data values are dummy values and need to be exchanged
 //to the specific values
 
-void setMode(int8_t mode){
-	int8_t currentMode = I2C_Recv(MODE_CONF);
+void setMode(uint8_t mode){
+	temp = I2C_Send1(0x57,MODE_CONF);
+	int8_t currentMode = I2C_Recv(0x57);
 	currentMode = (currentMode & 0xF8)| mode;
-	int8_t flag = I2C_Send1(MODE_CONF, currentMode);
+	flag = I2C_Send2(0x57, MODE_CONF,currentMode);
+	int i = 8 +8;
 }
 
-void setSamplingRate (int8_t rate){					
-	int8_t Spo2Conf = I2C_Recv(SPO2_CONF);
+void setSamplingRate (uint8_t rate){
+	temp = I2C_Send1(0x57,SPO2_CONF);
+	int8_t Spo2Conf = I2C_Recv(0x57);
 	Spo2Conf = (Spo2Conf &0xE3) | (rate <<2);
-	int8_t flag = I2C_Send1(SPO2_CONF, Spo2Conf);
+	flag = I2C_Send2(0x57,SPO2_CONF, Spo2Conf);
+	int i = 8 +8;
 }
 
-void setLEDPulseWidth (int8_t LEDpw){
-	int8_t Spo2Conf = I2C_Recv(SPO2_CONF);
-	Spo2Conf = (Spo2Conf &0xE3) | LEDpw;
-	int8_t flag = I2C_Send1(SPO2_CONF, Spo2Conf);
+void setLEDPulseWidth (uint8_t LEDpw){
+	temp = I2C_Send1(0x57,SPO2_CONF);
+	int8_t Spo2Conf = I2C_Recv(0x57);
+	Spo2Conf = (Spo2Conf &0xFC) | LEDpw;
+	flag = I2C_Send2(0x57,SPO2_CONF, Spo2Conf);
+	int i = 8 +8;
+}
+
+void setADCRangeControl(uint8_t rangeContr){
+	temp = I2C_Send1(0x57,SPO2_CONF);
+	int8_t Spo2Conf = I2C_Recv(0x57);
+	Spo2Conf = (Spo2Conf &0x9F) | (rangeContr <<5);
+	flag = I2C_Send2(0x57,SPO2_CONF, Spo2Conf);
+	int i = 8 +8;
 }
 
 
-void setLEDCurrent(int8_t redCurrent, int8_t IRCurrent){
-	int8_t flag1 = I2C_Send1(LED1PA, redCurrent);
-	int8_t flag2 = I2C_Send1(LED2PA, IRCurrent);
+void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent){
+	int8_t flag1 = I2C_Send2(0x57,LED1PA, redCurrent);
+	int8_t flag2 = I2C_Send2(0x57,LED2PA, IRCurrent);
+	int i = 8 +8;
 }
+
 
 
 
@@ -276,9 +298,56 @@ int8_t filterData(int8_t data){
 	return 0;
 }
 
+uint32_t I2C_Send1_RepStart(int8_t slave, uint8_t data1){
+  while(I2C0_MCS_R&I2C_MCS_BUSY){};// wait for I2C ready
+  I2C0_MSA_R = (slave<<1)&0xFE;    // MSA[7:1] is slave address
+  I2C0_MSA_R &= ~0x01;             // MSA[0] is 0 for send
+  I2C0_MDR_R = data1&0xFF;         // prepare first byte
+  I2C0_MCS_R = (0
+                    //   & ~I2C_MCS_ACK     // no data ack (no data on send)
+                       | I2C_MCS_STOP     // generate stop
+                       | I2C_MCS_START    // generate start/restart
+                       | I2C_MCS_RUN);    // master enable
+  while(I2C0_MCS_R&I2C_MCS_BUSY){};// wait for transmission done
+                                          // return error bits
+  return (I2C0_MCS_R&(I2C_MCS_DATACK|I2C_MCS_ADRACK|I2C_MCS_ERROR));
+}
+
+void clearFifo(void){
+	flag = I2C_Send2(0x57,FIFO_DATA, 0);
+}
+
+
+uint32_t * readFromFifo(void){
+	clearFifo();
+	
+	temp = I2C_Send1(0x57,FIFO_WRITE_PTR);
+	uint8_t wPTR = I2C_Recv(0x57);
+	temp = I2C_Send1(0x57,FIFO_READ_PTR);
+	uint8_t rPTR = I2C_Recv(0x57);
+	uint8_t numSamples= wPTR-rPTR;
+	
+	uint8_t buff[numSamples];
+	
+	
+	for(uint8_t i = 0; i <numSamples; i++){
+		temp = I2C_Send1(0x57,FIFO_DATA);
+		buff[i] = I2C_Recv(0x57);
+	}
+	uint32_t rawData[2];
+	rawData[0] = (buff[0]<<16) | (buff[1]<<8) | (buff[2]);
+	rawData[1] = (buff[3]<<16) | (buff[4]<<8) | (buff[5]);
+	
+	
+	return rawData;
+}
+
+
 
 int8_t getHeartBeat(void){
-	int8_t data = I2C_Recv(FIFO_DATA);
-	data = filterData(data);
-	return data;
+	uint32_t * rawData  = readFromFifo();
+	//filteredIR = filterData(rawData[0],filteredIR[0],0 );
+	//data = filterData(data);
+	return 0;
 }
+
