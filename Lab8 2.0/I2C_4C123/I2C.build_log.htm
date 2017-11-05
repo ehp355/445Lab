@@ -3,13 +3,16 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Enrique\Documents\GitHub\445Lab\Lab8 2.0\I2C_4C123\I2C.uvproj
+C:\Users\Julliana Pulido\Documents\GitHub\445Lab\Lab8 2.0\I2C_4C123\I2C.uvproj
 Project File Date:  11/05/2017
 
 <h2>Output:</h2>
 Rebuild target 'I2C'
 assembling startup.s...
 compiling I2CTestMain.c...
+ButtonControl.h(10): warning:  #1-D: last line of file ends without a newline
+   void Timer1A_Init(void);
+I2CTestMain.c: 1 warning, 0 errors
 compiling I2C0.c...
 I2C0.c(259): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
@@ -25,7 +28,7 @@ I2C0.c: 5 warnings, 0 errors
 compiling PLL.c...
 compiling UART.c...
 compiling ButtonControl.c...
-ButtonControl.c(72): warning:  #1-D: last line of file ends without a newline
+ButtonControl.c(73): warning:  #1-D: last line of file ends without a newline
   }
 ButtonControl.c: 1 warning, 0 errors
 compiling Sound.c...
@@ -38,8 +41,15 @@ Visual.c(31): warning:  #1-D: last line of file ends without a newline
 Visual.c: 1 warning, 0 errors
 compiling ST7735.c...
 linking...
-Program Size: Code=4136 RO-data=2052 RW-data=60 ZI-data=1124  
-".\I2C.axf" - 0 Error(s), 8 Warning(s).
-</pre>
-</body>
-</html>
+Program Size: Code=4400 RO-data=2052 RW-data=60 ZI-data=1124  
+".\I2C.axf" - 0 Error(s), 9 Warning(s).
+Load "C:\\Users\\Julliana Pulido\\Documents\\GitHub\\445Lab\\Lab8 2.0\\I2C_4C123\\I2C.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+I2C_4C123\\I2C.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.

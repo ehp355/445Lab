@@ -4,3 +4,4 @@
 .\i2ctestmain.o: PLL.h
 .\i2ctestmain.o: UART.h
 .\i2ctestmain.o: ST7735.h
+.\i2ctestmain.o: ButtonControl.h
