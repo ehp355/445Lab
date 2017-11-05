@@ -33,6 +33,9 @@
 #include "PLL.h"
 #include "UART.h"
 #include "ST7735.h"
+#include "Visual.h"
+#include "Sound.h"
+#include "ButtonControl.h"
 
 // For debug purposes, this program may peek at the I2C0 Master
 // Control/Status Register to try to provide a more meaningful
@@ -190,6 +193,8 @@ int main(void){
 	setSamplingRate(0);							//good
 	setLEDPulseWidth(0);						//good
 	setLEDCurrent(0x7F,0x7F);				//good
+	
+	displayWord();
 	uint8_t hb = getHeartBeat();
 	
 	

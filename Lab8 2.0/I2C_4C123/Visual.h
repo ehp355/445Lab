@@ -15,3 +15,5 @@
  
  //diplay Log state to LCD
  void displayLog(void);
+ 
+ void displayWord(void);

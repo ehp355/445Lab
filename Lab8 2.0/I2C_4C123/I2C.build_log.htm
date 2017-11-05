@@ -10,16 +10,23 @@ Project File Date:  11/05/2017
 Rebuild target 'I2C'
 assembling startup.s...
 compiling I2CTestMain.c...
+Visual.h(19): warning:  #1-D: last line of file ends without a newline
+   void displayWord(void);
+Sound.h(17): warning:  #1-D: last line of file ends without a newline
+  void endAlarm(void);
+ButtonControl.h(11): warning:  #1-D: last line of file ends without a newline
+   void GPIOPortD_Handler(void);
+I2CTestMain.c: 3 warnings, 0 errors
 compiling I2C0.c...
-I2C0.c(259): warning:  #177-D: variable "i" was declared but never referenced
+I2C0.c(260): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
-I2C0.c(267): warning:  #177-D: variable "i" was declared but never referenced
+I2C0.c(268): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
-I2C0.c(275): warning:  #177-D: variable "i" was declared but never referenced
+I2C0.c(276): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
-I2C0.c(283): warning:  #177-D: variable "i" was declared but never referenced
+I2C0.c(284): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
-I2C0.c(290): warning:  #177-D: variable "i" was declared but never referenced
+I2C0.c(291): warning:  #177-D: variable "i" was declared but never referenced
         int i = 8 +8;
 I2C0.c: 5 warnings, 0 errors
 compiling PLL.c...
@@ -33,13 +40,14 @@ Sound.c(37): warning:  #1-D: last line of file ends without a newline
   }
 Sound.c: 1 warning, 0 errors
 compiling Visual.c...
-Visual.c(31): warning:  #1-D: last line of file ends without a newline
+Visual.c(37): warning:  #1-D: last line of file ends without a newline
    }
 Visual.c: 1 warning, 0 errors
 compiling ST7735.c...
 linking...
-Program Size: Code=4136 RO-data=2052 RW-data=60 ZI-data=1124  
-".\I2C.axf" - 0 Error(s), 8 Warning(s).
-</pre>
-</body>
-</html>
+Program Size: Code=4724 RO-data=2052 RW-data=60 ZI-data=1380  
+".\I2C.axf" - 0 Error(s), 11 Warning(s).
+ion to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\I2C.axf" - 1 Error(s), 11 Warning(s).
+Target not created
