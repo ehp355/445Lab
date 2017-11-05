@@ -33,8 +33,11 @@
 #include "PLL.h"
 #include "UART.h"
 #include "ST7735.h"
+<<<<<<< HEAD
 #include "Visual.h"
 #include "Sound.h"
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 #include "ButtonControl.h"
 
 // For debug purposes, this program may peek at the I2C0 Master
@@ -195,7 +198,11 @@ int main(void){
   PLL_Init(Bus80MHz);
   UART_Init();
 	long sr;
+<<<<<<< HEAD
 	sr =StartCritical();
+=======
+	sr =StartCritical(); 
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
   I2C_Init();
 	PortD_Init();
 	Timer1A_Init();

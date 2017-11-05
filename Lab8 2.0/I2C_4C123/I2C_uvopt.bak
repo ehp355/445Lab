@@ -115,6 +115,10 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>UL2CM3</Key>
           <Name>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN1 -FF0TM4C123_32 -FS00 -FL08000)</Name>
         </SetRegEntry>
@@ -223,7 +227,15 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>272</TopLine>
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <TopLine>271</TopLine>
+=======
+      <TopLine>270</TopLine>
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+      <TopLine>270</TopLine>
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <CurrentLine>277</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup.s</PathWithFileName>
@@ -238,15 +250,22 @@
       <tvExp>1</tvExp>
       <Focus>0</Focus>
 <<<<<<< HEAD
+<<<<<<< HEAD
+      <ColumnNumber>19</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>10</TopLine>
+      <CurrentLine>35</CurrentLine>
+=======
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>71</TopLine>
-      <CurrentLine>296</CurrentLine>
+      <TopLine>191</TopLine>
+      <CurrentLine>199</CurrentLine>
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>181</TopLine>
-      <CurrentLine>193</CurrentLine>
+      <TopLine>191</TopLine>
+      <CurrentLine>199</CurrentLine>
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <bDave2>0</bDave2>
       <PathWithFileName>.\I2CTestMain.c</PathWithFileName>
@@ -261,13 +280,22 @@
       <tvExp>1</tvExp>
       <Focus>0</Focus>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
-=======
-      <ColumnNumber>3</ColumnNumber>
->>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>11</TopLine>
       <CurrentLine>62</CurrentLine>
+=======
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+      <ColumnNumber>17</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>65</TopLine>
+      <CurrentLine>66</CurrentLine>
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <bDave2>0</bDave2>
       <PathWithFileName>.\I2C0.c</PathWithFileName>
       <FilenameWithoutPath>I2C0.c</FilenameWithoutPath>
@@ -283,9 +311,13 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <TopLine>5</TopLine>
 =======
-      <TopLine>4</TopLine>
+      <TopLine>2</TopLine>
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+      <TopLine>2</TopLine>
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <CurrentLine>11</CurrentLine>
       <bDave2>0</bDave2>
@@ -303,9 +335,13 @@
       <ColumnNumber>39</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <TopLine>75</TopLine>
 =======
-      <TopLine>74</TopLine>
+      <TopLine>65</TopLine>
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+      <TopLine>65</TopLine>
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       <CurrentLine>85</CurrentLine>
       <bDave2>0</bDave2>
@@ -322,8 +358,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>37</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ButtonControl.c</PathWithFileName>
       <FilenameWithoutPath>ButtonControl.c</FilenameWithoutPath>
@@ -352,10 +388,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>26</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>4</TopLine>
+      <CurrentLine>19</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Sound.c</PathWithFileName>
       <FilenameWithoutPath>Sound.c</FilenameWithoutPath>
@@ -370,8 +406,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>11</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Sound.h</PathWithFileName>
       <FilenameWithoutPath>Sound.h</FilenameWithoutPath>
@@ -384,10 +420,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>22</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>19</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Visual.h</PathWithFileName>
       <FilenameWithoutPath>Visual.h</FilenameWithoutPath>
