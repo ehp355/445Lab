@@ -430,6 +430,46 @@
               <FileType>1</FileType>
               <FilePath>.\UART.c</FilePath>
             </File>
+            <File>
+              <FileName>ButtonControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ButtonControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>ButtonControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ButtonControl.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sound.c</FilePath>
+            </File>
+            <File>
+              <FileName>Sound.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sound.h</FilePath>
+            </File>
+            <File>
+              <FileName>Visual.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Visual.h</FilePath>
+            </File>
+            <File>
+              <FileName>Visual.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Visual.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ST7735.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

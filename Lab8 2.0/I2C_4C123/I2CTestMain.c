@@ -180,26 +180,38 @@ void displayTemp(int * tempInt, int * tempFra){
 }
 //volatile uint16_t heading = 0;
 //volatile uint8_t controlReg = 0;
+
+
+void DisableInterrupts(void); // Disable interrupts
+void EnableInterrupts(void);  // Enable interrupts
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
+void WaitForInterrupt(void);  // low power mode
+
 int main(void){
   unsigned short rawData = 0;             // 16-bit data straight from thermometer
   int tempInt = 0;                        // integer value of temperature (-128 to 127)
   int tempFra = 0;                        // fractional value of temperature (0 to 9375)
   PLL_Init(Bus80MHz);
   UART_Init();
+	long sr;
+	sr =StartCritical();
   I2C_Init();
-	
+	PortD_Init();
+	Timer1A_Init();
 	ST7735_InitR(INITR_REDTAB);			//good
+	EndCritical(sr);
 	setMode(0x3);										//good
 	setSamplingRate(0);							//good
 	setLEDPulseWidth(0);						//good
 	setLEDCurrent(0x7F,0x7F);				//good
-	
+
 	displayWord();
 	uint8_t hb = getHeartBeat();
-	
-	
-	
-	
+
+
+
+
                                           // write commands to 0x48 (ADDR to ground)
   I2C_Send1(0x48, 1);                     // use command 1 to set pointer to config (Figure 7.XX chapter7-10-1.ulb)
                                           // read from 0x48 to get data

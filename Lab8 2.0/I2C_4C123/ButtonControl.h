@@ -6,6 +6,5 @@
  *Last Edited: 11/11/17
  */
  
- void EdgeTriggeredInit(void);
- 
- void GPIOPortD_Handler(void);
+ void PortD_Init(void);
+ void Timer1A_Init(void);
