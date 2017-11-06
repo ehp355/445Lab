@@ -323,7 +323,11 @@ Removing Unused input sections from the image.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 50 unused section(s) (total 3744 bytes) removed from the image.
+=======
+51 unused section(s) (total 3882 bytes) removed from the image.
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 51 unused section(s) (total 3882 bytes) removed from the image.
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -342,7 +346,10 @@ Image Symbol Table
     RESET                                    0x00000000   Section      644  startup.o(RESET)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
@@ -353,6 +360,7 @@ Image Symbol Table
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
@@ -369,11 +377,19 @@ Image Symbol Table
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry2.o ABSOLUTE
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry2.o ABSOLUTE
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtentry.o ABSOLUTE
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -386,10 +402,13 @@ Image Symbol Table
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
 =======
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
@@ -400,6 +419,7 @@ Image Symbol Table
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
@@ -407,6 +427,11 @@ Image Symbol Table
 <<<<<<< HEAD
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
 =======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
+    ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
@@ -419,11 +444,14 @@ Image Symbol Table
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
@@ -435,6 +463,7 @@ Image Symbol Table
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
 =======
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
@@ -443,6 +472,8 @@ Image Symbol Table
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
 =======
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
@@ -453,6 +484,9 @@ Image Symbol Table
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -532,6 +566,7 @@ Image Symbol Table
     i.PLL_Init                               0x00000670   Section        0  pll.o(i.PLL_Init)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     i.ST7735_DrawCharS                       0x000006ec   Section        0  st7735.o(i.ST7735_DrawCharS)
     i.ST7735_DrawPixel                       0x000007e0   Section        0  st7735.o(i.ST7735_DrawPixel)
     i.ST7735_DrawString                      0x00000828   Section        0  st7735.o(i.ST7735_DrawString)
@@ -579,6 +614,8 @@ Image Symbol Table
 =======
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     i.PortD_Init                             0x000006ec   Section        0  buttoncontrol.o(i.PortD_Init)
     i.ST7735_FillRect                        0x0000078c   Section        0  st7735.o(i.ST7735_FillRect)
     i.ST7735_FillScreen                      0x00000838   Section        0  st7735.o(i.ST7735_FillScreen)
@@ -618,6 +655,9 @@ Image Symbol Table
     Rcmd2red                                 0x000016da   Data          13  st7735.o(.constdata)
     Rcmd3                                    0x000016e7   Data          43  st7735.o(.constdata)
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -867,6 +907,7 @@ Image Symbol Table
     PLL_Init                                 0x00000671   Thumb Code   118  pll.o(i.PLL_Init)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     ST7735_DrawCharS                         0x000006ed   Thumb Code   232  st7735.o(i.ST7735_DrawCharS)
     ST7735_DrawPixel                         0x000007e1   Thumb Code    64  st7735.o(i.ST7735_DrawPixel)
     ST7735_DrawString                        0x00000829   Thumb Code    86  st7735.o(i.ST7735_DrawString)
@@ -898,6 +939,8 @@ Image Symbol Table
 =======
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
     PortD_Init                               0x000006ed   Thumb Code   140  buttoncontrol.o(i.PortD_Init)
     ST7735_FillRect                          0x0000078d   Thumb Code   164  st7735.o(i.ST7735_FillRect)
     ST7735_FillScreen                        0x00000839   Thumb Code    28  st7735.o(i.ST7735_FillScreen)
@@ -923,6 +966,9 @@ Image Symbol Table
     Region$$Table$$Base                      0x00001914   Number         0  anon$$obj.o(Region$$Table)
     Region$$Table$$Limit                     0x00001934   Number         0  anon$$obj.o(Region$$Table)
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -953,9 +999,15 @@ Memory Map of the image
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   Load Region LR_1 (Base: 0x00000000, Size: 0x00001ab4, Max: 0xffffffff, ABSOLUTE)
 
     Execution Region ER_RO (Base: 0x00000000, Size: 0x00001a78, Max: 0xffffffff, ABSOLUTE)
+=======
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001970, Max: 0xffffffff, ABSOLUTE)
+
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00001934, Max: 0xffffffff, ABSOLUTE)
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
   Load Region LR_1 (Base: 0x00000000, Size: 0x00001970, Max: 0xffffffff, ABSOLUTE)
 
@@ -1029,7 +1081,11 @@ Memory Map of the image
     0x000003ea   0x00000002   PAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     0x000003ec   0x00000070   Code   RO          253    i.GPIOPortD_Handler  buttoncontrol.o
+=======
+    0x000003ec   0x00000070   Code   RO          233    i.GPIOPortD_Handler  buttoncontrol.o
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
     0x000003ec   0x00000070   Code   RO          233    i.GPIOPortD_Handler  buttoncontrol.o
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -1114,6 +1170,9 @@ Memory Map of the image
     0x00001912   0x00000002   PAD
     0x00001914   0x00000020   Data   RO          749    Region$$Table       anon$$obj.o
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -1149,6 +1208,7 @@ Image component sizes
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        124         30          0          1          0        963   buttoncontrol.o
       1008         86          0         12        256       7854   i2c0.o
        748         76          0          0          0       6825   i2ctestmain.o
@@ -1164,6 +1224,8 @@ Image component sizes
 =======
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
        380         64          0          1          0       1867   buttoncontrol.o
        886         86          0         12          0       6771   i2c0.o
        752         76          0          0          0       6869   i2ctestmain.o
@@ -1176,6 +1238,9 @@ Image component sizes
     ----------------------------------------------------------------------
       4130       1028       2052         60       1024      27044   Object Totals
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
@@ -1229,6 +1294,7 @@ Image component sizes
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       4724       1050       2052         60       1380      28195   Grand Totals
       4724       1050       2052         60       1380      28195   ELF Image Totals
       4724       1050       2052         60          0          0   ROM Totals
@@ -1241,6 +1307,8 @@ Image component sizes
 =======
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
       4400       1044       2052         60       1124      25644   Grand Totals
       4400       1044       2052         60       1124      25644   ELF Image Totals
       4400       1044       2052         60          0          0   ROM Totals
@@ -1251,6 +1319,9 @@ Image component sizes
     Total RW  Size (RW Data + ZI Data)              1184 (   1.16kB)
     Total ROM Size (Code + RO Data + RW Data)       6512 (   6.36kB)
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 =======
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7

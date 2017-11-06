@@ -199,9 +199,13 @@ int main(void){
   UART_Init();
 	long sr;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	sr =StartCritical();
 =======
-	sr =StartCritical(); 
+	sr =StartCritical();
+>>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+=======
+	sr =StartCritical();
 >>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
   I2C_Init();
 	PortD_Init();
