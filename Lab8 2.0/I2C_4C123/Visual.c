@@ -8,6 +8,10 @@
 #include <stdint.h>
 #include "ST7735.h"
 
+void displayWord(){
+	ST7735_DrawString(40, 90, "Hello World?", ST7735_BLUE);
+}
+
  //displays heartbeat state to LCD
  void displayHB(uint32_t heartBeat){
 	 char hbString[3];
@@ -15,8 +19,7 @@
 	 heartBeat = heartBeat%100;
 	 hbString[1] = heartBeat/10;
 	 hbString[2] = heartBeat%10;
-	 
-	 
+
 	 ST7735_DrawString(40, 90, hbString, ST7735_BLUE);
  }
  

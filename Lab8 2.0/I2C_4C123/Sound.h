@@ -9,8 +9,6 @@
 //Initialize timer for sound
 void Timer0A_Init(void);
 
-//Handler for sound timer
-void Timer0A_Handler(void);
 
 //sounds alarm when hb enters Alert state
 void soundAlarm(void);

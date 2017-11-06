@@ -57,6 +57,7 @@
 uint8_t temp;
 uint8_t flag;
 uint32_t rawData[2];
+uint32_t samples[32][2];
 
 void I2C_Init(void){
   SYSCTL_RCGCI2C_R |= 0x0001;           // activate I2C0
@@ -290,9 +291,6 @@ void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent){
 	int i = 8 +8;
 }
 
-
-
-
 int8_t filterData(int8_t data){
 //edit raw data in any fashion here
 	return 0;
@@ -314,33 +312,56 @@ uint32_t I2C_Send1_RepStart(int8_t slave, uint8_t data1){
 }
 
 void clearFifo(void){
-	flag = I2C_Send2(0x57,FIFO_DATA, 0);
+	flag = I2C_Send2(0x57,FIFO_READ_PTR, 0);
+	flag = I2C_Send2(0x57,FIFO_WRITE_PTR,0);
+	flag = I2C_Send2(0x57,FIFO_OVERFLOW_CTR,0);
 }
 
+//reads from the read ptr an returns value
+uint8_t readFromRD_PTR(void){
+	int8_t temp = I2C_Send1(0x57,FIFO_READ_PTR);
+	uint8_t byte = I2C_Recv(0x57);
+	return byte;
+}
+//returns 1 byte from input regAddr of MAX30105
+uint8_t readFromR(uint16_t regAddr){
+	int8_t temp = I2C_Send1(0x57,regAddr);
+	uint8_t byte = I2C_Recv(0x57);
+	return byte;
+}
+
+uint8_t diffPTR(uint8_t wPTR, uint8_t rPTR){
+	//wrap around has not occured
+	if(wPTR > rPTR){
+		return wPTR - rPTR;
+	//wrap around has occured
+	}else{
+		return (32-rPTR)+wPTR;
+	}
+}
 
 void readFromFifo(void){
-	clearFifo();
+	clearFifo();															//good
 	
-//	temp = I2C_Send1(0x57,FIFO_WRITE_PTR);
-//	uint8_t wPTR = I2C_Recv(0x57);
-//	temp = I2C_Send1(0x57,FIFO_READ_PTR);
-//	uint8_t rPTR = I2C_Recv(0x57);
-//	uint8_t numSamples= wPTR-rPTR;
+	temp = I2C_Send1(0x57,FIFO_WRITE_PTR);
+	uint8_t wPTR = I2C_Recv(0x57);
+	temp = I2C_Send1(0x57,FIFO_READ_PTR);
+	uint8_t rPTR = I2C_Recv(0x57);
 	
-	uint8_t buff[6];
+	uint8_t numSamples= diffPTR(wPTR,rPTR);
 	
+	uint8_t buff[3];
 	
-	for(uint8_t i = 0; i <6; i++){
-		temp = I2C_Send1(0x57,FIFO_DATA);
-		buff[i] = I2C_Recv(0x57);
+	for(uint8_t j =0; j < numSamples; j++){
+		for(uint8_t i=0; i < 2; i++){
+			for(uint8_t h=0; h<3; h++){
+					buff[h]=readFromRD_PTR();
+			}
+			samples[j][i]= (buff[0]<<13) | (buff[1]<<5) | (buff[2]>>3);
+		}
 	}
-	
-	rawData[0] = (buff[0]<<16) | (buff[1]<<8) | (buff[2]);
-	rawData[1] = (buff[3]<<16) | (buff[4]<<8) | (buff[5]);
 
 }
-
-
 
 int8_t getHeartBeat(void){
 	readFromFifo();
@@ -348,5 +369,3 @@ int8_t getHeartBeat(void){
 	//data = filterData(data);
 	return 0;
 }
-
-
