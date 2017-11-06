@@ -7,4 +7,4 @@
  */
  
  void PortD_Init(void);
- void Timer1A_Init(void);
+ void Timer2A_Init(void);

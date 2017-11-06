@@ -10,7 +10,7 @@ Section Cross References
     startup.o(RESET) refers to startup.o(STACK) for StackMem
     startup.o(RESET) refers to buttoncontrol.o(i.GPIOPortD_Handler) for GPIOPortD_Handler
     startup.o(RESET) refers to sound.o(i.Timer0A_Handler) for Timer0A_Handler
-    startup.o(RESET) refers to buttoncontrol.o(i.Timer1A_Handler) for Timer1A_Handler
+    startup.o(RESET) refers to buttoncontrol.o(i.Timer2A_Handler) for Timer2A_Handler
     startup.o(RESET) refers to __main.o(!!!main) for __main
     startup.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(.text) refers to startup.o(HEAP) for HeapMem
@@ -19,9 +19,10 @@ Section Cross References
     i2ctestmain.o(i.displayTemp) refers to uart.o(i.UART_OutString) for UART_OutString
     i2ctestmain.o(i.main) refers to pll.o(i.PLL_Init) for PLL_Init
     i2ctestmain.o(i.main) refers to uart.o(i.UART_Init) for UART_Init
+    i2ctestmain.o(i.main) refers to startup.o(.text) for StartCritical
     i2ctestmain.o(i.main) refers to i2c0.o(i.I2C_Init) for I2C_Init
     i2ctestmain.o(i.main) refers to buttoncontrol.o(i.PortD_Init) for PortD_Init
-    i2ctestmain.o(i.main) refers to buttoncontrol.o(i.Timer1A_Init) for Timer1A_Init
+    i2ctestmain.o(i.main) refers to buttoncontrol.o(i.Timer2A_Init) for Timer2A_Init
     i2ctestmain.o(i.main) refers to st7735.o(i.ST7735_InitR) for ST7735_InitR
     i2ctestmain.o(i.main) refers to i2c0.o(i.setMode) for setMode
     i2ctestmain.o(i.main) refers to i2c0.o(i.setSamplingRate) for setSamplingRate
@@ -68,7 +69,6 @@ Section Cross References
     uart.o(i.UART_OutUDec) refers to uart.o(i.UART_OutChar) for UART_OutChar
     uart.o(i.UART_OutUHex) refers to uart.o(i.UART_OutChar) for UART_OutChar
     buttoncontrol.o(i.GPIOPortD_Handler) refers to buttoncontrol.o(.data) for button
-    buttoncontrol.o(i.Timer1A_Init) refers to startup.o(.text) for StartCritical
     visual.o(i.displayHB) refers to st7735.o(i.ST7735_DrawString) for ST7735_DrawString
     st7735.o(i.Output_Clear) refers to st7735.o(i.ST7735_FillScreen) for ST7735_FillScreen
     st7735.o(i.Output_Color) refers to st7735.o(i.ST7735_SetTextColor) for ST7735_SetTextColor
@@ -439,50 +439,50 @@ Image Symbol Table
     .text                                    0x000003ca   Section        0  indicate_semi.o(.text)
     i.Delay1ms                               0x000003ca   Section        0  st7735.o(i.Delay1ms)
     i.GPIOPortD_Handler                      0x000003ec   Section        0  buttoncontrol.o(i.GPIOPortD_Handler)
-    i.I2C_Init                               0x0000045c   Section        0  i2c0.o(i.I2C_Init)
-    i.I2C_Recv                               0x000004ec   Section        0  i2c0.o(i.I2C_Recv)
-    i.I2C_Recv2                              0x00000540   Section        0  i2c0.o(i.I2C_Recv2)
-    i.I2C_Send1                              0x000005b4   Section        0  i2c0.o(i.I2C_Send1)
-    i.I2C_Send2                              0x000005f8   Section        0  i2c0.o(i.I2C_Send2)
-    i.PLL_Init                               0x00000670   Section        0  pll.o(i.PLL_Init)
-    i.PortD_Init                             0x000006ec   Section        0  buttoncontrol.o(i.PortD_Init)
-    i.ST7735_FillRect                        0x0000078c   Section        0  st7735.o(i.ST7735_FillRect)
-    i.ST7735_FillScreen                      0x00000838   Section        0  st7735.o(i.ST7735_FillScreen)
-    i.ST7735_InitR                           0x0000085c   Section        0  st7735.o(i.ST7735_InitR)
-    i.ST7735_SetCursor                       0x000008d8   Section        0  st7735.o(i.ST7735_SetCursor)
-    i.Timer0A_Handler                        0x000008f8   Section        0  sound.o(i.Timer0A_Handler)
-    i.Timer1A_Handler                        0x00000918   Section        0  buttoncontrol.o(i.Timer1A_Handler)
-    i.Timer1A_Init                           0x00000924   Section        0  buttoncontrol.o(i.Timer1A_Init)
-    i.UART_Init                              0x00000984   Section        0  uart.o(i.UART_Init)
-    i.UART_OutChar                           0x00000a14   Section        0  uart.o(i.UART_OutChar)
-    i.UART_OutString                         0x00000a2c   Section        0  uart.o(i.UART_OutString)
-    i.clearFifo                              0x00000a44   Section        0  i2c0.o(i.clearFifo)
-    i.commandList                            0x00000a5c   Section        0  st7735.o(i.commandList)
-    commandList                              0x00000a5d   Thumb Code    86  st7735.o(i.commandList)
-    i.commonInit                             0x00000ab4   Section        0  st7735.o(i.commonInit)
-    commonInit                               0x00000ab5   Thumb Code   340  st7735.o(i.commonInit)
-    i.displayTemp                            0x00000c38   Section        0  i2ctestmain.o(i.displayTemp)
-    i.getHeartBeat                           0x00000d6e   Section        0  i2c0.o(i.getHeartBeat)
-    i.main                                   0x00000d78   Section        0  i2ctestmain.o(i.main)
-    i.parseTemp                              0x00000e70   Section        0  i2ctestmain.o(i.parseTemp)
-    i.readFromFifo                           0x00000f2c   Section        0  i2c0.o(i.readFromFifo)
-    i.setAddrWindow                          0x00000f90   Section        0  st7735.o(i.setAddrWindow)
-    setAddrWindow                            0x00000f91   Thumb Code   106  st7735.o(i.setAddrWindow)
-    i.setLEDCurrent                          0x00001004   Section        0  i2c0.o(i.setLEDCurrent)
-    i.setLEDPulseWidth                       0x0000102c   Section        0  i2c0.o(i.setLEDPulseWidth)
-    i.setMode                                0x00001068   Section        0  i2c0.o(i.setMode)
-    i.setSamplingRate                        0x000010a4   Section        0  i2c0.o(i.setSamplingRate)
-    i.writecommand                           0x000010e0   Section        0  st7735.o(i.writecommand)
-    writecommand                             0x000010e1   Thumb Code    40  st7735.o(i.writecommand)
-    i.writedata                              0x00001110   Section        0  st7735.o(i.writedata)
-    writedata                                0x00001111   Thumb Code    24  st7735.o(i.writedata)
-    .constdata                               0x00001130   Section     2018  st7735.o(.constdata)
-    Font                                     0x00001130   Data        1275  st7735.o(.constdata)
-    Bcmd                                     0x0000162b   Data         103  st7735.o(.constdata)
-    Rcmd1                                    0x00001692   Data          59  st7735.o(.constdata)
-    Rcmd2green                               0x000016cd   Data          13  st7735.o(.constdata)
-    Rcmd2red                                 0x000016da   Data          13  st7735.o(.constdata)
-    Rcmd3                                    0x000016e7   Data          43  st7735.o(.constdata)
+    i.I2C_Init                               0x00000454   Section        0  i2c0.o(i.I2C_Init)
+    i.I2C_Recv                               0x000004e4   Section        0  i2c0.o(i.I2C_Recv)
+    i.I2C_Recv2                              0x00000538   Section        0  i2c0.o(i.I2C_Recv2)
+    i.I2C_Send1                              0x000005ac   Section        0  i2c0.o(i.I2C_Send1)
+    i.I2C_Send2                              0x000005f0   Section        0  i2c0.o(i.I2C_Send2)
+    i.PLL_Init                               0x00000668   Section        0  pll.o(i.PLL_Init)
+    i.PortD_Init                             0x000006e4   Section        0  buttoncontrol.o(i.PortD_Init)
+    i.ST7735_FillRect                        0x00000784   Section        0  st7735.o(i.ST7735_FillRect)
+    i.ST7735_FillScreen                      0x00000830   Section        0  st7735.o(i.ST7735_FillScreen)
+    i.ST7735_InitR                           0x00000854   Section        0  st7735.o(i.ST7735_InitR)
+    i.ST7735_SetCursor                       0x000008d0   Section        0  st7735.o(i.ST7735_SetCursor)
+    i.Timer0A_Handler                        0x000008f0   Section        0  sound.o(i.Timer0A_Handler)
+    i.Timer2A_Handler                        0x00000910   Section        0  buttoncontrol.o(i.Timer2A_Handler)
+    i.Timer2A_Init                           0x0000092c   Section        0  buttoncontrol.o(i.Timer2A_Init)
+    i.UART_Init                              0x00000980   Section        0  uart.o(i.UART_Init)
+    i.UART_OutChar                           0x00000a10   Section        0  uart.o(i.UART_OutChar)
+    i.UART_OutString                         0x00000a28   Section        0  uart.o(i.UART_OutString)
+    i.clearFifo                              0x00000a40   Section        0  i2c0.o(i.clearFifo)
+    i.commandList                            0x00000a58   Section        0  st7735.o(i.commandList)
+    commandList                              0x00000a59   Thumb Code    86  st7735.o(i.commandList)
+    i.commonInit                             0x00000ab0   Section        0  st7735.o(i.commonInit)
+    commonInit                               0x00000ab1   Thumb Code   340  st7735.o(i.commonInit)
+    i.displayTemp                            0x00000c34   Section        0  i2ctestmain.o(i.displayTemp)
+    i.getHeartBeat                           0x00000d6a   Section        0  i2c0.o(i.getHeartBeat)
+    i.main                                   0x00000d74   Section        0  i2ctestmain.o(i.main)
+    i.parseTemp                              0x00000e78   Section        0  i2ctestmain.o(i.parseTemp)
+    i.readFromFifo                           0x00000f34   Section        0  i2c0.o(i.readFromFifo)
+    i.setAddrWindow                          0x00000f98   Section        0  st7735.o(i.setAddrWindow)
+    setAddrWindow                            0x00000f99   Thumb Code   106  st7735.o(i.setAddrWindow)
+    i.setLEDCurrent                          0x0000100c   Section        0  i2c0.o(i.setLEDCurrent)
+    i.setLEDPulseWidth                       0x00001034   Section        0  i2c0.o(i.setLEDPulseWidth)
+    i.setMode                                0x00001070   Section        0  i2c0.o(i.setMode)
+    i.setSamplingRate                        0x000010ac   Section        0  i2c0.o(i.setSamplingRate)
+    i.writecommand                           0x000010e8   Section        0  st7735.o(i.writecommand)
+    writecommand                             0x000010e9   Thumb Code    40  st7735.o(i.writecommand)
+    i.writedata                              0x00001118   Section        0  st7735.o(i.writedata)
+    writedata                                0x00001119   Thumb Code    24  st7735.o(i.writedata)
+    .constdata                               0x00001138   Section     2018  st7735.o(.constdata)
+    Font                                     0x00001138   Data        1275  st7735.o(.constdata)
+    Bcmd                                     0x00001633   Data         103  st7735.o(.constdata)
+    Rcmd1                                    0x0000169a   Data          59  st7735.o(.constdata)
+    Rcmd2green                               0x000016d5   Data          13  st7735.o(.constdata)
+    Rcmd2red                                 0x000016e2   Data          13  st7735.o(.constdata)
+    Rcmd3                                    0x000016ef   Data          43  st7735.o(.constdata)
     .data                                    0x20000000   Section       12  i2c0.o(.data)
     .data                                    0x2000000c   Section        1  buttoncontrol.o(.data)
     .data                                    0x20000010   Section       44  st7735.o(.data)
@@ -620,8 +620,8 @@ Image Symbol Table
     SSI3_Handler                             0x00000283   Thumb Code     0  startup.o(RESET)
     SysCtl_Handler                           0x00000283   Thumb Code     0  startup.o(RESET)
     Timer0B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
+    Timer1A_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer1B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
-    Timer2A_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer2B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer3A_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
     Timer3B_Handler                          0x00000283   Thumb Code     0  startup.o(RESET)
@@ -719,37 +719,37 @@ Image Symbol Table
     __use_no_semihosting_swi                 0x000003c9   Thumb Code     2  use_no_semi.o(.text)
     Delay1ms                                 0x000003cb   Thumb Code    32  st7735.o(i.Delay1ms)
     __semihosting_library_function           0x000003cb   Thumb Code     0  indicate_semi.o(.text)
-    GPIOPortD_Handler                        0x000003ed   Thumb Code    88  buttoncontrol.o(i.GPIOPortD_Handler)
-    I2C_Init                                 0x0000045d   Thumb Code   124  i2c0.o(i.I2C_Init)
-    I2C_Recv                                 0x000004ed   Thumb Code    78  i2c0.o(i.I2C_Recv)
-    I2C_Recv2                                0x00000541   Thumb Code   110  i2c0.o(i.I2C_Recv2)
-    I2C_Send1                                0x000005b5   Thumb Code    64  i2c0.o(i.I2C_Send1)
-    I2C_Send2                                0x000005f9   Thumb Code   114  i2c0.o(i.I2C_Send2)
-    PLL_Init                                 0x00000671   Thumb Code   118  pll.o(i.PLL_Init)
-    PortD_Init                               0x000006ed   Thumb Code   140  buttoncontrol.o(i.PortD_Init)
-    ST7735_FillRect                          0x0000078d   Thumb Code   164  st7735.o(i.ST7735_FillRect)
-    ST7735_FillScreen                        0x00000839   Thumb Code    28  st7735.o(i.ST7735_FillScreen)
-    ST7735_InitR                             0x0000085d   Thumb Code    90  st7735.o(i.ST7735_InitR)
-    ST7735_SetCursor                         0x000008d9   Thumb Code    22  st7735.o(i.ST7735_SetCursor)
-    Timer0A_Handler                          0x000008f9   Thumb Code    28  sound.o(i.Timer0A_Handler)
-    Timer1A_Handler                          0x00000919   Thumb Code     8  buttoncontrol.o(i.Timer1A_Handler)
-    Timer1A_Init                             0x00000925   Thumb Code    80  buttoncontrol.o(i.Timer1A_Init)
-    UART_Init                                0x00000985   Thumb Code   124  uart.o(i.UART_Init)
-    UART_OutChar                             0x00000a15   Thumb Code    18  uart.o(i.UART_OutChar)
-    UART_OutString                           0x00000a2d   Thumb Code    24  uart.o(i.UART_OutString)
-    clearFifo                                0x00000a45   Thumb Code    18  i2c0.o(i.clearFifo)
-    displayTemp                              0x00000c39   Thumb Code   310  i2ctestmain.o(i.displayTemp)
-    getHeartBeat                             0x00000d6f   Thumb Code    10  i2c0.o(i.getHeartBeat)
-    main                                     0x00000d79   Thumb Code   172  i2ctestmain.o(i.main)
-    parseTemp                                0x00000e71   Thumb Code   188  i2ctestmain.o(i.parseTemp)
-    readFromFifo                             0x00000f2d   Thumb Code    90  i2c0.o(i.readFromFifo)
-    setLEDCurrent                            0x00001005   Thumb Code    40  i2c0.o(i.setLEDCurrent)
-    setLEDPulseWidth                         0x0000102d   Thumb Code    50  i2c0.o(i.setLEDPulseWidth)
-    setMode                                  0x00001069   Thumb Code    50  i2c0.o(i.setMode)
-    setSamplingRate                          0x000010a5   Thumb Code    52  i2c0.o(i.setSamplingRate)
-    dBfs                                     0x00001712   Data         512  st7735.o(.constdata)
-    Region$$Table$$Base                      0x00001914   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00001934   Number         0  anon$$obj.o(Region$$Table)
+    GPIOPortD_Handler                        0x000003ed   Thumb Code    78  buttoncontrol.o(i.GPIOPortD_Handler)
+    I2C_Init                                 0x00000455   Thumb Code   124  i2c0.o(i.I2C_Init)
+    I2C_Recv                                 0x000004e5   Thumb Code    78  i2c0.o(i.I2C_Recv)
+    I2C_Recv2                                0x00000539   Thumb Code   110  i2c0.o(i.I2C_Recv2)
+    I2C_Send1                                0x000005ad   Thumb Code    64  i2c0.o(i.I2C_Send1)
+    I2C_Send2                                0x000005f1   Thumb Code   114  i2c0.o(i.I2C_Send2)
+    PLL_Init                                 0x00000669   Thumb Code   118  pll.o(i.PLL_Init)
+    PortD_Init                               0x000006e5   Thumb Code   140  buttoncontrol.o(i.PortD_Init)
+    ST7735_FillRect                          0x00000785   Thumb Code   164  st7735.o(i.ST7735_FillRect)
+    ST7735_FillScreen                        0x00000831   Thumb Code    28  st7735.o(i.ST7735_FillScreen)
+    ST7735_InitR                             0x00000855   Thumb Code    90  st7735.o(i.ST7735_InitR)
+    ST7735_SetCursor                         0x000008d1   Thumb Code    22  st7735.o(i.ST7735_SetCursor)
+    Timer0A_Handler                          0x000008f1   Thumb Code    28  sound.o(i.Timer0A_Handler)
+    Timer2A_Handler                          0x00000911   Thumb Code    20  buttoncontrol.o(i.Timer2A_Handler)
+    Timer2A_Init                             0x0000092d   Thumb Code    64  buttoncontrol.o(i.Timer2A_Init)
+    UART_Init                                0x00000981   Thumb Code   124  uart.o(i.UART_Init)
+    UART_OutChar                             0x00000a11   Thumb Code    18  uart.o(i.UART_OutChar)
+    UART_OutString                           0x00000a29   Thumb Code    24  uart.o(i.UART_OutString)
+    clearFifo                                0x00000a41   Thumb Code    18  i2c0.o(i.clearFifo)
+    displayTemp                              0x00000c35   Thumb Code   310  i2ctestmain.o(i.displayTemp)
+    getHeartBeat                             0x00000d6b   Thumb Code    10  i2c0.o(i.getHeartBeat)
+    main                                     0x00000d75   Thumb Code   184  i2ctestmain.o(i.main)
+    parseTemp                                0x00000e79   Thumb Code   188  i2ctestmain.o(i.parseTemp)
+    readFromFifo                             0x00000f35   Thumb Code    90  i2c0.o(i.readFromFifo)
+    setLEDCurrent                            0x0000100d   Thumb Code    40  i2c0.o(i.setLEDCurrent)
+    setLEDPulseWidth                         0x00001035   Thumb Code    50  i2c0.o(i.setLEDPulseWidth)
+    setMode                                  0x00001071   Thumb Code    50  i2c0.o(i.setMode)
+    setSamplingRate                          0x000010ad   Thumb Code    52  i2c0.o(i.setSamplingRate)
+    dBfs                                     0x0000171a   Data         512  st7735.o(.constdata)
+    Region$$Table$$Base                      0x0000191c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0000193c   Number         0  anon$$obj.o(Region$$Table)
     temp                                     0x20000000   Data           1  i2c0.o(.data)
     flag                                     0x20000001   Data           1  i2c0.o(.data)
     rawData                                  0x20000004   Data           8  i2c0.o(.data)
@@ -774,9 +774,9 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00001970, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001978, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00001934, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x0000193c, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -838,43 +838,43 @@ Memory Map of the image
     0x000003ca   0x00000000   Code   RO          697    .text               c_w.l(indicate_semi.o)
     0x000003ca   0x00000020   Code   RO          320    i.Delay1ms          st7735.o
     0x000003ea   0x00000002   PAD
-    0x000003ec   0x00000070   Code   RO          233    i.GPIOPortD_Handler  buttoncontrol.o
-    0x0000045c   0x00000090   Code   RO           53    i.I2C_Init          i2c0.o
-    0x000004ec   0x00000054   Code   RO           54    i.I2C_Recv          i2c0.o
-    0x00000540   0x00000074   Code   RO           55    i.I2C_Recv2         i2c0.o
-    0x000005b4   0x00000044   Code   RO           56    i.I2C_Send1         i2c0.o
-    0x000005f8   0x00000078   Code   RO           58    i.I2C_Send2         i2c0.o
-    0x00000670   0x0000007c   Code   RO          161    i.PLL_Init          pll.o
-    0x000006ec   0x000000a0   Code   RO          234    i.PortD_Init        buttoncontrol.o
-    0x0000078c   0x000000ac   Code   RO          334    i.ST7735_FillRect   st7735.o
-    0x00000838   0x00000024   Code   RO          335    i.ST7735_FillScreen  st7735.o
-    0x0000085c   0x0000007c   Code   RO          337    i.ST7735_InitR      st7735.o
-    0x000008d8   0x00000020   Code   RO          350    i.ST7735_SetCursor  st7735.o
-    0x000008f8   0x00000020   Code   RO          266    i.Timer0A_Handler   sound.o
-    0x00000918   0x0000000c   Code   RO          235    i.Timer1A_Handler   buttoncontrol.o
-    0x00000924   0x00000060   Code   RO          236    i.Timer1A_Init      buttoncontrol.o
-    0x00000984   0x00000090   Code   RO          177    i.UART_Init         uart.o
-    0x00000a14   0x00000018   Code   RO          178    i.UART_OutChar      uart.o
-    0x00000a2c   0x00000018   Code   RO          179    i.UART_OutString    uart.o
-    0x00000a44   0x00000018   Code   RO           60    i.clearFifo         i2c0.o
-    0x00000a5c   0x00000056   Code   RO          354    i.commandList       st7735.o
-    0x00000ab2   0x00000002   PAD
-    0x00000ab4   0x00000184   Code   RO          355    i.commonInit        st7735.o
-    0x00000c38   0x00000136   Code   RO           13    i.displayTemp       i2ctestmain.o
-    0x00000d6e   0x0000000a   Code   RO           62    i.getHeartBeat      i2c0.o
-    0x00000d78   0x000000f8   Code   RO           14    i.main              i2ctestmain.o
-    0x00000e70   0x000000bc   Code   RO           15    i.parseTemp         i2ctestmain.o
-    0x00000f2c   0x00000064   Code   RO           63    i.readFromFifo      i2c0.o
-    0x00000f90   0x00000074   Code   RO          361    i.setAddrWindow     st7735.o
-    0x00001004   0x00000028   Code   RO           65    i.setLEDCurrent     i2c0.o
-    0x0000102c   0x0000003c   Code   RO           66    i.setLEDPulseWidth  i2c0.o
-    0x00001068   0x0000003c   Code   RO           67    i.setMode           i2c0.o
-    0x000010a4   0x0000003c   Code   RO           68    i.setSamplingRate   i2c0.o
-    0x000010e0   0x00000030   Code   RO          362    i.writecommand      st7735.o
-    0x00001110   0x00000020   Code   RO          363    i.writedata         st7735.o
-    0x00001130   0x000007e2   Data   RO          365    .constdata          st7735.o
-    0x00001912   0x00000002   PAD
-    0x00001914   0x00000020   Data   RO          749    Region$$Table       anon$$obj.o
+    0x000003ec   0x00000068   Code   RO          233    i.GPIOPortD_Handler  buttoncontrol.o
+    0x00000454   0x00000090   Code   RO           53    i.I2C_Init          i2c0.o
+    0x000004e4   0x00000054   Code   RO           54    i.I2C_Recv          i2c0.o
+    0x00000538   0x00000074   Code   RO           55    i.I2C_Recv2         i2c0.o
+    0x000005ac   0x00000044   Code   RO           56    i.I2C_Send1         i2c0.o
+    0x000005f0   0x00000078   Code   RO           58    i.I2C_Send2         i2c0.o
+    0x00000668   0x0000007c   Code   RO          161    i.PLL_Init          pll.o
+    0x000006e4   0x000000a0   Code   RO          234    i.PortD_Init        buttoncontrol.o
+    0x00000784   0x000000ac   Code   RO          334    i.ST7735_FillRect   st7735.o
+    0x00000830   0x00000024   Code   RO          335    i.ST7735_FillScreen  st7735.o
+    0x00000854   0x0000007c   Code   RO          337    i.ST7735_InitR      st7735.o
+    0x000008d0   0x00000020   Code   RO          350    i.ST7735_SetCursor  st7735.o
+    0x000008f0   0x00000020   Code   RO          266    i.Timer0A_Handler   sound.o
+    0x00000910   0x0000001c   Code   RO          235    i.Timer2A_Handler   buttoncontrol.o
+    0x0000092c   0x00000054   Code   RO          236    i.Timer2A_Init      buttoncontrol.o
+    0x00000980   0x00000090   Code   RO          177    i.UART_Init         uart.o
+    0x00000a10   0x00000018   Code   RO          178    i.UART_OutChar      uart.o
+    0x00000a28   0x00000018   Code   RO          179    i.UART_OutString    uart.o
+    0x00000a40   0x00000018   Code   RO           60    i.clearFifo         i2c0.o
+    0x00000a58   0x00000056   Code   RO          354    i.commandList       st7735.o
+    0x00000aae   0x00000002   PAD
+    0x00000ab0   0x00000184   Code   RO          355    i.commonInit        st7735.o
+    0x00000c34   0x00000136   Code   RO           13    i.displayTemp       i2ctestmain.o
+    0x00000d6a   0x0000000a   Code   RO           62    i.getHeartBeat      i2c0.o
+    0x00000d74   0x00000104   Code   RO           14    i.main              i2ctestmain.o
+    0x00000e78   0x000000bc   Code   RO           15    i.parseTemp         i2ctestmain.o
+    0x00000f34   0x00000064   Code   RO           63    i.readFromFifo      i2c0.o
+    0x00000f98   0x00000074   Code   RO          361    i.setAddrWindow     st7735.o
+    0x0000100c   0x00000028   Code   RO           65    i.setLEDCurrent     i2c0.o
+    0x00001034   0x0000003c   Code   RO           66    i.setLEDPulseWidth  i2c0.o
+    0x00001070   0x0000003c   Code   RO           67    i.setMode           i2c0.o
+    0x000010ac   0x0000003c   Code   RO           68    i.setSamplingRate   i2c0.o
+    0x000010e8   0x00000030   Code   RO          362    i.writecommand      st7735.o
+    0x00001118   0x00000020   Code   RO          363    i.writedata         st7735.o
+    0x00001138   0x000007e2   Data   RO          365    .constdata          st7735.o
+    0x0000191a   0x00000002   PAD
+    0x0000191c   0x00000020   Data   RO          749    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x0000003c, Max: 0xffffffff, ABSOLUTE)
@@ -904,9 +904,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       380         64          0          1          0       1867   buttoncontrol.o
+       376         74          0          1          0       1819   buttoncontrol.o
        886         86          0         12          0       6771   i2c0.o
-       752         76          0          0          0       6869   i2ctestmain.o
+       764         76          0          0          0       6921   i2ctestmain.o
        124          6          0          0          0        431   pll.o
         32          4          0          0          0        374   sound.o
       1066        134       2018         44          0       8532   st7735.o
@@ -914,7 +914,7 @@ Image component sizes
        192         26          0          0          0       1268   uart.o
 
     ----------------------------------------------------------------------
-      4130       1028       2052         60       1024      27044   Object Totals
+      4138       1038       2052         60       1024      27048   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          6          0          2          3          0          0   (incl. Padding)
 
@@ -963,15 +963,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4400       1044       2052         60       1124      25644   Grand Totals
-      4400       1044       2052         60       1124      25644   ELF Image Totals
-      4400       1044       2052         60          0          0   ROM Totals
+      4408       1054       2052         60       1124      25648   Grand Totals
+      4408       1054       2052         60       1124      25648   ELF Image Totals
+      4408       1054       2052         60          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 6452 (   6.30kB)
+    Total RO  Size (Code + RO Data)                 6460 (   6.31kB)
     Total RW  Size (RW Data + ZI Data)              1184 (   1.16kB)
-    Total ROM Size (Code + RO Data + RW Data)       6512 (   6.36kB)
+    Total ROM Size (Code + RO Data + RW Data)       6520 (   6.37kB)
 
 ==============================================================================
 

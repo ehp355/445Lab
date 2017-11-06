@@ -196,7 +196,7 @@ int main(void){
 	sr =StartCritical(); 
   I2C_Init();
 	PortD_Init();
-	Timer1A_Init();
+	Timer2A_Init();
 	ST7735_InitR(INITR_REDTAB);			//good
 	EndCritical(sr);
 	setMode(0x3);										//good
