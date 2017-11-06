@@ -5,8 +5,6 @@
  *TA: Cody Horton
  *Last Edited: 11/11/17
  */
- 
- 
  //displays heartbeat state to LCD
  void displayHB(void);
  

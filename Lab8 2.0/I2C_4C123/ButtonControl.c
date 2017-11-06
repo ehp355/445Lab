@@ -11,11 +11,9 @@
 //PD4 is non intrusive flag for handler
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
-
 #define PD4       (*((volatile uint32_t *)0x40007040))
 	
 uint8_t button;
-
 
 void PortD_Init(void){
 	SYSCTL_RCGCGPIO_R |= 0x08;		//activate clock for port d
@@ -46,7 +44,6 @@ void Timer1A_Init(void){
   NVIC_EN0_R = 1<<21;           // 9) enable IRQ 21 in NVIC
 	//Timer 1A enabled in GPIOD handler
 }
-
 
 void GPIOPortD_Handler(void){
 	PD4 ^= 0x10;

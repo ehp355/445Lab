@@ -33,11 +33,8 @@
 #include "PLL.h"
 #include "UART.h"
 #include "ST7735.h"
-<<<<<<< HEAD
 #include "Visual.h"
 #include "Sound.h"
-=======
->>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
 #include "ButtonControl.h"
 
 // For debug purposes, this program may peek at the I2C0 Master
@@ -198,30 +195,20 @@ int main(void){
   PLL_Init(Bus80MHz);
   UART_Init();
 	long sr;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	sr =StartCritical();
-=======
-	sr =StartCritical();
->>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
-=======
-	sr =StartCritical();
->>>>>>> 1ef2cfc9e28e48d03c7a4e117fccd3dd0d93b4d7
+
   I2C_Init();
 	PortD_Init();
 	Timer1A_Init();
-	ST7735_InitR(INITR_REDTAB);			//good
+	ST7735_InitR(INITR_REDTAB);			
 	EndCritical(sr);
-	setMode(0x3);										//good
-	setSamplingRate(0);							//good
-	setLEDPulseWidth(0);						//good
-	setLEDCurrent(0x7F,0x7F);				//good
-
+	setMode(0x3);										
+	setSamplingRate(0);							
+	setLEDPulseWidth(0);						
+	setLEDCurrent(0x7F,0x7F);				
+	//visual module for demo
 	displayWord();
 	uint8_t hb = getHeartBeat();
-
-
-
 
                                           // write commands to 0x48 (ADDR to ground)
   I2C_Send1(0x48, 1);                     // use command 1 to set pointer to config (Figure 7.XX chapter7-10-1.ulb)

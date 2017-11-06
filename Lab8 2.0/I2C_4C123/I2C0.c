@@ -291,9 +291,6 @@ void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent){
 	int i = 8 +8;
 }
 
-
-
-
 int8_t filterData(int8_t data){
 //edit raw data in any fashion here
 	return 0;
@@ -341,7 +338,6 @@ uint8_t diffPTR(uint8_t wPTR, uint8_t rPTR){
 	}else{
 		return (32-rPTR)+wPTR;
 	}
-	
 }
 
 void readFromFifo(void){
@@ -367,13 +363,9 @@ void readFromFifo(void){
 
 }
 
-
-
 int8_t getHeartBeat(void){
 	readFromFifo();
 	//filteredIR = filterData(rawData[0],filteredIR[0],0 );
 	//data = filterData(data);
 	return 0;
 }
-
-
