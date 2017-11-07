@@ -10,6 +10,7 @@
 
 void displayWord(){
 	ST7735_DrawString(40, 90, "Hello World?", ST7735_BLUE);
+	ST7735_DrawCharS( 0, 0, 'a', ST7735_BLUE, ST7735_BLACK, 3); 
 }
 
  //displays heartbeat state to LCD

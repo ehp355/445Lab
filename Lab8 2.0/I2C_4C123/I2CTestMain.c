@@ -100,16 +100,13 @@ void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 
 int main(void){
-  unsigned short rawData = 0;             // 16-bit data straight from thermometer
-  int tempInt = 0;                        // integer value of temperature (-128 to 127)
-  int tempFra = 0;                        // fractional value of temperature (0 to 9375)
   PLL_Init(Bus80MHz);
-  UART_Init();
 	long sr;
 	sr =StartCritical();
 
   I2C_Init();
 	PortD_Init();
+	Timer0A_Init();
 	Timer2A_Init();
 	ST7735_InitR(INITR_REDTAB);			//good
 
@@ -122,5 +119,11 @@ int main(void){
 	//visual module for demo
 	displayWord();
 	uint8_t hb = getHeartBeat();
+	soundAlarm();
+	for(uint32_t i=0; i<900000; i++){
+		int a = 0;
+		int b = 1;
+	}
+	endAlarm();
 while(1);
 }
