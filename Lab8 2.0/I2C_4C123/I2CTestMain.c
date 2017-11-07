@@ -119,7 +119,7 @@ int main(void){
 	//visual module for demo
 //	displayWord();
 	uint8_t hb = getHeartBeat();
-	displayHB(32);
+	display2DigitNumber(60);
 	soundAlarm();
 	for(uint32_t i=0; i<900000; i++){
 		int a = 0;

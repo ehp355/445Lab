@@ -13,6 +13,15 @@ void displayWord(){
 	ST7735_DrawCharS( 0, 0, 'a', ST7735_BLUE, ST7735_BLACK, 3); 
 }
 
+//visual module for demo
+void display2DigitNumber(uint32_t num){
+	char zero = '0';
+	char Char1= ((char)(num%10))+zero;
+	char Char2= ((char)(num/10))+zero;
+	ST7735_DrawCharS(40, 80, Char2, ST7735_BLUE, ST7735_BLACK, 3);
+	ST7735_DrawCharS(50, 80, Char1, ST7735_BLUE, ST7735_BLACK, 3);
+}
+
  //displays heartbeat state to LCD
  void displayHB(uint32_t heartBeat){
 	 char hbString[3];

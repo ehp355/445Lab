@@ -8,6 +8,8 @@
  //displays heartbeat state to LCD
  void displayHB(uint32_t heartBeat);
  
+ void display2DigitNumber(uint32_t num);
+ 
  //displays Alert state to LCD
  void displayAlert(void);
  
