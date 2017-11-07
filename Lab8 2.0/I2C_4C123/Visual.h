@@ -6,7 +6,7 @@
  *Last Edited: 11/11/17
  */
  //displays heartbeat state to LCD
- void displayHB(void);
+ void displayHB(uint32_t heartBeat);
  
  //displays Alert state to LCD
  void displayAlert(void);

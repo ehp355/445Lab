@@ -20,7 +20,7 @@ void Timer0A_Init(void){
   TIMER0_ICR_R = 0x00000001;    // 6) clear TIMER0A timeout flag
   TIMER0_IMR_R = 0x00000001;    // 7) arm timeout interrupt
   NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x60000000;// 8) priority 3
-  NVIC_EN0_R = 1<<19;           // 9) enable IRQ 19 in NVIC
+  NVIC_EN0_R |= 1<<19;           // 9) enable IRQ 19 in NVIC
 }
 
 void Timer0A_Handler(void){ 

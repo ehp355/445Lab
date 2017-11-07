@@ -38,7 +38,8 @@ void Timer2A_Init(void){
   TIMER2_TAILR_R = 799999;				// 4) 10 ms
 	TIMER2_TAPR_R = 0;            // 5) bus clock resolution
   TIMER2_ICR_R = 0x1;   				// 6) clear TIMER2A timeout flag
-  TIMER2_IMR_R = 0x1;    				// 7) arm timeout interrupt
+ // TIMER2_IMR_R = 0x1;    				// 7) arm timeout interrupt
+	TIMER2_CTL_R = 0x1;						//enable timer
 	NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x20000000; // 8) priority 1
 // interrupts enabled in the main program after all devices initialized
 // vector number 39, interrupt number 23
@@ -47,18 +48,15 @@ void Timer2A_Init(void){
 }
 
 void GPIOPortD_Handler(void){
+	GPIO_PORTD_IM_R &= ~0x7;		//disarm buttons
 	TIMER2_CTL_R = 0x1;
+	TIMER2_IMR_R = 0x1;					//arm timer
 	button = (GPIO_PORTD_RIS_R & 0x07);
 	GPIO_PORTD_ICR_R= button;	//acknowledge flag	
-	//GPIO_PORTD_IM_R &= ~0x07;	
-	PD4 ^= 0x10;
-	PD4 ^= 0x10;
-	PD4 ^= 0x10;
+	GPIO_PORTD_IM_R |= 0x7;
 }
 
 void Timer2A_Handler(void){
-	int a = 0;
-	int b = 0;
-	TIMER2_ICR_R = 0x01;	//acknowledge flag
-	//GPIO_PORTD_IM_R |= 0x07;
+	TIMER2_IMR_R = 0;				//diasrm timer
+	TIMER2_ICR_R = 0x1;	//acknowledge flag
 }

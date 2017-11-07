@@ -21,7 +21,7 @@ void displayWord(){
 	 hbString[1] = heartBeat/10;
 	 hbString[2] = heartBeat%10;
 
-	 ST7735_DrawString(40, 90, hbString, ST7735_BLUE);
+	 ST7735_DrawString(5, 5, hbString, ST7735_BLUE);
  }
  
  //displays Alert state to LCD

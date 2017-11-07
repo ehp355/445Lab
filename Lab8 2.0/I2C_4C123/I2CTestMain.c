@@ -117,8 +117,9 @@ int main(void){
 	setLEDPulseWidth(0);						
 	setLEDCurrent(0x7F,0x7F);				
 	//visual module for demo
-	displayWord();
+//	displayWord();
 	uint8_t hb = getHeartBeat();
+	displayHB(32);
 	soundAlarm();
 	for(uint32_t i=0; i<900000; i++){
 		int a = 0;
