@@ -8,6 +8,13 @@
 // Daniel Valvano
 // May 2, 2015
 
+/*
+ *Enrique Perez-Osborne
+ *Juliana Pulido
+ *TA: Cody Horton
+ *Last Edited: 11/7/17
+ */
+
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to ARM Cortex M Microcontrollers",
    ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2015

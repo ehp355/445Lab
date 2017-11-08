@@ -6,6 +6,13 @@
 // Daniel Valvano
 // May 3, 2015
 
+/*
+ *Enrique Perez-Osborne
+ *Juliana Pulido
+ *TA: Cody Horton
+ *Last Edited: 11/7/17
+ */
+
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
    ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2015
@@ -30,6 +37,7 @@
 #include "ADCT0ATrigger.h"
 #include "PLL.h"
 #include "UART.h"
+#include "FIFO.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -51,6 +59,7 @@ uint8_t counter = 0;
 int main(void){
   PLL_Init(Bus80MHz);                      // 80 MHz system clock
 	UART_Init();
+	TxFifo_Init();
 	
   SYSCTL_RCGCGPIO_R |= 0x00000020;         // activate port F
   ADC0_InitTimer0ATriggerSeq3(0, 80000); // ADC channel 0, 10 Hz sampling

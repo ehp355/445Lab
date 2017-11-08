@@ -4,6 +4,13 @@
 // Daniel Valvano
 // May 2, 2015
 
+/*
+ *Enrique Perez-Osborne
+ *Juliana Pulido
+ *TA: Cody Horton
+ *Last Edited: 11/7/17
+ */
+
 /* This example accompanies the books
   "Embedded Systems: Introduction to ARM Cortex M Microcontrollers",
   ISBN: 978-1469998749, Jonathan Valvano, copyright (c) 2015
