@@ -13,6 +13,26 @@
  *Last Edited: 11/7/17
  */
 
+/*
+	Ways to initialize converison
+	ADC0_EMUX_R:
+	0x0		Software start
+	0x1		Analog Comparator 0
+	0x2		Analog Comparator 1
+	0x3		Analog Comparator 2		
+	0x4		External(GPIO PB4)
+	0x5		Timer
+	0x6		PWM0
+	0x7		PWM1
+	0x8		PWM2
+	0xF		ALways(continuously sample)
+ */
+ 
+/*
+When do you know adc conversion is complete:
+Bit 3 in ADC0_RIS_R is set and triggers and interrupt
+ */
+
 /* This example accompanies the book
    "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
    ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2015
@@ -58,6 +78,7 @@ uint32_t values[100];
 uint8_t counter = 0;
 int main(void){
   PLL_Init(Bus80MHz);                      // 80 MHz system clock
+	
 	UART_Init();
 	TxFifo_Init();
 	
