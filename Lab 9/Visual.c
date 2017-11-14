@@ -1186,7 +1186,7 @@ void graphADC(uint8_t tempWhole){
 		last100Values[arrIndex]=tempWhole;
 		arrIndex++;
 	}
-	ST7735_XYplotInit(0,0,180,10,40);
+	
 	ST7735_XYplot(100,arrIndex,last100Values,0);
 }
 
@@ -1206,7 +1206,7 @@ void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 	char Char3=(tempDec/10)+zero;
 	char Char4=(tempDec%10)+zero;
 	char str[5]={Char1,Char2,'.',Char3,Char4};
-	ST7735_DrawString(3,4,str,ST7735_BLUE);
+	ST7735_DrawString(3,2,str,ST7735_BLUE);
 	
 	
 	
@@ -1219,7 +1219,7 @@ void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 	char Char8=(rawData%10)+zero;
 	
 	char str2[5]={Char5,Char6,Char7,Char8,' '};
-	ST7735_DrawString(3,5,str2,ST7735_BLUE);
+	ST7735_DrawString(3,3,str2,ST7735_BLUE);
 	graphADC(tempWhole);
 	
 }
@@ -1229,15 +1229,15 @@ void displayError(uint8_t val){
 	if(val==250){
 		//openError
 			char cPTR[10]={'o','p','e','n',' ','e','r','r','o','r'};
-			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+			ST7735_DrawString(3,1,cPTR,ST7735_BLUE);
 			
 		}else if(temper[0]==249){
 			//shorted error
 			char cPTR[11]={'s','h','o','r','t',' ','e','r','r','o','r'};
-			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+			ST7735_DrawString(3,1,cPTR,ST7735_BLUE);
 		}else{
 			char cPTR[11] ={' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}; 
-			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+			ST7735_DrawString(3,1,cPTR,ST7735_BLUE);
 		}
 }
 

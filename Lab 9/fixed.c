@@ -245,19 +245,25 @@ void ST7735_Line(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint16_t color)
 	
 }
 
+void straightVerticalLine(uint8_t x, uint8_t startY, uint8_t endY){
+	for(uint8_t i = startY; i>endY;i--){
+			ST7735_DrawPixel(x,i,ST7735_BLUE);
+	}
+}
+
 void ST7735_XYplot(int32_t num, int32_t histIndex, uint8_t bufX[], int32_t bufY[]){
 	int32_t x;
 	int32_t y;
 	int32_t diff = num-histIndex;
 	for(uint8_t j = 0; j < diff;j++){
-		ST7735_Line(j,0,j,0,ST7735_BLUE);
+		straightVerticalLine(j,159,158);
 	}
 	
 	for(int32_t i = 0; i < 100; i++){
 		//x = (((i-max_X)*128)/x_Total);
 		//y has been changed for the histogram in Lab2
 		//y = (128-(((bufY[i]+max_Y)*128)/y_Total))+32;
-		ST7735_Line(i,0,i,bufX[i],ST7735_BLUE);
+		straightVerticalLine(i,159,159-bufX[i]);
 		//ST7735_DrawPixel(x,y,ST7735_BLUE);
 	
 	}
