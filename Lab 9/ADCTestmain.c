@@ -81,6 +81,7 @@ uint32_t values[100];
 uint8_t counter = 0;
 txDataType data;
 uint8_t temperature[2];
+uint32_t n = 0;
 int main(void){
   PLL_Init(Bus80MHz);                      // 80 MHz system clock
 	
@@ -106,8 +107,11 @@ int main(void){
 			TxFifo_Get((&data));
 			temperature[0] = fixedPoint(data);
 			temperature[1] = fixedPointDecimal(data);
+			n++;
+			if(n==1000){
+			n=0;
 			updateScreen(temperature[0],temperature[1],data);
-			
+			}
 		}
 	}
 	
