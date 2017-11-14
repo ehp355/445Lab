@@ -2,14 +2,16 @@
 #include "../inc/tm4c123gh6pm.h"
 #include "ST7735.h"
 
-uint8_t adcValueTable[4068]=
+uint8_t temper[2];
+
+uint8_t adcValueTable[4096]=
 										 //0-59
-										{0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
+										{250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
 										 //59-106
 										 40,40,39,39,39,39,39,39,39,39,
 										 39,39,39,39,39,39,39,39,39,39,
@@ -562,16 +564,20 @@ uint8_t adcValueTable[4068]=
 										 10,10,10,10,10,10,10,10,10,10,
 										 10,10,10,10,10,10,10,10,10,10,
 										 10,10,10,10,10,10,10,10,10,10,
-										 10,10,10,10,10,10,10,10,10,10};
+										 10,10,10,10,10,10,10,10,10,10,
+										 //4068-4096
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250};
 
 uint8_t adcValueDecimalTable[4068]=
 										 //0-59
-										 {0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
-										 0,0,0,0,0,0,0,0,0,0,
+										 {250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
 										 //59-106
 										 0,99,98,96,95,94,93,91,90,89,
 										 88,86,83,82,81,80,79,76,75,74,
@@ -1151,33 +1157,63 @@ uint8_t adcValueDecimalTable[4068]=
 										 20,19,19,18,18,17,17,16,16,15,
 										 15,14,14,13,13,12,12,11,11,10,
 										 10,9,9,8,8,7,7,6,6,5,
-										 5,4,4,3,3,2,2,1,1,0};
+										 5,4,4,3,3,2,2,1,1,0,
+										 //4068-4096
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250,250,250,
+										 250,250,250,250,250,250,250,250};
 
-void updateScreen(uint8_t temperature, uint16_t rawData){
+void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
+	
 	char zero = '0';
-	char Char1= ((char)(temperature%10))+zero;
-	char Char2= ((char)(temperature/10))+zero;
+	char Char1= (tempWhole/10)+zero;
+	char Char2= (tempWhole%10)+zero;
+	char Char3=(tempDec/10)+zero;
+	char Char4=(tempDec%10)+zero;
+	char str[5]={Char1,Char2,'.',Char3,Char4};
+	ST7735_DrawString(3,4,str,ST7735_BLUE);
 	
-	ST7735_DrawCharS(40, 80, Char2, ST7735_BLUE, ST7735_BLACK, 3);
-	ST7735_DrawCharS(50, 80, Char1, ST7735_BLUE, ST7735_BLACK, 3);
 	
-	Char1=((char)(rawData/1000))+zero;
+	
+	
+	char Char5=(rawData/1000)+zero;
 	rawData=rawData%1000;
-	Char2=((char)(rawData/100))+zero;
+	char Char6=(rawData/100)+zero;
 	rawData=rawData%100;
-	char Char3=((char)(rawData/10))+zero;
-	char Char4=((char)(rawData%10))+zero;
-	ST7735_DrawCharS(20, 100, Char1, ST7735_RED, ST7735_BLACK, 3);
-	ST7735_DrawCharS(35, 100, Char2, ST7735_RED, ST7735_BLACK, 3);
-	ST7735_DrawCharS(50, 100, Char3, ST7735_RED, ST7735_BLACK, 3);
-	ST7735_DrawCharS(65, 100, Char4, ST7735_RED, ST7735_BLACK, 3);
+	char Char7=(rawData/10)+zero;
+	char Char8=(rawData%10)+zero;
 	
+	char str2[5]={Char5,Char6,Char7,Char8,' '};
+	ST7735_DrawString(3,5,str2,ST7735_BLUE);
+}
 
+void displayError(void){
+	
+	char cPTR[5] ={'e','r','r','o','r'}; 
+	ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+	
 }
 
 uint8_t fixedPoint(uint16_t rawData){
-	if(rawData>4067||rawData<50){
-		return 99;
+	if(rawData<=4067&&rawData>=59){
+		temper[0]=adcValueTable[rawData];
+		if(temper[0]==250){
+			displayError();
+			return 0;
+		}
+		return temper[0];
 	}
-	
+	return 0;
+}
+
+uint8_t fixedPointDecimal(uint16_t rawData){
+	if(rawData<=4067&&rawData>=59){
+	  temper[1]=adcValueDecimalTable[rawData];
+		if(temper[1]==250){
+			displayError();
+			return 0;
+		}
+		return temper[1];
+	}
+	return 0;
 }

@@ -59,6 +59,7 @@ Bit 3 in ADC0_RIS_R is set and triggers and interrupt
 #include "UART.h"
 #include "FIFO.h"
 #include "Visual.h"
+#include "ST7735.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -78,11 +79,13 @@ extern uint8_t flag;
 uint32_t values[100];
 uint8_t counter = 0;
 txDataType data;
+uint8_t temperature[2];
 int main(void){
   PLL_Init(Bus80MHz);                      // 80 MHz system clock
 	
 	UART_Init();
 	TxFifo_Init();
+	ST7735_InitR(INITR_REDTAB);
 	
   SYSCTL_RCGCGPIO_R |= 0x00000020;         // activate port F
   ADC0_InitTimer0ATriggerSeq3(0, 80000); // ADC channel 0, 1000 Hz sampling
@@ -99,8 +102,9 @@ int main(void){
 		
 		if(TxFifo_Size()>0){
 			TxFifo_Get((&data));
-			int temperature = fixedPoint(data);
-			updateScreen(temperature,data);
+			temperature[0] = fixedPoint(data);
+			temperature[1] = fixedPointDecimal(data);
+			updateScreen(temperature[0],temperature[1],data);
 			
 		}
 	}

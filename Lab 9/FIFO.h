@@ -43,7 +43,7 @@ void EndCritical(long sr);    // restore I bit to previous value
 #define TXFIFOSIZE 32 // must be a power of 2
 #define TXFIFOSUCCESS 1
 #define TXFIFOFAIL    0
-typedef char txDataType;
+typedef uint16_t txDataType;
 
 // initialize index FIFO
 void TxFifo_Init(void);
