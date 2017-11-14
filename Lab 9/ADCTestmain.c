@@ -60,6 +60,7 @@ Bit 3 in ADC0_RIS_R is set and triggers and interrupt
 #include "FIFO.h"
 #include "Visual.h"
 #include "ST7735.h"
+#include "fixed.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -86,6 +87,7 @@ int main(void){
 	UART_Init();
 	TxFifo_Init();
 	ST7735_InitR(INITR_REDTAB);
+	ST7735_XYplotInit(0,0,180,10,40);
 	
   SYSCTL_RCGCGPIO_R |= 0x00000020;         // activate port F
   ADC0_InitTimer0ATriggerSeq3(0, 80000); // ADC channel 0, 1000 Hz sampling
