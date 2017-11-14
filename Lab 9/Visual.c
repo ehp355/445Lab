@@ -9,18 +9,22 @@
 #include "../inc/tm4c123gh6pm.h"
 #include "ST7735.h"
 #include "calib.h"
+#include "fixed.h"
 
 
 uint8_t temper[2];
+uint8_t last100Values[100];
+uint8_t arrIndex=0;
+
 
 uint8_t adcValueTable[4096]=
 										 //0-59
-										{250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
+										{249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
 										 //59-106(47)
 										 40,40,39,39,39,39,39,39,39,39,
 										 39,39,39,39,39,39,39,39,39,39,
@@ -582,12 +586,12 @@ uint8_t adcValueTable[4096]=
 
 uint8_t adcValueDecimalTable[4068]=
 										 //0-59
-										 {250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
-										 250,250,250,250,250,250,250,250,250,250,
+										 {249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
+										 249,249,249,249,249,249,249,249,249,249,
 										 //59-106
 										 0,99,98,96,95,94,93,91,90,89,
 										 88,86,83,82,81,80,79,76,75,74,
@@ -1171,6 +1175,20 @@ uint8_t adcValueDecimalTable[4068]=
 										 250,250,250,250,250,250,250,250,250,250,
 										 250,250,250,250,250,250,250,250,250,250,
 										 250,250,250,250,250,250,250,250};
+										 
+void graphADC(uint8_t tempWhole){
+	if(arrIndex==100){
+		for(uint8_t i = 0; i < 99; i++){
+			last100Values[i]=last100Values[i+1];
+		}
+		last100Values[99]=tempWhole;
+	}else{
+		last100Values[arrIndex]=tempWhole;
+		arrIndex++;
+	}
+	ST7735_XYplotInit(0,0,180,10,40);
+	ST7735_XYplot(100,arrIndex,last100Values,0);
+}
 
 void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 	tempWhole += offset;
@@ -1202,22 +1220,31 @@ void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 	
 	char str2[5]={Char5,Char6,Char7,Char8,' '};
 	ST7735_DrawString(3,5,str2,ST7735_BLUE);
+	graphADC(tempWhole);
+	
 }
 
-void displayError(void){
-	
-	char cPTR[5] ={'e','r','r','o','r'}; 
-	ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
-	
+void displayError(uint8_t val){
+
+	if(val==250){
+		//openError
+			char cPTR[10]={'o','p','e','n',' ','e','r','r','o','r'};
+			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+			
+		}else if(temper[0]==249){
+			//shorted error
+			char cPTR[11]={'s','h','o','r','t',' ','e','r','r','o','r'};
+			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+		}else{
+			char cPTR[11] ={' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}; 
+			ST7735_DrawString(3,3,cPTR,ST7735_BLUE);
+		}
 }
 
 uint8_t fixedPoint(uint16_t rawData){
 	if(rawData<=4067&&rawData>=59){
 		temper[0]=adcValueTable[rawData];
-		if(temper[0]==250){
-			displayError();
-			return 0;
-		}
+		displayError(temper[0]);
 		return temper[0];
 	}
 	return 0;
@@ -1227,7 +1254,7 @@ uint8_t fixedPointDecimal(uint16_t rawData){
 	if(rawData<=4067&&rawData>=59){
 	  temper[1]=adcValueDecimalTable[rawData];
 		if(temper[1]==250){
-			displayError();
+			displayError(temper[1]);
 			return 0;
 		}
 		return temper[1];
