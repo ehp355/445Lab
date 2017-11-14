@@ -438,6 +438,8 @@ void ST7735_SetTextColor(uint16_t color);
 // Initialize ST7735 LCD
 // Inputs: none
 // Outputs: none
+void Delay1ms(uint32_t n);
+
 void Output_Init(void);
 
 // Clear display

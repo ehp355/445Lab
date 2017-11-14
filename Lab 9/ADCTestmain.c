@@ -19,7 +19,7 @@
 	0x0		Software start
 	0x1		Analog Comparator 0
 	0x2		Analog Comparator 1
-	0x3		Analog Comparator 2		
+	0x3		Analog Comparator 2
 	0x4		External(GPIO PB4)
 	0x5		Timer
 	0x6		PWM0
@@ -27,7 +27,7 @@
 	0x8		PWM2
 	0xF		ALways(continuously sample)
  */
- 
+
 /*
 When do you know adc conversion is complete:
 Bit 3 in ADC0_RIS_R is set and triggers and interrupt
@@ -84,12 +84,12 @@ uint8_t temperature[2];
 uint32_t n = 0;
 int main(void){
   PLL_Init(Bus80MHz);                      // 80 MHz system clock
-	
+
 	UART_Init();
 	TxFifo_Init();
 	ST7735_InitR(INITR_REDTAB);
 	ST7735_XYplotInit(0,0,180,10,40);
-	
+
   SYSCTL_RCGCGPIO_R |= 0x00000020;         // activate port F
   ADC0_InitTimer0ATriggerSeq3(0, 80000); // ADC channel 0, 1000 Hz sampling
   GPIO_PORTF_DIR_R |= 0x04;                // make PF2 out (built-in LED)
@@ -100,9 +100,9 @@ int main(void){
   GPIO_PORTF_AMSEL_R = 0;                  // disable analog functionality on PF
   GPIO_PORTF_DATA_R &= ~0x04;              // turn off LED
   EnableInterrupts();
-	
+
 	while(1){
-		
+
 		if(TxFifo_Size()>0){
 			TxFifo_Get((&data));
 			temperature[0] = fixedPoint(data);
@@ -114,12 +114,15 @@ int main(void){
 			temperature[0] = fixedPoint(data);
 			temperature[1] = fixedPointDecimal(data);
 			n=0;
-			updateScreen(temperature[0],temperature[1],data);
+			TxFifo_Get((&data));
+			temperature[0] = fixedPoint(data);
+			temperature[1] = fixedPointDecimal(data);
+				updateScreen(temperature[0],temperature[1],data);
 			}
 		}
 	}
-	
-	
+
+
   while(1){
     //WaitForInterrupt();
     //GPIO_PORTF_DATA_R ^= 0x04;             // toggle LED
@@ -132,11 +135,10 @@ int main(void){
 			break;
 		}
 	}
-	
+
 	for(uint8_t i = 0; i <counter; i++){
 		UART_OutString("\n\rADC data =");
     UART_OutUDec(values[i]);
 	}
-	
-}
 
+}
