@@ -12,7 +12,7 @@
  *Enrique Perez-Osborne
  *Juliana Pulido
  *TA: Cody Horton
- *Last Edited: 11/7/17
+ *Last Edited: 11/14/17
  */
 
 /* This example accompanies the book
