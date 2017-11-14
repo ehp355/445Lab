@@ -30,6 +30,7 @@
  */
 #include <stdint.h>
 #include "../inc/tm4c123gh6pm.h"
+#include "FIFO.h"
 #define NVIC_EN0_INT17          0x00020000  // Interrupt 17 enable
 
 #define TIMER_CFG_16_BIT        0x00000004  // 16-bit timer configuration,
@@ -270,4 +271,6 @@ void ADC0Seq3_Handler(void){
   ADC0_ISC_R = 0x08;          // acknowledge ADC sequence 3 completion
 	flag =1;
   ADCvalue = ADC0_SSFIFO3_R;  // 12-bit result
+	
+	TxFifo_Put(ADC0_SSFIFO3_R);
 }
