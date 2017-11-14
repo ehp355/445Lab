@@ -108,9 +108,12 @@ int main(void){
 			temperature[0] = fixedPoint(data);
 			temperature[1] = fixedPointDecimal(data);
 			n++;
-			if(n==1000){
+			if(n==100){
 			n=0;
-			updateScreen(temperature[0],temperature[1],data);
+			TxFifo_Get((&data));
+			temperature[0] = fixedPoint(data);
+			temperature[1] = fixedPointDecimal(data);
+				updateScreen(temperature[0],temperature[1],data);
 			}
 		}
 	}

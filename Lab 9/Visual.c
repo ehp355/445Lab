@@ -1186,7 +1186,6 @@ void graphADC(uint8_t tempWhole){
 		last100Values[arrIndex]=tempWhole;
 		arrIndex++;
 	}
-	ST7735_XYplotInit(0,0,180,10,40);
 	ST7735_XYplot(100,arrIndex,last100Values,0);
 }
 
