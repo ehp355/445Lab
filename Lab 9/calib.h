@@ -7,5 +7,7 @@
 //Variable for calibration purposes
 //of outputed temperature
 
-uint8_t offset = 2;
-uint8_t offsetDecimal= 50;
+//offset for whole number value of temperature
+uint8_t offset = 3;
+//offset for decimal value of temperature
+uint8_t offsetDecimal= 0;

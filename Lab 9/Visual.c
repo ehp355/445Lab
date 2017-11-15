@@ -13,6 +13,7 @@
 
 
 uint8_t temper[2];
+//array for graphing purposes
 uint8_t last100Values[100];
 uint8_t arrIndex=0;
 
@@ -1176,7 +1177,10 @@ uint8_t adcValueDecimalTable[4068]=
 										 250,250,250,250,250,250,250,250,250,250,
 										 250,250,250,250,250,250,250,250};
 
+//updates graph on LCD
 void graphADC(uint8_t tempWhole){
+	//shifts values over, kicking the element at index 0 out and placing the latest
+	//read value in index 99
 	if(arrIndex==100){
 		for(uint8_t i = 0; i < 99; i++){
 			last100Values[i]=last100Values[i+1];
@@ -1190,6 +1194,7 @@ void graphADC(uint8_t tempWhole){
 	ST7735_XYplot(100,arrIndex,last100Values,0);
 }
 
+//updates screen to new temp and adc values
 void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 	tempWhole += offset;
 	if(tempDec>=50){
@@ -1224,6 +1229,8 @@ void updateScreen(uint8_t tempWhole,uint8_t tempDec, uint16_t rawData){
 
 }
 
+//displays what kind of error occured if 
+//adc value was out of bounds (59-4067)
 void displayError(uint8_t val){
 
 	if(val==250){
@@ -1241,6 +1248,7 @@ void displayError(uint8_t val){
 		}
 }
 
+//returns whole value of temperature
 uint8_t fixedPoint(uint16_t rawData){
 	if(rawData<=4067&&rawData>=59){
 		temper[0]=adcValueTable[rawData];
@@ -1250,6 +1258,7 @@ uint8_t fixedPoint(uint16_t rawData){
 	return 0;
 }
 
+//returns decimal value of temperature
 uint8_t fixedPointDecimal(uint16_t rawData){
 	if(rawData<=4067&&rawData>=59){
 	  temper[1]=adcValueDecimalTable[rawData];
