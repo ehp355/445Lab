@@ -27,6 +27,9 @@
 #include <stdint.h>
 #include "PLL.h"
 #include "PWM.h"
+#include "SwitchControl.h"
+#include "Motor.h"
+#include "Tacho.h"
 
 void WaitForInterrupt(void);  // low power mode
 

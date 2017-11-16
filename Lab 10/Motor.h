@@ -1,6 +1,9 @@
-
-
-
+/*Motor.h
+ *Enrique Perez-Osborne
+ *Juliana Pulido
+ *TA: Cody Horton
+ *Last Edited: 11/16/17
+ */
 void InitMotor(uint32_t var);
 //cuts motor off
 void stopMotor(void);
