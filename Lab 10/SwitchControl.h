@@ -8,3 +8,4 @@
 //Initialize buttons
 void PortC_Init(void);
 
+void Timer1A_Init(void);
