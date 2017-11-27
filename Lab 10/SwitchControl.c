@@ -10,33 +10,30 @@
 
 uint8_t button;
 
-void PortC_Init(void){
+void PortE_Init(void){
 	
-	SYSCTL_RCGCGPIO_R |= 0x04;		//activate clock for port c
-	GPIO_PORTC_DIR_R &= ~0x30;		//(c) make PC4-5 button inputs, PC6 input
-	GPIO_PORTC_DEN_R |= 0x30;     //enable digital I/O on PC4-6
-	GPIO_PORTC_AFSEL_R &= ~ 0x30;	//disable alternate function for PC4-5
-	GPIO_PORTC_IS_R &= ~0x30;     //(d) PC4-6 are edge-sensitive 
-	GPIO_PORTC_IBE_R &= ~0x30;    //PC4-5 is not both edges
-	GPIO_PORTC_IEV_R |= 0x30;     //PC4-5 rising edge event
-	GPIO_PORTC_ICR_R = 0x30;      //(e) clear flags
-	GPIO_PORTC_IM_R |= 0x30;      //(f) arm interrupt on PC4-5
-	NVIC_PRI0_R = (NVIC_PRI0_R&0x00FFFFFF)|0xA0000000; // (g) priority 5
-	NVIC_EN0_R |= 1<<3;           // (h) enable interrupt 3 in NVIC
+	SYSCTL_RCGCGPIO_R |= 0x10;		//activate clock for port D
+	GPIO_PORTE_DIR_R &= ~0xC;		//(c) make PE2-3 button inputs
+	GPIO_PORTE_DEN_R |= 0xC;     //enable digital I/O on PE2-3
+	GPIO_PORTE_AFSEL_R &= ~0xC;	//disable alternate function for PE2-3
+	GPIO_PORTE_IS_R &= ~0xC;     //(d) PE2-3 are edge-sensitive 
+	GPIO_PORTE_IBE_R &= ~0xC;    //PE2-3 is not both edges
+	GPIO_PORTE_IEV_R |= 0xC;     //PE2-3 rising edge event
+	GPIO_PORTE_ICR_R = 0xC;      //(e) clear flags
+	GPIO_PORTE_IM_R |= 0xC;      //(f) arm interrupt on PE2-3
+	NVIC_PRI1_R = (NVIC_PRI1_R&0xFFFFFF00)|0x000000A0; // (g) priority 5
+	NVIC_EN0_R |= 1<<4;           // (h) enable interrupt 3 in NVIC
 	
 }
 
-void GPIOPortC_Handler(void){
-	GPIO_PORTC_IM_R &= ~0x7;		//disarm buttons
+void GPIOPortE_Handler(void){
+	GPIO_PORTE_IM_R &= ~0xC;		//disarm buttons
 	TIMER1_CTL_R = 0x1;
 	TIMER1_IMR_R = 0x1;					//arm timer
-	button = (GPIO_PORTC_RIS_R & 0x30);
-	GPIO_PORTC_ICR_R= button;	//acknowledge flag	
-	
 }
 
 void Timer1A_Init(void){
-	SYSCTL_RCGCTIMER_R |= 0x2;   // 0) activate TIMER2
+	SYSCTL_RCGCTIMER_R |= 0x2;   // 0) activate TIMER1
   TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
   TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
   TIMER1_TAMR_R = 0x00000001;   // 3) configure for one-shot mode, default down-count settings
@@ -53,7 +50,9 @@ void Timer1A_Init(void){
 }
 
 void Timer1A_Handler(void){
-	GPIO_PORTC_IM_R |= 0x7;
+	button = (GPIO_PORTE_RIS_R & 0xC);
+	GPIO_PORTE_ICR_R= button;	//acknowledge flag	
+	GPIO_PORTE_IM_R |= 0x0C;
 	TIMER1_IMR_R=0;		//disarm timer
 	TIMER1_ICR_R = 0x1;		//acknowledge the flag
 }

@@ -6,6 +6,6 @@
  */
 
 //Initialize buttons
-void PortC_Init(void);
+void PortE_Init(void);
 
 void Timer1A_Init(void);

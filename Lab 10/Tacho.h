@@ -8,5 +8,9 @@
 void InitTachometer(uint32_t var);
 //return tachometer reading
 uint32_t readTacho(void);
+void SpeedControl(void);
+void PeriodMeasure_Init(void);
+void Timer2A_Init(long period);
 
-void PWMMeasureInit(void);
+void Speed_Down(void);
+void Speed_Up(void);
