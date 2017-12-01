@@ -2,7 +2,7 @@
  *Enrique Perez-Osborne
  *Juliana Pulido
  *TA: Cody Horton
- *Last Edited: 11/16/17
+ *Last Edited: 11/29/17
  */
  
 #include <stdint.h>
@@ -14,8 +14,9 @@ void PortE_Init(void){
 	
 	SYSCTL_RCGCGPIO_R |= 0x10;		//activate clock for port D
 	GPIO_PORTE_DIR_R &= ~0xC;		//(c) make PE2-3 button inputs
-	GPIO_PORTE_DEN_R |= 0xC;     //enable digital I/O on PE2-3
-	GPIO_PORTE_AFSEL_R &= ~0xC;	//disable alternate function for PE2-3
+	GPIO_PORTE_DIR_R |= 0x13;			// make PE0,PE1,PE4 outputs
+	GPIO_PORTE_DEN_R |= 0x1F;     //enable digital I/O on PE0-4
+	GPIO_PORTE_AFSEL_R &= ~0x1F;	//disable alternate function for PE0-4
 	GPIO_PORTE_IS_R &= ~0xC;     //(d) PE2-3 are edge-sensitive 
 	GPIO_PORTE_IBE_R &= ~0xC;    //PE2-3 is not both edges
 	GPIO_PORTE_IEV_R |= 0xC;     //PE2-3 rising edge event
@@ -31,7 +32,7 @@ void GPIOPortE_Handler(void){
 	TIMER1_CTL_R = 0x1;
 	TIMER1_IMR_R = 0x1;					//arm timer
 }
-
+//oneshot timer
 void Timer1A_Init(void){
 	SYSCTL_RCGCTIMER_R |= 0x2;   // 0) activate TIMER1
   TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup

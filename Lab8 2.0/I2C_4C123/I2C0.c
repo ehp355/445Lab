@@ -58,6 +58,15 @@ uint8_t temp;
 uint8_t flag;
 uint32_t rawData[2];
 uint32_t samples[32][2];
+float dcFilter_t [2];
+
+//meanDiffFilter_t
+float values[32];
+uint8_t indexMDF=0;
+float sumMDF=0;
+uint8_t countMDF =0;
+
+
 
 void I2C_Init(void){
   SYSCTL_RCGCI2C_R |= 0x0001;           // activate I2C0
@@ -368,4 +377,28 @@ int8_t getHeartBeat(void){
 	//filteredIR = filterData(rawData[0],filteredIR[0],0 );
 	//data = filterData(data);
 	return 0;
+}
+
+
+
+//alpha should be around 0.95
+void dcRemoval(float x, float prev_w, float alpha){
+	dcFilter_t[0] = x + alpha * prev_w;
+	dcFilter_t[1]=dcFilter_t[0]-prev_w;
+}
+
+void meanDiff(float M){
+	float avg =0;
+	sumMDF -= values[indexMDF];
+	values[indexMDF]=M;
+	sumMDF += values[indexMDF];
+	
+	indexMDF++;
+	indexMDF = indexMDF % 32;			//index = index % sixe of values array
+	if(countMDF < 32){
+		countMDF++;
+	}
+	
+	avg = sumMDF/countMDF;
+	//return avg - M;
 }
