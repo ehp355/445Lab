@@ -51,12 +51,13 @@ void GPIOPortD_Handler(void){
 	GPIO_PORTD_IM_R &= ~0x7;		//disarm buttons
 	TIMER2_CTL_R = 0x1;
 	TIMER2_IMR_R = 0x1;					//arm timer
-	button = (GPIO_PORTD_RIS_R & 0x07);
-	GPIO_PORTD_ICR_R= button;	//acknowledge flag	
-	GPIO_PORTD_IM_R |= 0x7;
+	
 }
 
 void Timer2A_Handler(void){
+	button = (GPIO_PORTD_RIS_R & 0x07);
+	GPIO_PORTD_ICR_R= button;	//acknowledge flag	
+	GPIO_PORTD_IM_R |= 0x7;
 	TIMER2_IMR_R = 0;				//diasrm timer
 	TIMER2_ICR_R = 0x1;	//acknowledge flag
 }
