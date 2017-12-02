@@ -98,8 +98,18 @@ void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
+	
+extern uint8_t button;
+/*State = 0 -> start screen
+ *State = 1 -> HeartBeat Display
+ *State = 2 -> Log display
+ *State = 3 -> Alarm state
+ */
+uint8_t State;
+
 
 int main(void){
+	State =0;
   PLL_Init(Bus80MHz);
 	long sr;
 	sr =StartCritical();
@@ -119,12 +129,65 @@ int main(void){
 	//visual module for demo
 //	displayWord();
 	uint8_t hb = getHeartBeat();
-	display2DigitNumber(60);
+	/*//code for lab7 checkout
 	soundAlarm();
 	for(uint32_t i=0; i<900000; i++){
 		int a = 0;
 		int b = 1;
 	}
 	endAlarm();
-while(1);
+	*/
+	while(1){
+		
+		if(State == 0 && button==0x1){
+			State = 1;
+			button = 0;
+		}else if(State == 1 && button==0x1){
+			State =1;
+			//dummy function to display raw ir data to screen
+			rawIRList();
+		 //call function to update hb monitor
+			button =0;
+		}else if(State ==1 && button == 0x2){
+			State = 2;
+			
+			button = 0;
+  	}else if(State == 1 && button==0x4){
+			State =1;
+			//call function to add entry to log
+			button = 0;
+		}else if(State == 2 && button == 0x1){
+			//function to scroll up the log list
+			button = 0;
+		}else if(State == 2 && button == 0x2){
+			State = 1;
+			button = 0;
+		}else if(State == 2 && button == 0x4){
+			//function to scroll down the log list
+			State = 3;
+			button = 0;
+		}else if(State == 3 && button > 0){
+			State = 1;
+			endAlarm();
+			button = 0;
+		}
+		
+		
+		//start screen
+		if(State ==0){
+			displayStart();
+		//HB display
+		}else if(State == 1){
+			displayStateOne();
+			display2DigitNumber(60);
+		//Log display
+		}else if(State ==2){
+			displayStateTwo();
+			erase2DigitNumber(60);
+		//Alarm display and sound
+		}else if(State ==3){
+			displayStateThree();
+			soundAlarm();
+		}
+	}
 }

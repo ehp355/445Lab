@@ -23,7 +23,7 @@ void PortD_Init(void){
 	GPIO_PORTD_AFSEL_R &= ~ 0x1F;	//disable alternate function
 	GPIO_PORTD_IS_R &= ~0x07;     //(d) PD0-2 are edge-sensitive 
 	GPIO_PORTD_IBE_R &= ~0x07;    //PD0-2 is not both edges
-	GPIO_PORTD_IEV_R |= 0x07;     //PD0-2 falling edge event
+	GPIO_PORTD_IEV_R &= ~0x07;     //PD0-2 falling edge event
 	GPIO_PORTD_ICR_R = 0x07;      //(e) clear flags
 	GPIO_PORTD_IM_R |= 0x07;      //(f) arm interrupt on PD0-2
 	NVIC_PRI0_R = (NVIC_PRI0_R&0x00FFFFFF)|0xE0000000; // (g) priority 7

@@ -19,7 +19,15 @@ void display2DigitNumber(uint32_t num){
 	char Char1= ((char)(num%10))+zero;
 	char Char2= ((char)(num/10))+zero;
 	ST7735_DrawCharS(40, 80, Char2, ST7735_BLUE, ST7735_BLACK, 3);
-	ST7735_DrawCharS(50, 80, Char1, ST7735_BLUE, ST7735_BLACK, 3);
+	ST7735_DrawCharS(60, 80, Char1, ST7735_BLUE, ST7735_BLACK, 3);
+}
+
+void erase2DigitNumber(uint32_t num){
+	char zero = '0';
+	char Char1= ((char)(num%10))+zero;
+	char Char2= ((char)(num/10))+zero;
+	ST7735_DrawCharS(40, 80, Char2, ST7735_BLACK, ST7735_BLACK, 3);
+	ST7735_DrawCharS(60, 80, Char1, ST7735_BLACK, ST7735_BLACK, 3);
 }
 
  //displays heartbeat state to LCD
@@ -41,4 +49,23 @@ void display2DigitNumber(uint32_t num){
  //diplay Log state to LCD
  void displayLog(void){
  
+ }
+ 
+ 
+ //dummy functions to test software modules
+ void displayStateOne(void){
+	 ST7735_DrawString(0, 0, "State One", ST7735_BLUE);
+ }
+ 
+ 
+ void displayStateTwo(void){
+	 ST7735_DrawString(0, 0, "State Two", ST7735_RED);
+ }
+ 
+ void displayStateThree(void){
+	 ST7735_DrawString(0, 0, "State Three", ST7735_GREEN);
+ }
+ 
+ void displayStart(void){
+	 ST7735_DrawString(0,0, "START", ST7735_YELLOW);
  }

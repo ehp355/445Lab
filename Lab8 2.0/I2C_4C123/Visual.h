@@ -9,6 +9,7 @@
  void displayHB(uint32_t heartBeat);
  
  void display2DigitNumber(uint32_t num);
+ void erase2DigitNumber(uint32_t num);
  
  //displays Alert state to LCD
  void displayAlert(void);
@@ -17,3 +18,9 @@
  void displayLog(void);
  
  void displayWord(void);
+ 
+ //dummy functions for testing software modules
+ void displayStateOne(void);
+ void displayStateTwo(void);
+ void displayStateThree(void);
+ void displayStart(void);

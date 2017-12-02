@@ -53,6 +53,8 @@
 
 #define MAXRETRIES              5           // number of receive attempts before giving up
 
+#include "ST7735.h"
+
 
 uint8_t temp;
 uint8_t flag;
@@ -377,6 +379,64 @@ int8_t getHeartBeat(void){
 	//filteredIR = filterData(rawData[0],filteredIR[0],0 );
 	//data = filterData(data);
 	return 0;
+}
+
+
+void displayIRList(void){
+	//50,000
+	uint32_t value = samples[15][0];
+	char c1 = value / 10000;
+	value = value % 10000;
+	char c2 = value/1000;
+	value = value % 1000;
+	char c3 = value/100;
+	value = value % 100;
+	char c4 = value /10;
+	char c5 = value % 10;
+	
+	char IRstring[5] = {c1,c2,c3,c4,c5};
+	ST7735_DrawString(2,2,IRstring,ST7735_GREEN);
+	
+	value = samples[15][1];
+	IRstring[0] = value / 10000;
+	value = value % 10000;
+	IRstring[1] = value/1000;
+	value = value % 1000;
+	IRstring[2] = value/100;
+	value = value % 100;
+	IRstring[3] = value /10;
+	IRstring[4] = value % 10;
+	ST7735_DrawString(2,3,IRstring,ST7735_YELLOW);
+	
+	
+	value = samples[31][0];
+	IRstring[0] = value / 10000;
+	value = value % 10000;
+	IRstring[1] = value/1000;
+	value = value % 1000;
+	IRstring[2] = value/100;
+	value = value % 100;
+	IRstring[3] = value /10;
+	IRstring[4] = value % 10;
+	ST7735_DrawString(2,4,IRstring,ST7735_GREEN);
+	
+	value = samples[31][1];
+	IRstring[0] = value / 10000;
+	value = value % 10000;
+	IRstring[1] = value/1000;
+	value = value % 1000;
+	IRstring[2] = value/100;
+	value = value % 100;
+	IRstring[3] = value /10;
+	IRstring[4] = value % 10;
+	ST7735_DrawString(2,5,IRstring,ST7735_YELLOW);
+	
+}
+
+//dummy function to display raw ir list
+void rawIRList(void){
+	readFromFifo();
+	displayIRList();
 }
 
 
