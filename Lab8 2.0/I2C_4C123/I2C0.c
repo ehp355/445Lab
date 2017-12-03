@@ -397,6 +397,10 @@ void clearFifo(void){
 uint8_t readFromRD_PTR(void){
 	int8_t temp = I2C_Send1(0x57,FIFO_READ_PTR);
 	uint8_t byte = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,byte);
+	byte =  I2C_Recv(0x57);
+	
 	return byte;
 }
 //returns 1 byte from input regAddr of MAX30105
@@ -411,13 +415,15 @@ uint8_t diffPTR(uint8_t wPTR, uint8_t rPTR){
 	if(wPTR > rPTR){
 		return wPTR - rPTR;
 	//wrap around has occured
+	}else if(wPTR ==0 && rPTR==0){
+		return 0;
 	}else{
 		return (32-rPTR)+wPTR;
 	}
 }
 
 void readFromFifo(void){
-	clearFifo();															//good
+	//clearFifo();															//good
 	
 	temp = I2C_Send1(0x57,FIFO_WRITE_PTR);
 	uint8_t wPTR = I2C_Recv(0x57);
@@ -435,16 +441,48 @@ void readFromFifo(void){
 	ST7735_DrawChar(80,120,numSamples/10+'0',ST7735_RED,ST7735_BLACK,3);
 	ST7735_DrawChar(95,120,numSamples%10+'0',ST7735_RED,ST7735_BLACK,3);
 	
-	uint8_t buff[3];
+	int8_t temp = I2C_Send1(0x57,FIFO_DATA);
+
 	
+	uint8_t buff[3];
+	uint8_t data1;
+	uint8_t slave = 0x57;
+	uint8_t counter = 0;
 	for(uint8_t j =0; j < numSamples; j++){
 		for(uint8_t i=0; i < 2; i++){
 			for(uint8_t h=0; h<3; h++){
-					buff[h]=readFromRD_PTR();
+					//temp = I2C_Send1(0x57,FIFO_DATA);
+				if(counter < (numSamples*6-1)){
+					while(I2C0_MCS_R&I2C_MCS_BUSY){};// wait for I2C ready
+    I2C0_MSA_R = (slave<<1)&0xFE;    // MSA[7:1] is slave address
+    I2C0_MSA_R |= 0x01;              // MSA[0] is 1 for receive
+    I2C0_MCS_R = (0
+                         | I2C_MCS_ACK      // positive data ack
+                       //  & ~I2C_MCS_STOP    // no stop
+                         | I2C_MCS_START    // generate start/restart
+                         | I2C_MCS_RUN);    // master enable
+    while(I2C0_MCS_R&I2C_MCS_BUSY){};// wait for transmission done
+    buff[h] = (I2C0_MDR_R&0xFF);       // MSB data sent first
+		
+		}else{
+			I2C0_MCS_R = (0
+                       //  & ~I2C_MCS_ACK     // negative data ack (last byte)
+                         | I2C_MCS_STOP     // generate stop
+                       //  & ~I2C_MCS_START   // no start/restart
+                         | I2C_MCS_RUN);    // master enable
+			 while(I2C0_MCS_R&I2C_MCS_BUSY){};// wait for transmission done
+       buff[h] = (I2C0_MDR_R&0xFF);       // LSB data sent last
+		}
+	
+			counter++;
+			
+			
 			}
 			samples[j][i]= (buff[0]<<13) | (buff[1]<<5) | (buff[2]>>3);
 		}
 	}
+	
+	
 
 }
 

@@ -36,6 +36,7 @@
 #include "Visual.h"
 #include "Sound.h"
 #include "ButtonControl.h"
+#include "Logger.h"
 
 //git test
 
@@ -114,6 +115,9 @@ int main(void){
 	long sr;
 	sr =StartCritical();
 
+	uint16_t dummyHBS[17] = {124,99,86,45,1,300,289,201,180,155,0,123,60,78,133,23,205};
+	uint8_t dummyCounter =0;
+	Log_Init();
   I2C_Init();
 	PortD_Init();
 	Timer0A_Init();
@@ -122,20 +126,22 @@ int main(void){
 
 
 	EndCritical(sr);
-	clearFifo();
-	setMode(0x3);										
-	setSamplingRate(0);
-	setSamplingAverage(0x2);
-	setADCRangeControl(0x1);
-	setLEDPulseWidth(0);						
-	setLEDCurrent(0x1F,0x1F);
+	//clearFifo();
+	setMode(0x3);	
+	//clearFifo();
+  setLEDCurrent(0x1F,0x1F);	
+	//setSamplingRate(0);
+	//setSamplingAverage(0x2);
+	//setADCRangeControl(0x1);
+	//setLEDPulseWidth(0);						
+	
 	enableSlots();
-	enableProxThresh();
+	//enableProxThresh();
 	
-	registerDebugger();
+	//registerDebugger();
 	
-	clearFifo();
-	uint8_t hb = getHeartBeat();
+	//clearFifo();
+	//uint8_t hb = getHeartBeat();
 	/*//code for lab7 checkout
 	soundAlarm();
 	for(uint32_t i=0; i<900000; i++){
@@ -144,37 +150,47 @@ int main(void){
 	}
 	endAlarm();
 	*/
+	uint16_t dummy;
 	while(1){
 		
 		if(State == 0 && button==0x1){
+			
 			State = 1;
 			button = 0;
 		}else if(State == 1 && button==0x1){
 			State =1;
 			//dummy function to display raw ir data to screen
-			rawIRList();
+			//rawIRList();
+			State = 3;
 		 //call function to update hb monitor
 			button =0;
 		}else if(State ==1 && button == 0x2){
+			erase2DigitNumber(60);
 			State = 2;
+			displayLog();
 			
 			button = 0;
   	}else if(State == 1 && button==0x4){
-			State =1;
-			//call function to add entry to log
+			dummy = dummyHBS[dummyCounter];
+			logToArray(dummy);
+			if(dummyCounter<16)dummyCounter++;
+						
 			button = 0;
 		}else if(State == 2 && button == 0x1){
-			//function to scroll up the log list
+			scrollUp();
 			button = 0;
 		}else if(State == 2 && button == 0x2){
 			State = 1;
+			resetTopIndex();
+			ST7735_FillRect(0,15,128,145,ST7735_BLACK);
 			button = 0;
 		}else if(State == 2 && button == 0x4){
-			//function to scroll down the log list
-			State = 3;
+			scrollDown();
+			//State = 3;
 			button = 0;
 		}else if(State == 3 && button > 0){
 			State = 1;
+			ST7735_FillScreen(ST7735_BLACK);
 			endAlarm();
 			button = 0;
 		}
@@ -182,18 +198,20 @@ int main(void){
 		
 		//start screen
 		if(State ==0){
-			displayStart();
+			displayStartScreen();
 		//HB display
 		}else if(State == 1){
 			displayStateOne();
-			display2DigitNumber(60);
+			//place hb in  in display2DigitNumber();
+			//display2DigitNumber();
 		//Log display
 		}else if(State ==2){
 			displayStateTwo();
-			erase2DigitNumber(60);
+			
 		//Alarm display and sound
 		}else if(State ==3){
 			displayStateThree();
+			displayAlert();
 			soundAlarm();
 		}
 	}

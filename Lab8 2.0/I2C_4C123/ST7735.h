@@ -440,6 +440,8 @@ void ST7735_SetTextColor(uint16_t color);
 // Outputs: none
 void Output_Init(void);
 
+void Delay1ms(uint32_t n);
+
 // Clear display
 void Output_Clear(void);
 

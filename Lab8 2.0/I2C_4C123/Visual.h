@@ -19,8 +19,10 @@
  
  void displayWord(void);
  
+ void displayStartScreen(void);
+ 
  //dummy functions for testing software modules
  void displayStateOne(void);
  void displayStateTwo(void);
  void displayStateThree(void);
- void displayStart(void);
+
