@@ -118,16 +118,23 @@ int main(void){
 	PortD_Init();
 	Timer0A_Init();
 	Timer2A_Init();
-	ST7735_InitR(INITR_REDTAB);			//good
+	ST7735_InitR(INITR_REDTAB);
 
 
 	EndCritical(sr);
+	clearFifo();
 	setMode(0x3);										
-	setSamplingRate(0);							
+	setSamplingRate(0);
+	setSamplingAverage(0x2);
+	setADCRangeControl(0x1);
 	setLEDPulseWidth(0);						
-	setLEDCurrent(0x7F,0x7F);				
-	//visual module for demo
-//	displayWord();
+	setLEDCurrent(0x1F,0x1F);
+	enableSlots();
+	enableProxThresh();
+	
+	registerDebugger();
+	
+	clearFifo();
 	uint8_t hb = getHeartBeat();
 	/*//code for lab7 checkout
 	soundAlarm();

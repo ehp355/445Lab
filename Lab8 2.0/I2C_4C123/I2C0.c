@@ -48,8 +48,12 @@
 #define FIFO_DATA								0x07
 #define	MODE_CONF								0x09
 #define SPO2_CONF								0x0A
+#define SAMP_AVG_CONF						0x08
 #define LED1PA									0x0C
 #define LED2PA									0x0D
+#define LED_CONF_1							0x11
+#define LED_CONF_2							0x12
+#define PROX_INT_THRESH					0x30
 
 #define MAXRETRIES              5           // number of receive attempts before giving up
 
@@ -275,16 +279,28 @@ void setSamplingRate (uint8_t rate){
 	temp = I2C_Send1(0x57,SPO2_CONF);
 	int8_t Spo2Conf = I2C_Recv(0x57);
 	Spo2Conf = (Spo2Conf &0xE3) | (rate <<2);
+
 	flag = I2C_Send2(0x57,SPO2_CONF, Spo2Conf);
+	
 	int i = 8 +8;
 }
 
 void setLEDPulseWidth (uint8_t LEDpw){
 	temp = I2C_Send1(0x57,SPO2_CONF);
 	int8_t Spo2Conf = I2C_Recv(0x57);
-	Spo2Conf = (Spo2Conf &0xFC) | LEDpw;
+	Spo2Conf = ((Spo2Conf &0xFC) | LEDpw);
 	flag = I2C_Send2(0x57,SPO2_CONF, Spo2Conf);
+	temp = I2C_Send1(0x57,SPO2_CONF);
+	Spo2Conf = I2C_Recv(0x57);
 	int i = 8 +8;
+}
+
+void setSamplingAverage(uint8_t sampAVG){
+	temp = I2C_Send1(0x57,SAMP_AVG_CONF);
+	uint8_t sAVG = I2C_Recv(0x57);
+	sampAVG = (sAVG &0x18) | (sampAVG<<5);
+	sampAVG |= (1<<4);
+	flag = I2C_Send2(0x57,SAMP_AVG_CONF, sampAVG);
 }
 
 void setADCRangeControl(uint8_t rangeContr){
@@ -299,8 +315,57 @@ void setADCRangeControl(uint8_t rangeContr){
 void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent){
 	int8_t flag1 = I2C_Send2(0x57,LED1PA, redCurrent);
 	int8_t flag2 = I2C_Send2(0x57,LED2PA, IRCurrent);
+	flag= I2C_Send2(0x57,0x10,redCurrent);
 	int i = 8 +8;
 }
+
+void enableSlots(void){
+
+	temp = I2C_Send1(0x57,LED_CONF_1);
+	uint8_t LedCon= I2C_Recv(0x57);
+	LedCon = ((LedCon & 0xF8)|0x1);
+	flag = I2C_Send2(0x57,LED_CONF_1,LedCon);
+	
+	temp = I2C_Send1(0x57,LED_CONF_1);
+	LedCon = I2C_Recv(0x57);
+	LedCon = ((LedCon & 0x8F) | 0x2<<4);
+	flag = I2C_Send2(0x57,LED_CONF_1,LedCon);
+}
+
+void enableProxThresh(void){
+	flag = I2C_Send2(0x57,PROX_INT_THRESH,0x1);
+}
+
+void registerDebugger(void){
+	temp = I2C_Send1(0x57,MODE_CONF);
+	uint8_t currentMode = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,SPO2_CONF);
+	uint8_t Spo2Conf = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,SAMP_AVG_CONF);
+	uint8_t sAVG = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,LED1PA);
+	uint8_t LED1current = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,LED2PA);
+	uint8_t LED2current = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,0x10);
+	uint8_t proxLEDAmp =I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,PROX_INT_THRESH);
+	uint8_t proxThresh = I2C_Recv(0x57);
+	
+	temp = I2C_Send1(0x57,FIFO_DATA);
+	uint8_t fidata = I2C_Recv(0x57);
+	uint8_t i = 8+8;
+	
+
+}
+
+
 
 int8_t filterData(int8_t data){
 //edit raw data in any fashion here
@@ -359,7 +424,16 @@ void readFromFifo(void){
 	temp = I2C_Send1(0x57,FIFO_READ_PTR);
 	uint8_t rPTR = I2C_Recv(0x57);
 	
+	
 	uint8_t numSamples= diffPTR(wPTR,rPTR);
+	ST7735_DrawChar(80,80,wPTR/10+'0',ST7735_GREEN,ST7735_BLACK,3);
+	ST7735_DrawChar(95,80,wPTR%10+'0',ST7735_GREEN,ST7735_BLACK,3);
+	
+	ST7735_DrawChar(80,100,rPTR/10+'0',ST7735_YELLOW,ST7735_BLACK,3);
+	ST7735_DrawChar(95,100,rPTR%10+'0',ST7735_YELLOW,ST7735_BLACK,3);
+	
+	ST7735_DrawChar(80,120,numSamples/10+'0',ST7735_RED,ST7735_BLACK,3);
+	ST7735_DrawChar(95,120,numSamples%10+'0',ST7735_RED,ST7735_BLACK,3);
 	
 	uint8_t buff[3];
 	
@@ -384,51 +458,51 @@ int8_t getHeartBeat(void){
 
 void displayIRList(void){
 	//50,000
-	uint32_t value = samples[15][0];
-	char c1 = value / 10000;
+	uint32_t value = samples[0][0];
+	char c1 = value / 10000+'0';
 	value = value % 10000;
-	char c2 = value/1000;
+	char c2 = value/1000+'0';
 	value = value % 1000;
-	char c3 = value/100;
+	char c3 = value/100+'0';
 	value = value % 100;
-	char c4 = value /10;
-	char c5 = value % 10;
+	char c4 = value /10+'0';
+	char c5 = value % 10+'0';
 	
 	char IRstring[5] = {c1,c2,c3,c4,c5};
 	ST7735_DrawString(2,2,IRstring,ST7735_GREEN);
 	
-	value = samples[15][1];
-	IRstring[0] = value / 10000;
+	value = samples[0][1];
+	IRstring[0] = value / 10000+'0';
 	value = value % 10000;
-	IRstring[1] = value/1000;
+	IRstring[1] = value/1000+'0';
 	value = value % 1000;
-	IRstring[2] = value/100;
+	IRstring[2] = value/100+'0';
 	value = value % 100;
-	IRstring[3] = value /10;
-	IRstring[4] = value % 10;
+	IRstring[3] = value /10+'0';
+	IRstring[4] = value % 10+'0';
 	ST7735_DrawString(2,3,IRstring,ST7735_YELLOW);
 	
 	
-	value = samples[31][0];
-	IRstring[0] = value / 10000;
+	value = samples[1][0];
+	IRstring[0] = value / 10000+'0';
 	value = value % 10000;
-	IRstring[1] = value/1000;
+	IRstring[1] = value/1000+'0';
 	value = value % 1000;
-	IRstring[2] = value/100;
+	IRstring[2] = value/100+'0';
 	value = value % 100;
-	IRstring[3] = value /10;
-	IRstring[4] = value % 10;
+	IRstring[3] = value /10+'0';
+	IRstring[4] = value % 10+'0';
 	ST7735_DrawString(2,4,IRstring,ST7735_GREEN);
 	
-	value = samples[31][1];
-	IRstring[0] = value / 10000;
+	value = samples[1][1];
+	IRstring[0] = value / 10000+'0';
 	value = value % 10000;
-	IRstring[1] = value/1000;
+	IRstring[1] = value/1000+'0';
 	value = value % 1000;
-	IRstring[2] = value/100;
+	IRstring[2] = value/100+'0';
 	value = value % 100;
-	IRstring[3] = value /10;
-	IRstring[4] = value % 10;
+	IRstring[3] = value /10+'0';
+	IRstring[4] = value % 10+'0';
 	ST7735_DrawString(2,5,IRstring,ST7735_YELLOW);
 	
 }

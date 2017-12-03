@@ -32,6 +32,10 @@ void clearFifo(void);
 void setLEDCurrent(uint8_t redCurrent, uint8_t IRCurrent);
 void setLEDPulseWidth (uint8_t LEDpw);
 void readFromFifo(void);
+void setSamplingAverage(uint8_t sampAVG);
+void enableSlots(void);
+void enableProxThresh(void);
+void registerDebugger(void);
 uint8_t getHeartBeat(void);
 
 
