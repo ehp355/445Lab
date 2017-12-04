@@ -94,27 +94,28 @@ void blinkTopScroller(void){
 
 void blinkBottomScroller(void){
 	uint8_t x_pos=0;
-	uint8_t y_pos=145;
+	uint8_t y_pos=140;
 	//need to find asci value for down arrow
 	if(logIndex>topBound){
 		if(blinkBotToggle){
-			ST7735_DrawChar(x_pos,y_pos,'^',ST7735_RED,ST7735_BLACK,1);
+			ST7735_DrawChar(x_pos,y_pos,'V',ST7735_RED,ST7735_BLACK,1);
+			ST7735_FillRect(0,139,5,5,ST7735_BLACK);
 			blinkBotToggle=0;
 		}else{
-			ST7735_DrawChar(x_pos,y_pos,'^',ST7735_BLACK,ST7735_BLACK,1);
+			ST7735_DrawChar(x_pos,y_pos,'V',ST7735_BLACK,ST7735_BLACK,1);
 			blinkBotToggle=1;
 		}
 		Delay1ms(1000);
 	}else{
-		ST7735_DrawChar(x_pos,y_pos,'^',ST7735_BLACK,ST7735_BLACK,1);
+		ST7735_DrawChar(x_pos,y_pos,'V',ST7735_BLACK,ST7735_BLACK,1);
 	}
 }
 
 void killScrollers(void){
 	uint8_t x_pos=0;
-	uint8_t y_pos=155;
+	uint8_t y_pos=140;
 	
-	ST7735_DrawChar(x_pos,y_pos,'^',ST7735_BLACK,ST7735_BLACK,1);
+	ST7735_DrawChar(x_pos,y_pos,'V',ST7735_BLACK,ST7735_BLACK,1);
 	
 	x_pos=0;
 	y_pos=45;
