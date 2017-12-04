@@ -21,6 +21,12 @@
  
  void displayStartScreen(void);
  
+ void displayButtonControlState0(void);
+ 
+ void displayButtonControlState1(void);
+ void displayButtonControlState2(void);
+ void displayButtonControlState3(void);
+ 
  //dummy functions for testing software modules
  void displayStateOne(void);
  void displayStateTwo(void);

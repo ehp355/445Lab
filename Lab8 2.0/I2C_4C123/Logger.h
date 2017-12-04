@@ -11,3 +11,6 @@ void scrollUp(void);
 void scrollDown(void);
 void logToArray(uint16_t value);
 void resetTopIndex(void);
+void blinkTopScroller(void);
+void blinkBottomScroller(void);
+void killScrollers(void);

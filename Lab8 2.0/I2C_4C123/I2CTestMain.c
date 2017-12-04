@@ -154,7 +154,7 @@ int main(void){
 	while(1){
 		
 		if(State == 0 && button==0x1){
-			
+			ST7735_FillRect(0,0,127,159,ST7735_BLACK);
 			State = 1;
 			button = 0;
 		}else if(State == 1 && button==0x1){
@@ -166,6 +166,7 @@ int main(void){
 			button =0;
 		}else if(State ==1 && button == 0x2){
 			erase2DigitNumber(60);
+			ST7735_FillRect(0,0,127,159,ST7735_BLACK);
 			State = 2;
 			displayLog();
 			
@@ -180,8 +181,10 @@ int main(void){
 			scrollUp();
 			button = 0;
 		}else if(State == 2 && button == 0x2){
+			
 			State = 1;
 			resetTopIndex();
+			killScrollers();
 			ST7735_FillRect(0,15,128,145,ST7735_BLACK);
 			button = 0;
 		}else if(State == 2 && button == 0x4){
@@ -190,7 +193,7 @@ int main(void){
 			button = 0;
 		}else if(State == 3 && button > 0){
 			State = 1;
-			ST7735_FillScreen(ST7735_BLACK);
+			ST7735_FillRect(0,0,127,159,ST7735_BLACK);
 			endAlarm();
 			button = 0;
 		}
@@ -199,14 +202,19 @@ int main(void){
 		//start screen
 		if(State ==0){
 			displayStartScreen();
+			displayButtonControlState0();
+			
 		//HB display
 		}else if(State == 1){
-			displayStateOne();
+			displayButtonControlState1();
 			//place hb in  in display2DigitNumber();
 			//display2DigitNumber();
+			
 		//Log display
 		}else if(State ==2){
 			displayStateTwo();
+			blinkTopScroller();
+			blinkBottomScroller();
 			
 		//Alarm display and sound
 		}else if(State ==3){

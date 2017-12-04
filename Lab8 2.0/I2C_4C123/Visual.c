@@ -129,7 +129,7 @@ void displayStartScreen(void){
 	y_pos+=45;
 	//draws"Have a heart filled day!"
 	for(uint8_t i=0;i<24;i++){
-		if(i==14){
+		if(i==13){
 			y_pos+=15;
 			x_pos=43;
 		}
@@ -139,6 +139,67 @@ void displayStartScreen(void){
 	
 	ST7735_DrawBitmap(95,47,heart,7,6);
 	
+}
+//info for buttons at start menu
+void displayButtonControlState0(void){
+	ST7735_DrawString(3, 13, "Press Button 1", ST7735_RED);
+	ST7735_DrawString(5,14,"to begin",ST7735_RED);
+}
+
+//infor for buttons at hb monitoring state
+void displayButtonControlState1(void){
+	//Button1->read HB
+	//Button2->switch to logger
+	//Button3->log displayed HB
+	char button1[19] = "1.Update Heart Beat";
+	char button2[5] = "2.Log";
+	char button3[16] = "3.Log Heart Beat";
+	
+	uint8_t x_pos=0;
+	uint8_t y_pos=0;
+	
+	//draws instructions for button1 at state 1
+	for(uint8_t i = 0; i<19; i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_RED,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
+	y_pos +=10;
+	x_pos =0;
+	//draws instructions for button2 at state 1
+	for(uint8_t i = 0; i<5; i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_RED,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
+	y_pos +=10;
+	x_pos=0;
+	for(uint8_t i =0; i<16;i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_RED,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
+}
+
+//info for buttons at logger view state
+void displayButtonControlState2(void){
+	//Button1->scroll up
+	//Button2->switch to hb montioring
+	//Button3->scroll down	
+}
+
+//info for buttons at alert state
+void displayButtonControlState3(void){
+	//AllButtons->return to HB monitoring
 }
  
 
