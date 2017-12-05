@@ -158,28 +158,33 @@ int main(void){
 			State = 1;
 			button = 0;
 		}else if(State == 1 && button==0x1){
+			
 			State =1;
 			//dummy function to display raw ir data to screen
 			//rawIRList();
-			State = 3;
 		 //call function to update hb monitor
 			button =0;
+		
 		}else if(State ==1 && button == 0x2){
+		
 			erase2DigitNumber(60);
 			ST7735_FillRect(0,0,127,159,ST7735_BLACK);
 			State = 2;
 			displayLog();
-			
 			button = 0;
-  	}else if(State == 1 && button==0x4){
+ 
+		}else if(State == 1 && button==0x4){
+
 			dummy = dummyHBS[dummyCounter];
 			logToArray(dummy);
 			if(dummyCounter<16)dummyCounter++;
-						
 			button = 0;
+	
 		}else if(State == 2 && button == 0x1){
+
 			scrollUp();
 			button = 0;
+
 		}else if(State == 2 && button == 0x2){
 			
 			State = 1;
@@ -187,15 +192,19 @@ int main(void){
 			killScrollers();
 			ST7735_FillRect(0,15,128,145,ST7735_BLACK);
 			button = 0;
+
 		}else if(State == 2 && button == 0x4){
+
 			scrollDown();
-			//State = 3;
 			button = 0;
+
 		}else if(State == 3 && button > 0){
+
 			State = 1;
 			ST7735_FillRect(0,0,127,159,ST7735_BLACK);
 			endAlarm();
 			button = 0;
+
 		}
 		
 		
@@ -212,13 +221,13 @@ int main(void){
 			
 		//Log display
 		}else if(State ==2){
-			displayStateTwo();
+			displayButtonControlState2();
 			blinkTopScroller();
 			blinkBottomScroller();
 			
 		//Alarm display and sound
 		}else if(State ==3){
-			displayStateThree();
+			displayButtonControlState3();
 			displayAlert();
 			soundAlarm();
 		}

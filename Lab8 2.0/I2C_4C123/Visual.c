@@ -151,17 +151,17 @@ void displayButtonControlState1(void){
 	//Button1->read HB
 	//Button2->switch to logger
 	//Button3->log displayed HB
-	char button1[19] = "1.Update Heart Beat";
+	char button1[16] = "1.Log Heart Beat";
 	char button2[5] = "2.Log";
-	char button3[16] = "3.Log Heart Beat";
+	char button3[19] = "3.Update Heart Beat";
 	
 	uint8_t x_pos=0;
 	uint8_t y_pos=0;
 	
 	//draws instructions for button1 at state 1
-	for(uint8_t i = 0; i<19; i++){
+	for(uint8_t i = 0; i<16; i++){
 		if(i==0||i==1){
-			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_RED,ST7735_BLACK,1);
+			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_YELLOW,ST7735_BLACK,1);
 		}else{
 			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_WHITE,ST7735_BLACK,1);
 		}
@@ -172,7 +172,7 @@ void displayButtonControlState1(void){
 	//draws instructions for button2 at state 1
 	for(uint8_t i = 0; i<5; i++){
 		if(i==0||i==1){
-			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_RED,ST7735_BLACK,1);
+			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_MAGENTA,ST7735_BLACK,1);
 		}else{
 			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_WHITE,ST7735_BLACK,1);
 		}
@@ -180,9 +180,9 @@ void displayButtonControlState1(void){
 	}
 	y_pos +=10;
 	x_pos=0;
-	for(uint8_t i =0; i<16;i++){
+	for(uint8_t i =0; i<19;i++){
 		if(i==0||i==1){
-			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_RED,ST7735_BLACK,1);
+			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_GREEN,ST7735_BLACK,1);
 		}else{
 			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_WHITE,ST7735_BLACK,1);
 		}
@@ -195,26 +195,48 @@ void displayButtonControlState2(void){
 	//Button1->scroll up
 	//Button2->switch to hb montioring
 	//Button3->scroll down	
+	char button1[13] = "1.Scroll Down";
+	char button2[20] = "2.Heart Beat Monitor";
+	char button3[19] = "3.Scroll Up";
+	
+	uint8_t x_pos=0;
+	uint8_t y_pos=0;
+	//draws button 1 instructions on stae 2
+	for(uint8_t i = 0; i<13; i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_YELLOW,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button1[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
+	y_pos +=10;
+	x_pos =0;
+	//draws button 2 instructions on stae 2
+	for(uint8_t i = 0; i<20; i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_MAGENTA,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button2[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
+	y_pos +=10;
+	x_pos=0;
+	//draws button 3 instructions on stae 2
+	for(uint8_t i =0; i<19;i++){
+		if(i==0||i==1){
+			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_GREEN,ST7735_BLACK,1);
+		}else{
+			ST7735_DrawChar(x_pos,y_pos,button3[i],ST7735_WHITE,ST7735_BLACK,1);
+		}
+		x_pos+=6;
+	}
 }
 
 //info for buttons at alert state
 void displayButtonControlState3(void){
 	//AllButtons->return to HB monitoring
+	ST7735_DrawString(3,14,"Press any button to continue",ST7735_WHITE);
 }
  
-
- 
- 
- //dummy functions to test software modules
- void displayStateOne(void){
-	 ST7735_DrawString(0, 0, "State One", ST7735_BLUE);
- }
- 
- 
- void displayStateTwo(void){
-	 ST7735_DrawString(0, 0, "State Two", ST7735_RED);
- }
- 
- void displayStateThree(void){
-	 ST7735_DrawString(0, 0, "State Three", ST7735_GREEN);
- }
