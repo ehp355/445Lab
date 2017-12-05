@@ -82,11 +82,11 @@ void erase2DigitNumber(uint32_t num){
  }
  
  
- void displayStateOne(void);
+
  //displays Alert state to LCD
 uint8_t toggleAlert =0; 
 void displayAlert(void){
-	displayStateOne();
+
 	if(toggleAlert == 0){
 		ST7735_FillScreen(ST7735_BLACK);
 		toggleAlert=1;
@@ -142,7 +142,7 @@ void displayStartScreen(void){
 }
 //info for buttons at start menu
 void displayButtonControlState0(void){
-	ST7735_DrawString(3, 13, "Press Button 1", ST7735_RED);
+	ST7735_DrawString(3, 13, "Press Button 3", ST7735_RED);
 	ST7735_DrawString(5,14,"to begin",ST7735_RED);
 }
 
@@ -189,6 +189,11 @@ void displayButtonControlState1(void){
 		x_pos+=6;
 	}
 }
+
+void displayHeartState1(void){
+	ST7735_DrawBitmap(80,80,biggerHeart,21,18);
+}
+
 
 //info for buttons at logger view state
 void displayButtonControlState2(void){

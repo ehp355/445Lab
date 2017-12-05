@@ -27,8 +27,5 @@
  void displayButtonControlState2(void);
  void displayButtonControlState3(void);
  
- //dummy functions for testing software modules
- void displayStateOne(void);
- void displayStateTwo(void);
- void displayStateThree(void);
+ void displayHeartState1(void);
 

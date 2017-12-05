@@ -190,7 +190,7 @@ int main(void){
 			State = 1;
 			resetTopIndex();
 			killScrollers();
-			ST7735_FillRect(0,15,128,145,ST7735_BLACK);
+			ST7735_FillRect(0,0,128,160,ST7735_BLACK);
 			button = 0;
 
 		}else if(State == 2 && button == 0x4){
@@ -216,6 +216,7 @@ int main(void){
 		//HB display
 		}else if(State == 1){
 			displayButtonControlState1();
+			displayHeartState1();
 			//place hb in  in display2DigitNumber();
 			//display2DigitNumber();
 			
